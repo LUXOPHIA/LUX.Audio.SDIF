@@ -4,10 +4,11 @@ interface //####################################################################
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
-  System.Math.Vectors, FMX.Types3D, FMX.Controls3D, FMX.MaterialSources,
-  FMX.Objects3D, FMX.TabControl, FMX.Viewport3D, FMX.Layers3D,
-  TUX.Asset.SDIF, FMX.Layouts, FMX.TreeView;
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
+  System.Math.Vectors,
+  FMX.Menus, FMX.Types3D, FMX.Controls3D, FMX.MaterialSources, FMX.Objects3D,
+  FMX.TabControl, FMX.Viewport3D, FMX.Layers3D, FMX.Layouts, FMX.TreeView,
+  TUX.Asset.SDIF, TUX.Asset.SDIF.Nodes, TUX.Asset.SDIF.Props;
 
 type
   TForm1 = class(TForm)
