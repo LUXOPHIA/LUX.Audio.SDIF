@@ -8,6 +8,7 @@ uses
   System.Math.Vectors,
   FMX.Menus, FMX.Types3D, FMX.Controls3D, FMX.MaterialSources, FMX.Objects3D,
   FMX.TabControl, FMX.Viewport3D, FMX.Layers3D, FMX.Layouts, FMX.TreeView,
+  LUX, LUX.D1, LUX.D2, LUX.D3,
   TUX.Asset.SDIF, TUX.Asset.SDIF.Nodes, TUX.Asset.SDIF.Props;
 
 type
@@ -19,15 +20,13 @@ type
     TabControl1: TTabControl;
       TabItem1: TTabItem;
         LightMaterialSource1: TLightMaterialSource;
-        LightMaterialSource2: TLightMaterialSource;
         Viewport3D1: TViewport3D;
           Camera1: TCamera;
           Light1: TLight;
           Grid3D1: TGrid3D;
           Cylinder1: TCylinder;
           Cylinder2: TCylinder;
-          RoundCube1: TRoundCube;
-          TextLayer3D1: TTextLayer3D;
+          Dummy1: TDummy;
       TabItem2: TTabItem;
         TreeView1: TTreeView;
     TabControl2: TTabControl;
@@ -35,13 +34,21 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
+    procedure Viewport3D1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+    procedure Viewport3D1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
+    procedure Viewport3D1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+    procedure Viewport3D1MouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; var Handled: Boolean);
   private
     { private 宣言 }
+    _MouseS :TShiftState;
+    _MouseP :TPointF;
   public
     { public 宣言 }
     _FileSDIF :TFileSDIF;
     ///// メソッド
     procedure ShowNodes;
+    procedure MakeBlock( const MinX_,MinY_,MaxX_,MaxY_:Single; const Text_:String; const Color_:TAlphaColor );
+    procedure ClearBlocks;
   end;
 
 var
@@ -116,15 +123,70 @@ begin
      end;
 end;
 
+//------------------------------------------------------------------------------
+
+procedure TForm1.MakeBlock( const MinX_,MinY_,MaxX_,MaxY_:Single; const Text_:String; const Color_:TAlphaColor );
+var
+   PB :TPlane;
+   PT :TTextLayer3D;
+begin
+     PB := TPlane.Create( Dummy1 );
+
+     with PB do
+     begin
+          Parent         := Dummy1;
+          HitTest        := False;
+          Width          := MaxX_ - MinX_;
+          Height         := MaxY_ - MinY_;
+          Depth          := 1;
+          Position.X     := +( MaxX_ + MinX_ ) / 2;
+          Position.Y     := -( MaxY_ + MinY_ ) / 2;
+          Position.Z     := +0.01;
+          MaterialSource := TLightMaterialSource.Create( PB );
+
+          with TLightMaterialSource( MaterialSource ) do
+          begin
+               Ambient  := TAlphaColors.Null;
+               Diffuse  := Color_;
+               Specular := TAlphaColors.Null;
+          end;
+     end;
+
+     PT := TTextLayer3D.Create( PB );
+
+     with PT do
+     begin
+          Parent      := PB;
+          HitTest     := True;
+          Width       := 0.9 * ( MaxX_ - MinX_ );
+          Height      := 0.9 * ( MaxY_ - MinY_ );
+          Position.Z  := -0.02;
+          Text        := Text_;
+          Font.Family := 'Lucida Console';
+          Font.Size   := 30;
+          ZWrite      := False;
+     end;
+end;
+
+procedure TForm1.ClearBlocks;
+begin
+     Dummy1.DeleteChildren;
+end;
+
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 procedure TForm1.FormCreate(Sender: TObject);  //アプリが開始する時
 begin
+     _MouseS := [];
+
      _FileSDIF := TFileSDIF.Create;  // TFileSDIF クラスを生成し、インスタンスを取得。
 
      _FileSDIF.LoadFronFileTex( '..\..\_DATA\ManyTreatments6.trt.txt' ); //ファイルをロード
 
      ShowNodes;
+
+     MakeBlock( 0, 0, 3, 2, 'CLIP', TAlphaColors.Red  );
+     MakeBlock( 2, 2, 5, 3, 'CLIP', TAlphaColors.Lime );
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);  //アプリが終了する時
@@ -142,6 +204,42 @@ begin
 
           ShowNodes;
      end;
+end;
+
+//------------------------------------------------------------------------------
+
+procedure TForm1.Viewport3D1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+begin
+     _MouseS := Shift;
+     _MouseP := TPointF.Create( X, Y );
+end;
+
+procedure TForm1.Viewport3D1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
+var
+   P :TPointF;
+begin
+     if ssLeft in _MouseS then
+     begin
+          P := TPointF.Create( X, Y );
+
+          with Camera1.Position do X := X - ( P.X - _MouseP.X ) * 20 / Viewport3D1.Height;
+
+          _MouseP := P;
+     end;
+end;
+
+procedure TForm1.Viewport3D1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+begin
+     Viewport3D1MouseMove( Sender, Shift, X, Y );
+
+     _MouseS := [];
+end;
+
+//------------------------------------------------------------------------------
+
+procedure TForm1.Viewport3D1MouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; var Handled: Boolean);
+begin
+     with Camera1.Position do X := X - WheelDelta / 120;
 end;
 
 end. //######################################################################### ■

@@ -29,7 +29,7 @@ object Form1: TForm1
     Size.Width = 640.000000000000000000
     Size.Height = 506.000000000000000000
     Size.PlatformDefault = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 2
     TabPosition = PlatformDefault
     Sizes = (
@@ -41,7 +41,7 @@ object Form1: TForm1
       CustomIcon = <
         item
         end>
-      IsSelected = False
+      IsSelected = True
       Size.Width = 48.000000000000000000
       Size.Height = 26.000000000000000000
       Size.PlatformDefault = False
@@ -57,18 +57,38 @@ object Form1: TForm1
         Size.Height = 480.000000000000000000
         Size.PlatformDefault = False
         UsingDesignCamera = False
+        OnMouseDown = Viewport3D1MouseDown
+        OnMouseMove = Viewport3D1MouseMove
+        OnMouseUp = Viewport3D1MouseUp
+        OnMouseWheel = Viewport3D1MouseWheel
         object Grid3D1: TGrid3D
           Marks = 1.000000000000000000
           Frequency = 1.000000000000000000
           LineColor = x50505050
+          Position.X = 50.000000000000000000
+          Position.Y = -10.000000000000000000
           Width = 100.000000000000000000
-          Height = 100.000000000000000000
+          Height = 20.000000000000000000
           Depth = 0.001000000047497451
+          HitTest = False
         end
         object Camera1: TCamera
           AngleOfView = 10.000000000000000000
           Position.Y = -10.000000000000000000
           Position.Z = -114.300521850585900000
+          Width = 1.000000000000000000
+          Height = 1.000000000000000000
+          Depth = 1.000000000000000000
+        end
+        object Light1: TLight
+          Color = claWhite
+          LightType = Directional
+          SpotCutOff = 180.000000000000000000
+          Width = 1.000000000000000000
+          Height = 1.000000000000000000
+          Depth = 1.000000000000000000
+        end
+        object Dummy1: TDummy
           Width = 1.000000000000000000
           Height = 1.000000000000000000
           Depth = 1.000000000000000000
@@ -80,69 +100,31 @@ object Form1: TForm1
           Height = 100.000000000000000000
           Depth = 0.100000001490116100
           MaterialSource = LightMaterialSource1
-          Quanternion = '(0,0,0.707106828689575,0.707106709480286)'
+          Quanternion = '(0,0,-0.70710676908493,-0.707106828689575)'
         end
         object Cylinder2: TCylinder
-          Position.Y = -50.000000000000000000
+          Position.Y = -10.000000000000000000
           Width = 0.100000001490116100
-          Height = 100.000000000000000000
+          Height = 20.000000000000000000
           Depth = 0.100000001490116100
           MaterialSource = LightMaterialSource1
-        end
-        object Light1: TLight
-          Color = claWhite
-          LightType = Directional
-          SpotCutOff = 180.000000000000000000
-          RotationAngle.X = 315.000000000000000000
-          Width = 1.000000000000000000
-          Height = 1.000000000000000000
-          Depth = 1.000000000000000000
-          Quanternion = '(0.382683485746384,0,0,-0.923879504203796)'
-        end
-        object RoundCube1: TRoundCube
-          Position.X = 2.000000000000000000
-          Position.Y = -0.500000000000000000
-          Position.Z = 0.500000000000000000
-          Width = 4.000000000000000000
-          Height = 1.000000000000000000
-          Depth = 1.000000000000000000
-          MaterialSource = LightMaterialSource2
-          object TextLayer3D1: TTextLayer3D
-            Color = claBlack
-            Font.Family = 'Lucida Console'
-            Font.Size = 30.000000000000000000
-            Height = 1.000000000000000000
-            Position.Z = -0.600000023841857900
-            Resolution = 50
-            Text = 'CLIP'
-            Width = 4.000000000000000000
-          end
         end
       end
       object LightMaterialSource1: TLightMaterialSource
         Diffuse = claBlack
-        Ambient = xFF202020
+        Ambient = claNull
         Emissive = claNull
-        Specular = xFF606060
+        Specular = claNull
         Shininess = 30
         Left = 555
-        Top = 40
-      end
-      object LightMaterialSource2: TLightMaterialSource
-        Diffuse = claRed
-        Ambient = xFF202020
-        Emissive = claNull
-        Specular = xFF606060
-        Shininess = 30
-        Left = 555
-        Top = 100
+        Top = 41
       end
     end
     object TabItem2: TTabItem
       CustomIcon = <
         item
         end>
-      IsSelected = True
+      IsSelected = False
       Size.Width = 50.000000000000000000
       Size.Height = 26.000000000000000000
       Size.PlatformDefault = False
@@ -169,7 +151,7 @@ object Form1: TForm1
     Size.Height = 506.000000000000000000
     Size.PlatformDefault = False
     TabIndex = 0
-    TabOrder = 7
+    TabOrder = 5
     TabPosition = PlatformDefault
     Sizes = (
       200s
