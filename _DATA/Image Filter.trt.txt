@@ -1,0 +1,213 @@
+SDIF
+
+1TYP
+{
+  1MTD	agrp	{anno_group}
+  1MTD	bpf_	{bpf_data}
+  1MTD	bpcf	{bandpass_original_center_frequency}
+  1MTD	gain	{gain}
+  1MTD	pnhs	{pen_harmonics_string}
+  1MTD	bpfa	{bpf_name, bpf_min_visible, bpf_max_visible, line_style, line_width, show_grid, show_knots, show_info}
+  1MTD	tcor	{is_correct_type}
+  1MTD	bpfc	{bpf_channel}
+  1MTD	bpff	{bpf_file_name}
+  1MTD	btgT	{bpf_tag_times}
+  1MTD	bInt	{use_interpolation}
+  1MTD	bpdm	{bandpass_dimensions_matrix}
+  1MTD	dcts	{delta_cents}
+  1MTD	rmod	{reverse_mode}
+  1MTD	bpbt	{bandpass_bandwidth_info}
+  1MTD	1LDN	{ircam_descriptor_loudness_type}
+  1MTD	bpdt	{bandpass_data}
+  1MTD	srce	{source_file_end}
+  1MTD	dfrq	{delta_freq}
+  1MTD	aval	{anno_value}
+  1MTD	sfty	{surface_type}
+  1MTD	pnts	{points}
+  1MTD	bpis	{is_bandpass}
+  1MTD	srcn	{source_file_name}
+  1MTD	bpit	{bandpass_interval_type}
+  1MTD	nzet	{noize_zone_end_time}
+  1MTD	rplo	{replace_original}
+  1MTD	amut	{anno_muted}
+  1MTD	srcs	{source_file_start}
+  1MTD	1SDE	{ircam_descriptor_spectral_decrease_type}
+  1MTD	fdur	{freeze_duration}
+  1MTD	trid	{track_id}
+  1MTD	zamp	{amplitude_visible_range_start, amplitude_visible_range_end}
+  1MTD	1SHA	{ircam_descriptor_sharpness_type}
+  1MTD	rtim	{reverse_times}
+  1MTD	clss	{Class_ID}
+  1MTD	csfr	{chord_seq_frames}
+  1MTD	1SCN	{ircam_descriptor_spectral_centroid_type}
+  1MTD	csme	{chord_seq_mapping_end}
+  1MTD	Xgtb	{rd_shape_target_bpf}
+  1MTD	imag	{image_file_path}
+  1MTD	nzsh	{noize_zone_shape}
+  1MTD	csqc	{cs_channel}
+  1MTD	ctra	{is_constant_transpose}
+  1MTD	atxf	{anno_font}
+  1MTD	csmp	{chord_seq_mapping}
+  1MTD	dtim	{delta_time}
+  1MTD	freq	{frequency_interval}
+  1MTD	nzst	{noize_zone_start_time}
+  1MTD	imfm	{image_filter_amplitude_mode}
+  1MTD	Xgts	{rd_shape_target_bpf_activation}
+  1MTD	dotr	{do_transposition}
+  1MTD	f0tb	{fundamental_target_bpf}
+  1MTD	dura	{duration}
+  1MTD	hole	{holes}
+  1MTD	gpkm	{gain_peak_mode}
+  1MTD	laye	{pen_inside_layer}
+  1MTD	atxt	{anno_text}
+  1MTD	gpkp	{gain_peak_point}
+  1MTD	zfrq	{frequency_visible_range_start, frequency_visible_range_end}
+  1MTD	trsp	{transparency}
+  1MTD	nzAf	{noize_zone_analysis_file_path}
+  1MTD	1SRO	{ircam_descriptor_spectral_rolloff_type}
+  1MTD	f0qt	{f0_quantization_state}
+  1MTD	1SSP	{ircam_descriptor_spectral_spread_type}
+  1MTD	imlt	{image_lower_threshold}
+  1MTD	f0ts	{fundamental_target_bpf_activation}
+  1MTD	impo	{image_pass_outside_frequencies}
+  1MTD	cldB	{clip_dB_interval}
+  1MTD	penc	{pen_compensation_factor}
+  1MTD	expl	{is_explicit}
+  1MTD	penh	{pen_harmonics}
+  1MTD	clRn	{clip_renormalize}
+  1MTD	imut	{image_upper_threshold}
+  1MTD	penp	{preserve_envelope_percentage}
+  1MTD	ztim	{time_visible_range_start, time_visible_range_end}
+  1MTD	mixf	{mix_factor}
+  1MTD	pens	{pen_stroke_size}
+  1MTD	pent	{pen_size}
+  1MTD	penv	{is_preserving_envelope}
+  1MTD	chan	{selected_channel}
+  1MTD	anch	{anchor}
+  1MTD	btgD	{bpf_tag_data}
+  1MTD	bIdx	{bpf_active_index}
+  1FTD	1ASO
+	{
+	  dura	duration;
+	  freq	frequency_interval;
+	  trid	track_id;
+	  gain	gain;
+	  gpkm	gain_peak_mode;
+	  gpkp	gain_peak_point;
+	  bpis	is_bandpass;
+	  bpdm	bandpass_dimensions_matrix;
+	  bpdt	bandpass_data;
+	  bpit	bandpass_interval_type;
+	  bpbt	bandpass_bandwidth_info;
+	  bpcf	bandpass_original_center_frequency;
+	  bpf_	bpf_data;
+	  bpff	bpf_file_name;
+	  bpfc	bpf_channel;
+	  cldB	clip_dB_interval;
+	  clRn	clip_renormalize;
+	  pnts	points;
+	  sfty	surface_type;
+	  hole	holes;
+	  pent	pen_size;
+	  pens	pen_stroke_size;
+	  penc	pen_compensation_factor;
+	  penh	pen_harmonics;
+	  pnhs	pen_harmonics_string;
+	  trsp	transparency;
+	  laye	pen_inside_layer;
+	  ctra	is_constant_transpose;
+	  tcor	is_correct_type;
+	  penv	is_preserving_envelope;
+	  penp	preserve_envelope_percentage;
+	  fdur	freeze_duration;
+	  imag	image_file_path;
+	  imlt	image_lower_threshold;
+	  imut	image_upper_threshold;
+	  impo	image_pass_outside_frequencies;
+	  imfm	image_filter_amplitude_mode;
+	  csqc	cs_channel;
+	  csfr	chord_seq_frames;
+	  csmp	chord_seq_mapping;
+	  csme	chord_seq_mapping_end;
+	  rmod	reverse_mode;
+	  rtim	reverse_times;
+	  agrp	anno_group;
+	  amut	anno_muted;
+	  aval	anno_value;
+	  atxt	anno_text;
+	  atxf	anno_font;
+	  srcn	source_file_name;
+	  srcs	source_file_start;
+	  srce	source_file_end;
+	  expl	is_explicit;
+	  chan	selected_channel;
+	  dtim	delta_time;
+	  dfrq	delta_freq;
+	  dcts	delta_cents;
+	  dotr	do_transposition;
+	  rplo	replace_original;
+	  anch	anchor;
+	  mixf	mix_factor;
+	  f0qt	f0_quantization_state;
+	  f0tb	fundamental_target_bpf;
+	  f0ts	fundamental_target_bpf_activation;
+	  btgT	bpf_tag_times;
+	  btgD	bpf_tag_data;
+	  bIdx	bpf_active_index;
+	  bInt	use_interpolation;
+	  nzst	noize_zone_start_time;
+	  nzet	noize_zone_end_time;
+	  nzsh	noize_zone_shape;
+	  nzAf	noize_zone_analysis_file_path;
+	  Xgtb	rd_shape_target_bpf;
+	  Xgts	rd_shape_target_bpf_activation;
+	  1LDN	ircam_descriptor_loudness_type;
+	  1SHA	ircam_descriptor_sharpness_type;
+	  1SCN	ircam_descriptor_spectral_centroid_type;
+	  1SDE	ircam_descriptor_spectral_decrease_type;
+	  1SRO	ircam_descriptor_spectral_rolloff_type;
+	  1SSP	ircam_descriptor_spectral_spread_type;
+	  clss	Class_ID;
+	  bpfa	Bpf_Appearance;
+	}
+  1FTD	ASTI
+	{
+	  zamp	amplitude_visible_range;
+	  ztim	time_visible_range;
+	  zfrq	frequency_visible_range;
+	}
+}
+
+
+SDFC
+
+ASTI	3	0	0
+  ztim	0x0008	1	2
+	0	2.47262
+  zfrq	0x0008	1	2
+	17000	24000
+  zamp	0x0008	1	2
+	-1	1
+
+1ASO	9	2	0
+  clss	0x0301	1	4
+	'i'	'm'	'a'	'g'
+  freq	0x0004	1	2
+	0	24000
+  trid	0x0104	1	1
+	1
+  dura	0x0004	1	1
+	2.47263
+  imag	0x0301	1	50
+	'/'	'U'	's'	'e'	'r'	's'	'/'	'y'	't'	'a'	'k'	'a'	'k'	'u'	'r'	'a'	'/'	'D'	'o'	'w'	'n'	'l'	'o'	'a'	'd'	's'	'/'	'f'	'o'	'u'	'r'	'-'	'p'	'a'	'n'	'd'	'a'	's'	'-'	's'	's'	'-'	'1'	'9'	'2'	'0'	'.'	'j'	'p'	'g'
+  imlt	0x0004	1	1
+	0
+  imut	0x0004	1	1
+	1
+  impo	0x0101	1	1
+	0
+  imfm	0x0104	1	1
+	1
+
+ENDC
+ENDF

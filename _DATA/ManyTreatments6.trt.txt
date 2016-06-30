@@ -1,0 +1,494 @@
+SDIF
+
+1TYP
+{
+  1MTD	agrp	{anno_group}
+  1MTD	bpf_	{bpf_data}
+  1MTD	bpcf	{bandpass_original_center_frequency}
+  1MTD	gain	{gain}
+  1MTD	pnhs	{pen_harmonics_string}
+  1MTD	bpfa	{bpf_name, bpf_min_visible, bpf_max_visible, line_style, line_width, show_grid, show_knots, show_info}
+  1MTD	tcor	{is_correct_type}
+  1MTD	bpfc	{bpf_channel}
+  1MTD	bpff	{bpf_file_name}
+  1MTD	btgT	{bpf_tag_times}
+  1MTD	bInt	{use_interpolation}
+  1MTD	bpdm	{bandpass_dimensions_matrix}
+  1MTD	dcts	{delta_cents}
+  1MTD	rmod	{reverse_mode}
+  1MTD	bpbt	{bandpass_bandwidth_info}
+  1MTD	1LDN	{ircam_descriptor_loudness_type}
+  1MTD	bpdt	{bandpass_data}
+  1MTD	srce	{source_file_end}
+  1MTD	dfrq	{delta_freq}
+  1MTD	aval	{anno_value}
+  1MTD	sfty	{surface_type}
+  1MTD	pnts	{points}
+  1MTD	bpis	{is_bandpass}
+  1MTD	srcn	{source_file_name}
+  1MTD	bpit	{bandpass_interval_type}
+  1MTD	nzet	{noize_zone_end_time}
+  1MTD	rplo	{replace_original}
+  1MTD	amut	{anno_muted}
+  1MTD	srcs	{source_file_start}
+  1MTD	1SDE	{ircam_descriptor_spectral_decrease_type}
+  1MTD	fdur	{freeze_duration}
+  1MTD	trid	{track_id}
+  1MTD	zamp	{amplitude_visible_range_start, amplitude_visible_range_end}
+  1MTD	1SHA	{ircam_descriptor_sharpness_type}
+  1MTD	rtim	{reverse_times}
+  1MTD	clss	{Class_ID}
+  1MTD	csfr	{chord_seq_frames}
+  1MTD	1SCN	{ircam_descriptor_spectral_centroid_type}
+  1MTD	csme	{chord_seq_mapping_end}
+  1MTD	Xgtb	{rd_shape_target_bpf}
+  1MTD	imag	{image_file_path}
+  1MTD	nzsh	{noize_zone_shape}
+  1MTD	csqc	{cs_channel}
+  1MTD	ctra	{is_constant_transpose}
+  1MTD	atxf	{anno_font}
+  1MTD	csmp	{chord_seq_mapping}
+  1MTD	dtim	{delta_time}
+  1MTD	freq	{frequency_interval}
+  1MTD	nzst	{noize_zone_start_time}
+  1MTD	imfm	{image_filter_amplitude_mode}
+  1MTD	Xgts	{rd_shape_target_bpf_activation}
+  1MTD	dotr	{do_transposition}
+  1MTD	f0tb	{fundamental_target_bpf}
+  1MTD	dura	{duration}
+  1MTD	hole	{holes}
+  1MTD	gpkm	{gain_peak_mode}
+  1MTD	laye	{pen_inside_layer}
+  1MTD	atxt	{anno_text}
+  1MTD	gpkp	{gain_peak_point}
+  1MTD	zfrq	{frequency_visible_range_start, frequency_visible_range_end}
+  1MTD	trsp	{transparency}
+  1MTD	nzAf	{noize_zone_analysis_file_path}
+  1MTD	1SRO	{ircam_descriptor_spectral_rolloff_type}
+  1MTD	f0qt	{f0_quantization_state}
+  1MTD	1SSP	{ircam_descriptor_spectral_spread_type}
+  1MTD	imlt	{image_lower_threshold}
+  1MTD	f0ts	{fundamental_target_bpf_activation}
+  1MTD	impo	{image_pass_outside_frequencies}
+  1MTD	cldB	{clip_dB_interval}
+  1MTD	penc	{pen_compensation_factor}
+  1MTD	expl	{is_explicit}
+  1MTD	penh	{pen_harmonics}
+  1MTD	clRn	{clip_renormalize}
+  1MTD	imut	{image_upper_threshold}
+  1MTD	penp	{preserve_envelope_percentage}
+  1MTD	ztim	{time_visible_range_start, time_visible_range_end}
+  1MTD	mixf	{mix_factor}
+  1MTD	pens	{pen_stroke_size}
+  1MTD	pent	{pen_size}
+  1MTD	penv	{is_preserving_envelope}
+  1MTD	chan	{selected_channel}
+  1MTD	anch	{anchor}
+  1MTD	btgD	{bpf_tag_data}
+  1MTD	bIdx	{bpf_active_index}
+  1FTD	1ASO
+	{
+	  dura	duration;
+	  freq	frequency_interval;
+	  trid	track_id;
+	  gain	gain;
+	  gpkm	gain_peak_mode;
+	  gpkp	gain_peak_point;
+	  bpis	is_bandpass;
+	  bpdm	bandpass_dimensions_matrix;
+	  bpdt	bandpass_data;
+	  bpit	bandpass_interval_type;
+	  bpbt	bandpass_bandwidth_info;
+	  bpcf	bandpass_original_center_frequency;
+	  bpf_	bpf_data;
+	  bpff	bpf_file_name;
+	  bpfc	bpf_channel;
+	  cldB	clip_dB_interval;
+	  clRn	clip_renormalize;
+	  pnts	points;
+	  sfty	surface_type;
+	  hole	holes;
+	  pent	pen_size;
+	  pens	pen_stroke_size;
+	  penc	pen_compensation_factor;
+	  penh	pen_harmonics;
+	  pnhs	pen_harmonics_string;
+	  trsp	transparency;
+	  laye	pen_inside_layer;
+	  ctra	is_constant_transpose;
+	  tcor	is_correct_type;
+	  penv	is_preserving_envelope;
+	  penp	preserve_envelope_percentage;
+	  fdur	freeze_duration;
+	  imag	image_file_path;
+	  imlt	image_lower_threshold;
+	  imut	image_upper_threshold;
+	  impo	image_pass_outside_frequencies;
+	  imfm	image_filter_amplitude_mode;
+	  csqc	cs_channel;
+	  csfr	chord_seq_frames;
+	  csmp	chord_seq_mapping;
+	  csme	chord_seq_mapping_end;
+	  rmod	reverse_mode;
+	  rtim	reverse_times;
+	  agrp	anno_group;
+	  amut	anno_muted;
+	  aval	anno_value;
+	  atxt	anno_text;
+	  atxf	anno_font;
+	  srcn	source_file_name;
+	  srcs	source_file_start;
+	  srce	source_file_end;
+	  expl	is_explicit;
+	  chan	selected_channel;
+	  dtim	delta_time;
+	  dfrq	delta_freq;
+	  dcts	delta_cents;
+	  dotr	do_transposition;
+	  rplo	replace_original;
+	  anch	anchor;
+	  mixf	mix_factor;
+	  f0qt	f0_quantization_state;
+	  f0tb	fundamental_target_bpf;
+	  f0ts	fundamental_target_bpf_activation;
+	  btgT	bpf_tag_times;
+	  btgD	bpf_tag_data;
+	  bIdx	bpf_active_index;
+	  bInt	use_interpolation;
+	  nzst	noize_zone_start_time;
+	  nzet	noize_zone_end_time;
+	  nzsh	noize_zone_shape;
+	  nzAf	noize_zone_analysis_file_path;
+	  Xgtb	rd_shape_target_bpf;
+	  Xgts	rd_shape_target_bpf_activation;
+	  1LDN	ircam_descriptor_loudness_type;
+	  1SHA	ircam_descriptor_sharpness_type;
+	  1SCN	ircam_descriptor_spectral_centroid_type;
+	  1SDE	ircam_descriptor_spectral_decrease_type;
+	  1SRO	ircam_descriptor_spectral_rolloff_type;
+	  1SSP	ircam_descriptor_spectral_spread_type;
+	  clss	Class_ID;
+	  bpfa	Bpf_Appearance;
+	}
+  1FTD	ASTI
+	{
+	  zamp	amplitude_visible_range;
+	  ztim	time_visible_range;
+	  zfrq	frequency_visible_range;
+	}
+}
+
+
+SDFC
+
+ASTI	3	0	0
+  ztim	0x0008	1	2
+	0	2.47262
+  zfrq	0x0008	1	2
+	0	7000
+  zamp	0x0008	1	2
+	-1	1
+
+1ASO	8	13	0
+  clss	0x0301	1	4
+	'T'	'r'	'a'	'n'
+  trid	0x0104	1	1
+	4
+  dura	0x0004	1	1
+	2.47263
+  bpf_	0x0008	1	4
+	0	50	nan	nan
+  penc	0x0008	1	4
+	0	0	nan	nan
+  tcor	0x0101	1	1
+	1
+  penv	0x0101	1	1
+	1
+  bpfa	0x0104	2	9
+	1651533407	-120000	120000	587200588	1	1	1	1	1
+	1885695587	-120000	120000	-13317556	1	1	1	1	1
+
+1ASO	7	0	0.0873333
+  clss	0x0301	1	4
+	'R'	'f'	'l'	't'
+  freq	0x0004	1	2
+	523.365	2387.85
+  trid	0x0104	1	1
+	1
+  dura	0x0004	1	1
+	0.193771
+  gain	0x0004	1	1
+	0
+  gpkm	0x0104	1	1
+	0
+  gpkp	0x0004	1	2
+	0.184219	1455.61
+
+1ASO	13	11	0.139187
+  clss	0x0301	1	4
+	'G'	's'	'i'	'm'
+  freq	0x0004	1	2
+	65.4206	5528.04
+  trid	0x0104	1	1
+	2
+  dura	0x0004	1	1
+	0.29475
+  gain	0x0004	1	1
+	-60
+  gpkm	0x0104	1	1
+	0
+  gpkp	0x0004	1	2
+	0.286563	2796.73
+  penh	0x0104	1	5
+	10	1	1	1	0
+  pens	0x0004	1	4
+	0	0.0136458	163.551	1
+  penc	0x0004	1	1
+	1
+  trsp	0x0004	1	1
+	0
+  sfty	0x0102	1	1
+	0
+  pnts	0x0004	80	2
+	0.0764167	3663.55
+	0.0764167	3859.81
+	0.0791458	4088.78
+	0.0873333	4448.6
+	0.100979	4808.41
+	0.122812	5200.93
+	0.136458	5364.49
+	0.147375	5462.62
+	0.155563	5495.33
+	0.166479	5528.04
+	0.171938	5528.04
+	0.177396	5528.04
+	0.182854	5528.04
+	0.188312	5528.04
+	0.199229	5495.33
+	0.207417	5429.91
+	0.221062	5331.78
+	0.237438	5233.65
+	0.253812	5102.8
+	0.272917	4971.96
+	0.286563	4710.28
+	0.292021	4579.44
+	0.29475	4481.31
+	0.29475	4383.18
+	0.29475	4317.76
+	0.289292	4186.92
+	0.278375	4121.5
+	0.267458	4023.36
+	0.251083	3925.23
+	0.234708	3794.39
+	0.212875	3761.68
+	0.180125	3761.68
+	0.155563	3761.68
+	0.131	3761.68
+	0.111896	3794.39
+	0.09825	3794.39
+	0.0900625	3827.1
+	0.0873333	3827.1
+	0.0873333	3794.39
+	0.0846042	3761.68
+	0.0791458	3728.97
+	0.0736875	3630.84
+	0.0627708	3565.42
+	0.0573125	3500
+	0.0518542	3434.58
+	0.0436667	3369.16
+	0.0354792	3271.03
+	0.0272917	3205.61
+	0.0218333	3107.48
+	0.016375	3009.35
+	0.0081875	2878.5
+	0.00545834	2813.08
+	0.00272916	2780.37
+	0.00272916	2714.95
+	0.00272916	2616.82
+	0	2551.4
+	0	2453.27
+	0	2322.43
+	0.00545834	2224.3
+	0.0109167	2126.17
+	0.0218333	2028.04
+	0.0463958	1864.49
+	0.0627708	1799.07
+	0.081875	1733.64
+	0.0955208	1700.93
+	0.109167	1700.93
+	0.133729	1602.8
+	0.147375	1504.67
+	0.158292	1439.25
+	0.171938	1373.83
+	0.185583	1308.41
+	0.1965	1242.99
+	0.212875	1079.44
+	0.221062	1014.02
+	0.226521	915.888
+	0.231979	850.467
+	0.237438	719.626
+	0.242896	556.075
+	0.248354	392.523
+	0.253812	65.4206
+
+1ASO	7	9	0.431208
+  clss	0x0301	1	4
+	'R'	'f'	'l'	't'
+  freq	0x0004	1	2
+	1668.22	5528.04
+  trid	0x0104	1	1
+	2
+  dura	0x0004	1	1
+	0.136458
+  gain	0x0004	1	1
+	0
+  gpkm	0x0104	1	1
+	0
+  gpkp	0x0004	1	2
+	0.499438	3598.13
+
+1ASO	7	1	0.704125
+  clss	0x0301	1	4
+	'R'	'f'	'l'	't'
+  freq	0x0004	1	2
+	32.7103	2289.72
+  trid	0x0104	1	1
+	1
+  dura	0x0004	1	1
+	0.109167
+  gain	0x0004	1	1
+	0
+  gpkm	0x0104	1	1
+	0
+  gpkp	0x0004	1	2
+	0.758708	1161.21
+
+1ASO	7	7	1.048
+  clss	0x0301	1	4
+	'R'	'f'	'l'	't'
+  freq	0x0004	1	2
+	457.944	2191.59
+  trid	0x0104	1	1
+	6
+  dura	0x0004	1	1
+	0.371167
+  gain	0x0004	1	1
+	0
+  gpkm	0x0104	1	1
+	0
+  gpkp	0x0004	1	2
+	1.23358	1324.77
+
+1ASO	7	12	1.21721
+  clss	0x0301	1	4
+	'R'	'f'	'l'	't'
+  freq	0x0004	1	2
+	196.262	3172.9
+  trid	0x0104	1	1
+	3
+  dura	0x0004	1	1
+	0.341146
+  gain	0x0004	1	1
+	0
+  gpkm	0x0104	1	1
+	0
+  gpkp	0x0004	1	2
+	1.38778	1684.58
+
+1ASO	7	8	1.70846
+  clss	0x0301	1	4
+	'R'	'f'	'l'	't'
+  freq	0x0004	1	2
+	163.551	3598.13
+  trid	0x0104	1	1
+	6
+  dura	0x0004	1	1
+	0.0573125
+  gain	0x0004	1	1
+	0
+  gpkm	0x0104	1	1
+	0
+  gpkp	0x0004	1	2
+	1.73711	1880.84
+
+1ASO	13	10	1.834
+  clss	0x0301	1	4
+	'G'	's'	'i'	'm'
+  freq	0x0004	1	2
+	457.944	3303.74
+  trid	0x0104	1	1
+	2
+  dura	0x0004	1	1
+	0.376625
+  gain	0x0004	1	1
+	-60
+  gpkm	0x0104	1	1
+	0
+  gpkp	0x0004	1	2
+	2.02231	1880.84
+  penh	0x0104	1	5
+	10	1	1	1	0
+  pens	0x0004	1	4
+	0	0.0136458	163.551	1
+  penc	0x0004	1	1
+	1
+  trsp	0x0004	1	1
+	0
+  sfty	0x0102	1	1
+	0
+  pnts	0x0004	52	2
+	0	457.944
+	0.00818753	654.206
+	0.0136459	883.178
+	0.0245625	1112.15
+	0.0382084	1308.41
+	0.0709584	1668.22
+	0.0955209	1929.91
+	0.111896	2158.88
+	0.128271	2387.85
+	0.158292	2649.53
+	0.182854	2813.08
+	0.204687	2976.64
+	0.218333	3074.77
+	0.226521	3140.19
+	0.237438	3172.9
+	0.245625	3238.32
+	0.256542	3271.03
+	0.272917	3303.74
+	0.283833	3303.74
+	0.292021	3303.74
+	0.297479	3303.74
+	0.300208	3271.03
+	0.305667	3205.61
+	0.316583	3107.48
+	0.3275	3009.35
+	0.338417	2943.93
+	0.349333	2878.5
+	0.357521	2813.08
+	0.365708	2747.66
+	0.371167	2714.95
+	0.373896	2682.24
+	0.373896	2649.53
+	0.376625	2649.53
+	0.376625	2616.82
+	0.371167	2518.69
+	0.357521	2420.56
+	0.341146	2322.43
+	0.330229	2224.3
+	0.311125	2060.75
+	0.286563	1962.62
+	0.278375	1962.62
+	0.275646	1962.62
+	0.272917	1962.62
+	0.262	1929.91
+	0.248354	1897.2
+	0.223792	1799.07
+	0.180125	1733.64
+	0.152833	1733.64
+	0.136458	1733.64
+	0.122813	1766.35
+	0.117354	1799.07
+	0.114625	1799.07
+
+ENDC
+ENDF

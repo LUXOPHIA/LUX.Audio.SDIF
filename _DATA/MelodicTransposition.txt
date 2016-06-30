@@ -1,0 +1,1570 @@
+SDIF
+
+1TYP
+{
+  1MTD	agrp	{anno_group}
+  1MTD	bpf_	{bpf_data}
+  1MTD	bpcf	{bandpass_original_center_frequency}
+  1MTD	gain	{gain}
+  1MTD	pnhs	{pen_harmonics_string}
+  1MTD	bpfa	{bpf_name, bpf_min_visible, bpf_max_visible, line_style, line_width, show_grid, show_knots, show_info}
+  1MTD	tcor	{is_correct_type}
+  1MTD	bpfc	{bpf_channel}
+  1MTD	bpff	{bpf_file_name}
+  1MTD	btgT	{bpf_tag_times}
+  1MTD	bInt	{use_interpolation}
+  1MTD	bpdm	{bandpass_dimensions_matrix}
+  1MTD	dcts	{delta_cents}
+  1MTD	rmod	{reverse_mode}
+  1MTD	bpbt	{bandpass_bandwidth_info}
+  1MTD	1LDN	{ircam_descriptor_loudness_type}
+  1MTD	bpdt	{bandpass_data}
+  1MTD	srce	{source_file_end}
+  1MTD	dfrq	{delta_freq}
+  1MTD	aval	{anno_value}
+  1MTD	sfty	{surface_type}
+  1MTD	pnts	{points}
+  1MTD	bpis	{is_bandpass}
+  1MTD	srcn	{source_file_name}
+  1MTD	bpit	{bandpass_interval_type}
+  1MTD	nzet	{noize_zone_end_time}
+  1MTD	rplo	{replace_original}
+  1MTD	amut	{anno_muted}
+  1MTD	srcs	{source_file_start}
+  1MTD	1SDE	{ircam_descriptor_spectral_decrease_type}
+  1MTD	fdur	{freeze_duration}
+  1MTD	trid	{track_id}
+  1MTD	zamp	{amplitude_visible_range_start, amplitude_visible_range_end}
+  1MTD	1SHA	{ircam_descriptor_sharpness_type}
+  1MTD	rtim	{reverse_times}
+  1MTD	clss	{Class_ID}
+  1MTD	csfr	{chord_seq_frames}
+  1MTD	1SCN	{ircam_descriptor_spectral_centroid_type}
+  1MTD	csme	{chord_seq_mapping_end}
+  1MTD	Xgtb	{rd_shape_target_bpf}
+  1MTD	imag	{image_file_path}
+  1MTD	nzsh	{noize_zone_shape}
+  1MTD	csqc	{cs_channel}
+  1MTD	ctra	{is_constant_transpose}
+  1MTD	atxf	{anno_font}
+  1MTD	csmp	{chord_seq_mapping}
+  1MTD	dtim	{delta_time}
+  1MTD	freq	{frequency_interval}
+  1MTD	nzst	{noize_zone_start_time}
+  1MTD	imfm	{image_filter_amplitude_mode}
+  1MTD	Xgts	{rd_shape_target_bpf_activation}
+  1MTD	dotr	{do_transposition}
+  1MTD	f0tb	{fundamental_target_bpf}
+  1MTD	dura	{duration}
+  1MTD	hole	{holes}
+  1MTD	gpkm	{gain_peak_mode}
+  1MTD	laye	{pen_inside_layer}
+  1MTD	atxt	{anno_text}
+  1MTD	gpkp	{gain_peak_point}
+  1MTD	zfrq	{frequency_visible_range_start, frequency_visible_range_end}
+  1MTD	trsp	{transparency}
+  1MTD	nzAf	{noize_zone_analysis_file_path}
+  1MTD	1SRO	{ircam_descriptor_spectral_rolloff_type}
+  1MTD	f0qt	{f0_quantization_state}
+  1MTD	1SSP	{ircam_descriptor_spectral_spread_type}
+  1MTD	imlt	{image_lower_threshold}
+  1MTD	f0ts	{fundamental_target_bpf_activation}
+  1MTD	impo	{image_pass_outside_frequencies}
+  1MTD	cldB	{clip_dB_interval}
+  1MTD	penc	{pen_compensation_factor}
+  1MTD	expl	{is_explicit}
+  1MTD	penh	{pen_harmonics}
+  1MTD	clRn	{clip_renormalize}
+  1MTD	imut	{image_upper_threshold}
+  1MTD	penp	{preserve_envelope_percentage}
+  1MTD	ztim	{time_visible_range_start, time_visible_range_end}
+  1MTD	mixf	{mix_factor}
+  1MTD	pens	{pen_stroke_size}
+  1MTD	pent	{pen_size}
+  1MTD	penv	{is_preserving_envelope}
+  1MTD	chan	{selected_channel}
+  1MTD	anch	{anchor}
+  1MTD	btgD	{bpf_tag_data}
+  1MTD	bIdx	{bpf_active_index}
+  1FTD	1ASO
+	{
+	  dura	duration;
+	  freq	frequency_interval;
+	  trid	track_id;
+	  gain	gain;
+	  gpkm	gain_peak_mode;
+	  gpkp	gain_peak_point;
+	  bpis	is_bandpass;
+	  bpdm	bandpass_dimensions_matrix;
+	  bpdt	bandpass_data;
+	  bpit	bandpass_interval_type;
+	  bpbt	bandpass_bandwidth_info;
+	  bpcf	bandpass_original_center_frequency;
+	  bpf_	bpf_data;
+	  bpff	bpf_file_name;
+	  bpfc	bpf_channel;
+	  cldB	clip_dB_interval;
+	  clRn	clip_renormalize;
+	  pnts	points;
+	  sfty	surface_type;
+	  hole	holes;
+	  pent	pen_size;
+	  pens	pen_stroke_size;
+	  penc	pen_compensation_factor;
+	  penh	pen_harmonics;
+	  pnhs	pen_harmonics_string;
+	  trsp	transparency;
+	  laye	pen_inside_layer;
+	  ctra	is_constant_transpose;
+	  tcor	is_correct_type;
+	  penv	is_preserving_envelope;
+	  penp	preserve_envelope_percentage;
+	  fdur	freeze_duration;
+	  imag	image_file_path;
+	  imlt	image_lower_threshold;
+	  imut	image_upper_threshold;
+	  impo	image_pass_outside_frequencies;
+	  imfm	image_filter_amplitude_mode;
+	  csqc	cs_channel;
+	  csfr	chord_seq_frames;
+	  csmp	chord_seq_mapping;
+	  csme	chord_seq_mapping_end;
+	  rmod	reverse_mode;
+	  rtim	reverse_times;
+	  agrp	anno_group;
+	  amut	anno_muted;
+	  aval	anno_value;
+	  atxt	anno_text;
+	  atxf	anno_font;
+	  srcn	source_file_name;
+	  srcs	source_file_start;
+	  srce	source_file_end;
+	  expl	is_explicit;
+	  chan	selected_channel;
+	  dtim	delta_time;
+	  dfrq	delta_freq;
+	  dcts	delta_cents;
+	  dotr	do_transposition;
+	  rplo	replace_original;
+	  anch	anchor;
+	  mixf	mix_factor;
+	  f0qt	f0_quantization_state;
+	  f0tb	fundamental_target_bpf;
+	  f0ts	fundamental_target_bpf_activation;
+	  btgT	bpf_tag_times;
+	  btgD	bpf_tag_data;
+	  bIdx	bpf_active_index;
+	  bInt	use_interpolation;
+	  nzst	noize_zone_start_time;
+	  nzet	noize_zone_end_time;
+	  nzsh	noize_zone_shape;
+	  nzAf	noize_zone_analysis_file_path;
+	  Xgtb	rd_shape_target_bpf;
+	  Xgts	rd_shape_target_bpf_activation;
+	  1LDN	ircam_descriptor_loudness_type;
+	  1SHA	ircam_descriptor_sharpness_type;
+	  1SCN	ircam_descriptor_spectral_centroid_type;
+	  1SDE	ircam_descriptor_spectral_decrease_type;
+	  1SRO	ircam_descriptor_spectral_rolloff_type;
+	  1SSP	ircam_descriptor_spectral_spread_type;
+	  clss	Class_ID;
+	  bpfa	Bpf_Appearance;
+	}
+  1FTD	ASTI
+	{
+	  zamp	amplitude_visible_range;
+	  ztim	time_visible_range;
+	  zfrq	frequency_visible_range;
+	}
+}
+
+
+SDFC
+
+ASTI	3	0	0
+  ztim	0x0008	1	2
+	0	2.47262
+  zfrq	0x0008	1	2
+	0	7000
+  zamp	0x0008	1	2
+	-1	1
+
+1ASO	8	102	0
+  clss	0x0301	1	4
+	'T'	'r'	'a'	'n'
+  trid	0x0104	1	1
+	3
+  dura	0x0004	1	1
+	2.47263
+  bpf_	0x0008	1	4
+	0	0	nan	nan
+  penc	0x0008	1	4
+	0	0	nan	nan
+  tcor	0x0101	1	1
+	1
+  penv	0x0101	1	1
+	1
+  bpfa	0x0104	2	9
+	1651533407	-120000	120000	587200588	1	1	1	1	1
+	1885695587	-120000	120000	-13317556	1	1	1	1	1
+
+1ASO	7	17	0
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	285.424	302.396
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0058125
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	18	0.0116042
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	427.652	453.082
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0174167
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	19	0.0290208
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	453.082	480.024
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0174167
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	20	0.0464375
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	226.541	240.012
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0232292
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	21	0.110292
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	380.995	403.65
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00579166
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	22	0.1335
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	427.652	453.082
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0174167
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	23	0.150917
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	453.082	480.024
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.011625
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	24	0.162542
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116042
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	25	0.179937
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0058125
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	26	0.214771
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	427.652	453.082
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0348333
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	27	0.249604
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	226.541	240.012
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0058125
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	28	0.255417
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116042
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	29	0.272812
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0174167
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	30	0.301833
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0058125
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	31	0.336667
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	106.913	113.27
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.011625
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	32	0.348292
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	113.27	120.006
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0232083
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	33	0.3715
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	427.652	453.082
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00581253
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	34	0.377313
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	453.082	480.024
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116042
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	35	0.388917
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	113.27	120.006
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0174167
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	36	0.42375
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00579166
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	37	0.475979
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	427.652	453.082
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0174167
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	38	0.493396
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	453.082	480.024
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116042
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	39	0.505
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.011625
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	40	0.522417
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0464375
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	41	0.597875
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	427.652	453.082
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0232292
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	42	0.621104
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0174167
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	43	0.644313
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0348333
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	44	0.684958
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00579166
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	45	0.725583
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	427.652	453.082
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0232292
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	46	0.748812
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116042
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	47	0.766208
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0348333
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	48	0.847479
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	427.652	453.082
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0232292
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	49	0.870708
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116041
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	50	0.888125
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0580417
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	51	0.969375
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	427.652	453.082
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0174167
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	52	0.986792
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	453.082	480.024
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.011625
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	53	0.998417
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00579166
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	54	1.01002
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0638541
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	13	13	1.03887
+  clss	0x0301	1	4
+	'G'	's'	'i'	'm'
+  freq	0x0004	1	2
+	6910.09	6922.94
+  trid	0x0104	1	1
+	4
+  dura	0x0004	1	1
+	0.00265014
+  gain	0x0004	1	1
+	-60
+  gpkm	0x0104	1	1
+	0
+  gpkp	0x0004	1	2
+	1.0402	6916.51
+  penh	0x0104	1	5
+	10	1	1	1	0
+  pens	0x0004	1	4
+	0	0.00662547	64.2202	1
+  penc	0x0004	1	1
+	1
+  trsp	0x0004	1	1
+	0
+  sfty	0x0102	1	1
+	0
+  pnts	0x0004	3	2
+	0.00265014	6922.94
+	0.00132501	6910.09
+	0	6910.09
+
+1ASO	7	55	1.09129
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0348125
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	56	1.13192
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0638542
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	57	1.21319
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116042
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	58	1.22479
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	427.652	453.082
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116042
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	59	1.2364
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0812708
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	60	1.33508
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116042
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	61	1.34669
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	427.652	453.082
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116041
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	62	1.35829
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0580417
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	63	1.45698
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00581253
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	64	1.46279
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	427.652	453.082
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0173959
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	65	1.48019
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0348333
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	66	1.52083
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0232083
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	67	1.57887
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00581253
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	68	1.58469
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	427.652	453.082
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0173959
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	69	1.60208
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	89.9028	95.2487
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116251
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	70	1.61371
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116041
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	71	1.63112
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116042
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	72	1.65433
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0290208
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	73	1.70077
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0348333
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	74	1.74721
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.121896
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	75	1.88652
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00581253
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	76	1.89813
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116249
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	77	1.91554
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00581253
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	78	1.92135
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	142.712	151.198
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0174167
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	79	1.93877
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00579166
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	80	1.95037
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00581253
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	81	1.95619
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	142.712	151.198
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116042
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	82	1.96779
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0348333
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	83	2.00842
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0174167
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	84	2.04325
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	106.913	113.27
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00581241
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	85	2.07808
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116043
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	86	2.0955
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0174167
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	87	2.12452
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	142.712	151.198
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00579166
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	88	2.13031
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00581264
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	89	2.14194
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00579166
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	90	2.14773
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	142.712	151.198
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00581241
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	91	2.2174
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0696459
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	92	2.28704
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	142.712	151.198
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00581241
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	93	2.29285
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116043
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	94	2.31606
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00581264
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	95	2.33929
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116043
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	96	2.3509
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	160.189	169.714
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00581241
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	97	2.3625
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	151.198	160.189
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0348334
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	98	2.41475
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	84.857	89.9028
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.0116041
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+1ASO	7	99	2.46119
+  clss	0x0301	1	4
+	'A'	'n'	'o'	't'
+  freq	0x0004	1	2
+	142.712	151.198
+  trid	0x0104	1	1
+	5
+  dura	0x0004	1	1
+	0.00581241
+  aval	0x0104	1	1
+	64
+  agrp	0x0104	1	1
+	1
+  amut	0x0101	1	1
+	0
+
+ENDC
+ENDF
