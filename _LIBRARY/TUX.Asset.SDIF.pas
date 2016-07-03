@@ -3,6 +3,7 @@
 interface //#################################################################### ■
 
 uses System.Classes, System.RegularExpressions,
+     System.UITypes,
      LUX, LUX.Graph.Tree;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
@@ -49,17 +50,19 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TNodeSDIF = class( TTreeNode<TPropSDIF> )
      private
      protected
-       _Name :String;
-       _LayI :Integer;
-       _Time :Single;
+       _Name  :String;
+       _LayI  :Integer;
+       _Time  :Single;
+       _Color :TAlphaColor;
      public
        constructor Create; overload; override;
        class function Create( const Clss_:String ) :TNodeSDIF; overload;
        destructor Destroy; override;
        ///// プロパティ
-       property Name :String  read _Name;
-       property LayI :Integer read _LayI;
-       property Time :Single  read _Time;
+       property Name  :String      read _Name;
+       property LayI  :Integer     read _LayI;
+       property Time  :Single      read _Time;
+       property Color :TAlphaColor read _Color;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TNodeASTI

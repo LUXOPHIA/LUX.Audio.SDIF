@@ -2,7 +2,8 @@
 
 interface //#################################################################### ■
 
-uses TUX.Asset.SDIF;
+uses System.UITypes,
+     TUX.Asset.SDIF;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
@@ -190,6 +191,7 @@ constructor TNodeTran.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.Red;
 end;
 
 destructor TNodeTran.Destroy;
@@ -210,6 +212,7 @@ constructor TNodeTmSt.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.Blue;
 end;
 
 destructor TNodeTmSt.Destroy;
@@ -230,6 +233,7 @@ constructor TNodeFrmt.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.Lime;
 end;
 
 destructor TNodeFrmt.Destroy;
@@ -250,6 +254,7 @@ constructor TNodeBpGa.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.Aliceblue;
 end;
 
 destructor TNodeBpGa.Destroy;
@@ -270,6 +275,7 @@ constructor TNodeRflt.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.green;
 end;
 
 destructor TNodeRflt.Destroy;
@@ -290,6 +296,7 @@ constructor TNodeClip.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.Cadetblue;
 end;
 
 destructor TNodeClip.Destroy;
@@ -310,6 +317,7 @@ constructor TNodeGsim.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.Sandybrown;
 end;
 
 destructor TNodeGsim.Destroy;
@@ -330,6 +338,7 @@ constructor TNodeFrze.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.Red;
 end;
 
 destructor TNodeFrze.Destroy;
@@ -350,6 +359,7 @@ constructor TNodeRevs.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.Darkgoldenrod;
 end;
 
 destructor TNodeRevs.Destroy;
@@ -370,6 +380,7 @@ constructor TNodeImag.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.Ghostwhite;
 end;
 
 destructor TNodeImag.Destroy;
@@ -390,6 +401,7 @@ constructor TNodeBrkp.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.Cyan;
 end;
 
 destructor TNodeBrkp.Destroy;
@@ -410,6 +422,7 @@ constructor TNodeSurf.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.Coral;
 end;
 
 destructor TNodeSurf.Destroy;
@@ -430,6 +443,7 @@ constructor TNodeBand.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.Sandybrown;
 end;
 
 destructor TNodeBand.Destroy;
@@ -450,6 +464,7 @@ constructor TNodeNoiz.Create;
 begin
      inherited;
 
+     _Color := TAlphaColors.Silver;
 end;
 
 destructor TNodeNoiz.Destroy;

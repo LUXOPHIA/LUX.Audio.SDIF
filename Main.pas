@@ -64,16 +64,49 @@ implementation //###############################################################
 
 procedure TForm1.ShowNodes;  //ノード構造を表示するメソッド
 var
-   I, J, Y, X :Integer;
+   I, J, Y, X , K :Integer;
+   MinX, MaxX, MinY, MaxY :Single;
    TN, TP, TV :TTreeViewItem;
    PN :TNodeSDIF;
    PP :TPropSDIF;
+   ClssP :TPropChar;
+   DuraP :TPropFlo4;
+   C :TAlphaColor;
 begin
      TreeView1.Clear;  // TreeView1 の表示をクリア
 
      for I := 0 to _FileSDIF.ChildsN-1 do
      begin
           PN := _FileSDIF.Childs[ I ];  // I 番目のノードクラスを取得
+
+          if PN.Name = '1ASO' then
+          begin
+               for K := 0 to PN.ChildsN-1 do
+               begin
+                    PP := PN.Childs[ K ];
+
+                    if PP.Name = 'clss' then
+                    begin
+                         ClssP := TPropChar( PP );
+                    end;
+
+                    if PP.Name = 'dura' then
+                    begin
+                         DuraP := TPropFlo4( PP );
+                    end;
+               end;
+
+               MinX := PN.Time * 10;
+               MaxX := ( PN.Time + DuraP.Values[0,0] ) * 10;
+
+               MinY := PN.LayI;
+               MaxY := PN.LayI + 1;
+
+               MakeBlock( MinX, MinY,
+                          MaxX, MaxY,
+                          ClssP.Lines[ 0 ],
+                          PN.Color );
+          end;
 
           TN := TTreeViewItem.Create( TreeView1 );  //ノードクラス用の項目クラスを生成
           with TN do
@@ -158,8 +191,8 @@ begin
      begin
           Parent      := PB;
           HitTest     := True;
-          Width       := 0.9 * ( MaxX_ - MinX_ );
-          Height      := 0.9 * ( MaxY_ - MinY_ );
+          Width       := 3;
+          Height      := 1;
           Position.Z  := -0.02;
           Text        := Text_;
           Font.Family := 'Lucida Console';
@@ -174,8 +207,7 @@ begin
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-
-procedure TForm1.FormCreate(Sender: TObject);  //アプリが開始する時
+ procedure TForm1.FormCreate(Sender: TObject);  //アプリが開始する時
 begin
      _MouseS := [];
 
@@ -184,15 +216,13 @@ begin
      _FileSDIF.LoadFronFileTex( '..\..\_DATA\ManyTreatments6.trt.txt' ); //ファイルをロード
 
      ShowNodes;
-
-     MakeBlock( 0, 0, 3, 2, 'CLIP', TAlphaColors.Red  );
-     MakeBlock( 2, 2, 5, 3, 'CLIP', TAlphaColors.Lime );
 end;
 
-procedure TForm1.FormDestroy(Sender: TObject);  //アプリが終了する時
+procedure TForm1.FormDestroy(Sender: TObject); //アプリが終了する時
 begin
      _FileSDIF.Free;  // インスタンスを廃棄。
 end;
+
 
 ////////////////////////////////////////////////////////////////////////////////
 
