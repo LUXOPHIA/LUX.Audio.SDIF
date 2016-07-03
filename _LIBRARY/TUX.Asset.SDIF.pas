@@ -59,10 +59,12 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class function Create( const Clss_:String ) :TNodeSDIF; overload;
        destructor Destroy; override;
        ///// プロパティ
-       property Name  :String      read _Name;
-       property LayI  :Integer     read _LayI;
-       property Time  :Single      read _Time;
+       property Name  :String      read _Name ;
+       property LayI  :Integer     read _LayI ;
+       property Time  :Single      read _Time ;
        property Color :TAlphaColor read _Color;
+       ///// メソッド
+       function FindProp( const Name_:String ) :TPropSDIF;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TNodeASTI
@@ -222,6 +224,22 @@ destructor TNodeSDIF.Destroy;
 begin
 
      inherited;
+end;
+
+/////////////////////////////////////////////////////////////////////// メソッド
+
+function TNodeSDIF.FindProp( const Name_:String ) :TPropSDIF;
+var
+   I :Integer;
+begin
+     for I := 0 to ChildsN-1 do
+     begin
+          Result := Childs[ I ];
+
+          if Result.Name = Name_ then Exit;
+     end;
+
+     Result := nil;
 end;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TNodeASTI
