@@ -49,6 +49,7 @@ type
     procedure ShowNodes;
     procedure MakeBlock( const MinX_,MinY_,MaxX_,MaxY_:Single; const Text_:String; const Color_:TAlphaColor );
     procedure ClearBlocks;
+    procedure ShowBlocks;
   end;
 
 var
@@ -64,49 +65,17 @@ implementation //###############################################################
 
 procedure TForm1.ShowNodes;  //ノード構造を表示するメソッド
 var
-   I, J, Y, X , K :Integer;
-   MinX, MaxX, MinY, MaxY :Single;
+   I, J, Y, X :Integer;
    TN, TP, TV :TTreeViewItem;
-   PN :TNodeSDIF;
-   PP :TPropSDIF;
-   ClssP :TPropChar;
-   DuraP :TPropFlo4;
-   C :TAlphaColor;
+   Node :TNodeSDIF;
+   Prop :TPropSDIF;
 begin
      TreeView1.Clear;  // TreeView1 の表示をクリア
 
      for I := 0 to _FileSDIF.ChildsN-1 do
      begin
-          PN := _FileSDIF.Childs[ I ];  // I 番目のノードクラスを取得
+          Node := _FileSDIF.Childs[ I ];  // I 番目のノードクラスを取得
 
-          if PN.Name = '1ASO' then
-          begin
-               for K := 0 to PN.ChildsN-1 do
-               begin
-                    PP := PN.Childs[ K ];
-
-                    if PP.Name = 'clss' then
-                    begin
-                         ClssP := TPropChar( PP );
-                    end;
-
-                    if PP.Name = 'dura' then
-                    begin
-                         DuraP := TPropFlo4( PP );
-                    end;
-               end;
-
-               MinX := PN.Time * 10;
-               MaxX := ( PN.Time + DuraP.Values[0,0] ) * 10;
-
-               MinY := PN.LayI;
-               MaxY := PN.LayI + 1;
-
-               MakeBlock( MinX, MinY,
-                          MaxX, MaxY,
-                          ClssP.Lines[ 0 ],
-                          PN.Color );
-          end;
 
           TN := TTreeViewItem.Create( TreeView1 );  //ノードクラス用の項目クラスを生成
           with TN do
@@ -114,16 +83,16 @@ begin
                Parent         := TreeView1;  //親を設定
                StyledSettings := [];  //スタイルを初期化
                Font.Family    := 'Lucida Console';  //フォント名を設定
-               Text           := PN.Name
-                               + '　ProN:' + PN.ChildsN.ToString
-                               + '　LayI:' + PN.LayI   .ToString
-                               + '　Time:' + PN.Time   .ToString;  //表示内容を設定
+               Text           :=             Node.Name
+                               + '　ProN:' + Node.ChildsN.ToString
+                               + '　LayI:' + Node.LayI   .ToString
+                               + '　Time:' + Node.Time   .ToString;  //表示内容を設定
                Expand;  //子項目を展開
           end;
 
-          for J := 0 to PN.ChildsN-1 do
+          for J := 0 to Node.ChildsN-1 do
           begin
-               PP := PN.Childs[ J ];  // J 番目のプロパティクラスを取得
+               Prop := Node.Childs[ J ];  // J 番目のプロパティクラスを取得
 
                TP := TTreeViewItem.Create( TN );  //プロパティクラス用の項目クラスを生成
                with TP do
@@ -131,14 +100,14 @@ begin
                     Parent         := TN;  //親を設定
                     StyledSettings := [];  //スタイルを初期化
                     Font.Family    := 'Lucida Console';  //フォント名を設定
-                    Text           := PP.Name
-                                    + '　Kind:0x' + IntToHex( PP.Kind, 4 )
-                                    + '　VerN:' + PP.CountY.ToString + 'x'
-                                                + PP.CountX.ToString;  //表示内容を設定
+                    Text           :=                         Prop.Name
+                                    + '　Kind:0x' + IntToHex( Prop.Kind, 4 )
+                                    + '　VerN:'   +           Prop.CountY.ToString + 'x'
+                                                  +           Prop.CountX.ToString;  //表示内容を設定
                     //Expand;  //子項目を展開
                end;
 
-               for Y := 0 to PP.CountY-1 do
+               for Y := 0 to Prop.CountY-1 do
                begin
                     TV := TTreeViewItem.Create( TP );  //バリュークラス用の項目クラスを生成
                     with TV do
@@ -146,11 +115,11 @@ begin
                          Parent         := TP;  //親を設定
                          StyledSettings := [];  //スタイルを初期化
                          Font.Family    := 'Lucida Console';  //フォント名を設定
-                         Text           := PP.Texts[ Y, 0 ];  //表示内容を設定
+                         Text           := Prop.Texts[ Y, 0 ];  //表示内容を設定
                     end;
 
-                    for X := 1 to PP.CountX-1
-                    do TV.Text := TV.Text + ', ' + PP.Texts[ Y, X ];  //表示内容を追加
+                    for X := 1 to Prop.CountX-1
+                    do TV.Text := TV.Text + ', ' + Prop.Texts[ Y, X ];  //表示内容を追加
                end;
           end;
      end;
@@ -191,7 +160,7 @@ begin
      begin
           Parent      := PB;
           HitTest     := True;
-          Width       := 3;
+          Width       := 2;
           Height      := 1;
           Position.Z  := -0.02;
           Text        := Text_;
@@ -206,6 +175,36 @@ begin
      Dummy1.DeleteChildren;
 end;
 
+procedure TForm1.ShowBlocks;
+var
+   I :Integer;
+   Node :TNodeSDIF;
+   Clss :TPropChar;
+   Dura :TPropFlo4;
+   MinX, MaxX, MinY, MaxY :Single;
+begin
+     ClearBlocks;  // すべてのブロックを削除
+
+     for I := 0 to _FileSDIF.ChildsN-1 do
+     begin
+          Node := _FileSDIF.Childs[ I ];  // I 番目のノードクラスを取得
+
+          if Node.Name = '1ASO' then
+          begin
+               Clss := TPropChar( Node.FindProp( 'clss' ) );
+               Dura := TPropFlo4( Node.FindProp( 'dura' ) );
+
+               MinX :=   Node.Time                         * 10;
+               MaxX := ( Node.Time + Dura.Values[ 0, 0 ] ) * 10;
+
+               MinY := Node.LayI    ;
+               MaxY := Node.LayI + 1;
+
+               MakeBlock( MinX, MinY, MaxX, MaxY, Clss.Lines[ 0 ], Node.Color );
+          end;
+     end;
+end;
+
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
  procedure TForm1.FormCreate(Sender: TObject);  //アプリが開始する時
 begin
@@ -216,6 +215,7 @@ begin
      _FileSDIF.LoadFronFileTex( '..\..\_DATA\ManyTreatments6.trt.txt' ); //ファイルをロード
 
      ShowNodes;
+     ShowBlocks;
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject); //アプリが終了する時
