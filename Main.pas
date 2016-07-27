@@ -9,7 +9,8 @@ uses
   FMX.Menus, FMX.Types3D, FMX.Controls3D, FMX.MaterialSources, FMX.Objects3D,
   FMX.TabControl, FMX.Viewport3D, FMX.Layers3D, FMX.Layouts, FMX.TreeView,
   LUX, LUX.D1, LUX.D2, LUX.D3,
-  TUX.Asset.SDIF, TUX.Asset.SDIF.Nodes, TUX.Asset.SDIF.Props;
+  TUX.Asset.SDIF, TUX.Asset.SDIF.Nodes, TUX.Asset.SDIF.Props, Data.FMTBcd,
+  FMX.Controls.Presentation, FMX.StdCtrls, Data.DB, Data.SqlExpr, FMX.ExtCtrls;
 
 type
   TForm1 = class(TForm)
@@ -23,14 +24,21 @@ type
         Viewport3D1: TViewport3D;
           Camera1: TCamera;
           Light1: TLight;
-          Grid3D1: TGrid3D;
           Cylinder1: TCylinder;
-          Cylinder2: TCylinder;
           Dummy1: TDummy;
       TabItem2: TTabItem;
         TreeView1: TTreeView;
     TabControl2: TTabControl;
       TabItem3: TTabItem;
+    SQLTable1: TSQLTable;
+    Cylinder2: TCylinder;
+    Grid3D1: TGrid3D;
+    PlotGrid1: TPlotGrid;
+    Grid3D3: TGrid3D;
+    Button1: TButton;
+
+
+    procedure Button_Filter1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
@@ -38,7 +46,9 @@ type
     procedure Viewport3D1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
     procedure Viewport3D1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure Viewport3D1MouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; var Handled: Boolean);
-  private
+    procedure Grid3D1Click(Sender: TObject);
+
+   private
     { private 宣言 }
     _MouseS :TShiftState;
     _MouseP :TPointF;
@@ -50,6 +60,7 @@ type
     procedure MakeBlock( const MinX_,MinY_,MaxX_,MaxY_:Single; const Text_:String; const Color_:TAlphaColor );
     procedure ClearBlocks;
     procedure ShowBlocks;
+    //procedure ClickButton_Filter; overload;
   end;
 
 var
@@ -89,6 +100,7 @@ begin
                                + '　Time:' + Node.Time   .ToString;  //表示内容を設定
                Expand;  //子項目を展開
           end;
+
 
           for J := 0 to Node.ChildsN-1 do
           begin
@@ -170,9 +182,12 @@ begin
      end;
 end;
 
+
+
+
 procedure TForm1.ClearBlocks;
 begin
-     Dummy1.DeleteChildren;
+     Dummy1.DeleteChildren ;
 end;
 
 procedure TForm1.ShowBlocks;
@@ -205,8 +220,28 @@ begin
      end;
 end;
 
+procedure TForm1.Button_Filter1Click(Sender:TObject);
+ var
+ Node :TNodeSDIF;
+ _Color:TAlphaColor;
+
+
+
+
+ begin
+
+      TNodeRflt.create;
+
+      _Color:=0;
+      Node._Color:=TAlphaColors.Burlywood;
+
+
+
+ end;
+
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
  procedure TForm1.FormCreate(Sender: TObject);  //アプリが開始する時
+
 begin
      _MouseS := [];
 
@@ -224,6 +259,11 @@ begin
 end;
 
 
+procedure TForm1.Grid3D1Click(Sender: TObject);
+begin
+
+end;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 procedure TForm1.MenuItem2Click(Sender: TObject);  //「開く...」メニューが選択された時
@@ -235,6 +275,11 @@ begin
           ShowNodes;
      end;
 end;
+
+
+
+
+
 
 //------------------------------------------------------------------------------
 
@@ -271,5 +316,7 @@ procedure TForm1.Viewport3D1MouseWheel(Sender: TObject; Shift: TShiftState; Whee
 begin
      with Camera1.Position do X := X - WheelDelta / 120;
 end;
+
+
 
 end. //######################################################################### ■

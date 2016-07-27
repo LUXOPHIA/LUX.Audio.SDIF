@@ -61,17 +61,6 @@ object Form1: TForm1
         OnMouseMove = Viewport3D1MouseMove
         OnMouseUp = Viewport3D1MouseUp
         OnMouseWheel = Viewport3D1MouseWheel
-        object Grid3D1: TGrid3D
-          Marks = 1.000000000000000000
-          Frequency = 1.000000000000000000
-          LineColor = x50505050
-          Position.X = 50.000000000000000000
-          Position.Y = -10.000000000000000000
-          Width = 100.000000000000000000
-          Height = 20.000000000000000000
-          Depth = 0.001000000047497451
-          HitTest = False
-        end
         object Camera1: TCamera
           AngleOfView = 10.000000000000000000
           Position.Y = -10.000000000000000000
@@ -87,8 +76,15 @@ object Form1: TForm1
           Width = 1.000000000000000000
           Height = 1.000000000000000000
           Depth = 1.000000000000000000
+          object PlotGrid1: TPlotGrid
+            Frequency = 5.000000000000000000
+            Marks = 25.000000000000000000
+            Position.Y = 3.000000000000000000
+          end
         end
         object Dummy1: TDummy
+          Position.X = -0.034388095140457150
+          Position.Y = 0.036258697509765630
           Width = 1.000000000000000000
           Height = 1.000000000000000000
           Depth = 1.000000000000000000
@@ -108,6 +104,47 @@ object Form1: TForm1
           Height = 20.000000000000000000
           Depth = 0.100000001490116100
           MaterialSource = LightMaterialSource1
+        end
+        object Grid3D1: TGrid3D
+          Marks = 4.000000000000000000
+          Frequency = 1.000000000000000000
+          LineColor = x50505050
+          Width = 1.000000000000000000
+          Height = 1.000000000000000000
+          Depth = 0.001000000047497451
+          OnClick = Grid3D1Click
+        end
+        object Grid3D2: TGrid3D
+          Marks = 4.000000000000000000
+          Frequency = 1.000000000000000000
+          LineColor = x50505050
+          Width = 1.000000000000000000
+          Height = 1.000000000000000000
+          Depth = 0.001000000047497451
+        end
+        object Grid3D4: TGrid3D
+          Marks = 4.000000000000000000
+          Frequency = 1.000000000000000000
+          LineColor = x50505050
+          Width = 1.000000000000000000
+          Height = 1.000000000000000000
+          Depth = 0.001000000047497451
+          object Grid3D5: TGrid3D
+            Marks = 4.000000000000000000
+            Frequency = 1.000000000000000000
+            LineColor = x50505050
+            Width = 1.000000000000000000
+            Height = 1.000000000000000000
+            Depth = 0.001000000047497451
+          end
+        end
+        object Grid3D6: TGrid3D
+          Marks = 4.000000000000000000
+          Frequency = 1.000000000000000000
+          LineColor = x50505050
+          Width = 1.000000000000000000
+          Height = 1.000000000000000000
+          Depth = 0.001000000047497451
         end
       end
       object LightMaterialSource1: TLightMaterialSource
@@ -174,5 +211,31 @@ object Form1: TForm1
   object OpenDialog1: TOpenDialog
     Left = 35
     Top = 100
+  end
+  object Text3D1: TText3D
+    Width = 3.000000000000000000
+    Height = 2.000000000000000000
+    Depth = 0.300000011920929000
+    Flatness = 1.000000000000000000
+    Sides = [Front, Back, Shaft]
+  end
+  object Grid3D3: TGrid3D
+    Marks = 4.000000000000000000
+    Frequency = 1.000000000000000000
+    LineColor = x50505050
+    Width = 1.000000000000000000
+    Height = 1.000000000000000000
+    Depth = 0.001000000047497451
+  end
+  object Button1: TButton
+    Position.X = 15.000000000000000000
+    Position.Y = 200.000000000000000000
+    TabOrder = 11
+    Text = 'Button1'
+    OnClick = Button_Filter1Click
+  end
+  object SQLTable1: TSQLTable
+    Left = 144
+    Top = 375
   end
 end
