@@ -293,7 +293,7 @@ end;
 
 function TPropChar.GetTexts( const Y_,X_:Integer ) :String;
 begin
-     Result := '''' + Values[ Y_, X_ ] + '''';
+     Result := Values[ Y_, X_ ];
 end;
 
 procedure TPropChar.SetTexts( const Y_,X_:Integer; const Text_:String );
