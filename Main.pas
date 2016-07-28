@@ -350,7 +350,7 @@ end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-     _FileSDIF.Childs[ 3 ].Color := TAlphaColors.Yellow;
+     _FileSDIF.Childs[ 2 ].Color := TAlphaColors.Yellow;
 
      ShowBlocks;
 end;
