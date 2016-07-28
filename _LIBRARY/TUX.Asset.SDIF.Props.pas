@@ -31,14 +31,15 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
        class var _Reg :TRegEx;
      protected
-       _Values :TArray2<TVALUE>;
+       _Values :TArray<TVALUE>;
        ///// アクセス
-       function GetCountX :Integer; override;
-       function GetCountY :Integer; override;
+       procedure SetCountX( const CountX_:Integer ); override;
+       procedure SetCountY( const CountY_:Integer ); override;
        function GetValues( const Y_,X_:Integer ) :TVALUE; virtual;
        procedure SetValues( const Y_,X_:Integer; const Value_:TVALUE ); virtual;
        ///// メソッド
-       procedure ReadValues( var F_:TStreamReader; const NY_,NX_:Integer ); override;
+       procedure ReadValues( const F_:TFileStream ); override;
+       procedure ReadValues( const F_:TStreamReader ); override;
      public
        class constructor Create;
        constructor Create; override;
@@ -66,6 +67,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TPropFlo4 = class( TPropSDIF<Single> )
      private
      protected
+       ///// アクセス
+       function GetValues( const Y_,X_:Integer ) :Single; override;
+       procedure SetValues( const Y_,X_:Integer; const Value_:Single ); override;
        function GetTexts( const Y_,X_:Integer ) :String; override;
        procedure SetTexts( const Y_,X_:Integer; const Text_:String ); override;
      public
@@ -76,6 +80,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TPropFlo8 = class( TPropSDIF<Double> )
      private
      protected
+       ///// アクセス
+       function GetValues( const Y_,X_:Integer ) :Double; override;
+       procedure SetValues( const Y_,X_:Integer; const Value_:Double ); override;
        function GetTexts( const Y_,X_:Integer ) :String; override;
        procedure SetTexts( const Y_,X_:Integer; const Text_:String ); override;
      public
@@ -86,6 +93,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TPropInt1 = class( TPropSDIF<Int8> )
      private
      protected
+       ///// アクセス
        function GetTexts( const Y_,X_:Integer ) :String; override;
        procedure SetTexts( const Y_,X_:Integer; const Text_:String ); override;
      public
@@ -96,6 +104,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TPropInt2 = class( TPropSDIF<Int16> )
      private
      protected
+       ///// アクセス
+       function GetValues( const Y_,X_:Integer ) :Int16; override;
+       procedure SetValues( const Y_,X_:Integer; const Value_:Int16 ); override;
        function GetTexts( const Y_,X_:Integer ) :String; override;
        procedure SetTexts( const Y_,X_:Integer; const Text_:String ); override;
      public
@@ -106,6 +117,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TPropInt4 = class( TPropSDIF<Int32> )
      private
      protected
+       ///// アクセス
+       function GetValues( const Y_,X_:Integer ) :Int32; override;
+       procedure SetValues( const Y_,X_:Integer; const Value_:Int32 ); override;
        function GetTexts( const Y_,X_:Integer ) :String; override;
        procedure SetTexts( const Y_,X_:Integer; const Text_:String ); override;
      public
@@ -116,6 +130,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TPropInt8 = class( TPropSDIF<Int64> )
      private
      protected
+       ///// アクセス
+       function GetValues( const Y_,X_:Integer ) :Int64; override;
+       procedure SetValues( const Y_,X_:Integer; const Value_:Int64 ); override;
        function GetTexts( const Y_,X_:Integer ) :String; override;
        procedure SetTexts( const Y_,X_:Integer; const Text_:String ); override;
      public
@@ -126,6 +143,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TPropUIn1 = class( TPropSDIF<UInt8> )
      private
      protected
+       ///// アクセス
        function GetTexts( const Y_,X_:Integer ) :String; override;
        procedure SetTexts( const Y_,X_:Integer; const Text_:String ); override;
      public
@@ -136,6 +154,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TPropUIn2 = class( TPropSDIF<UInt16> )
      private
      protected
+       ///// アクセス
+       function GetValues( const Y_,X_:Integer ) :UInt16; override;
+       procedure SetValues( const Y_,X_:Integer; const Value_:UInt16 ); override;
        function GetTexts( const Y_,X_:Integer ) :String; override;
        procedure SetTexts( const Y_,X_:Integer; const Text_:String ); override;
      public
@@ -146,6 +167,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TPropUIn4 = class( TPropSDIF<UInt32> )
      private
      protected
+       ///// アクセス
+       function GetValues( const Y_,X_:Integer ) :UInt32; override;
+       procedure SetValues( const Y_,X_:Integer; const Value_:UInt32 ); override;
        function GetTexts( const Y_,X_:Integer ) :String; override;
        procedure SetTexts( const Y_,X_:Integer; const Text_:String ); override;
      public
@@ -156,6 +180,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TPropUIn8 = class( TPropSDIF<UInt64> )
      private
      protected
+       ///// アクセス
+       function GetValues( const Y_,X_:Integer ) :UInt64; override;
+       procedure SetValues( const Y_,X_:Integer; const Value_:UInt64 ); override;
        function GetTexts( const Y_,X_:Integer ) :String; override;
        procedure SetTexts( const Y_,X_:Integer; const Text_:String ); override;
      public
@@ -169,7 +196,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 implementation //############################################################### ■
 
-uses System.SysUtils;
+uses System.SysUtils, System.Math;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
 
@@ -183,40 +210,55 @@ uses System.SysUtils;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TPropSDIF<TVALUE>.GetCountX :Integer;
+procedure TPropSDIF<TVALUE>.SetCountY( const CountY_:Integer );
 begin
-     Result := Length( _Values[ 0 ] );
+     inherited;
+
+     SetLength( _Values, _RowCount * _ColCount );
 end;
 
-function TPropSDIF<TVALUE>.GetCountY :Integer;
+procedure TPropSDIF<TVALUE>.SetCountX( const CountX_:Integer );
 begin
-     Result := Length( _Values );
+     inherited;
+
+     SetLength( _Values, _RowCount * _ColCount );
 end;
 
 function TPropSDIF<TVALUE>.GetValues( const Y_,X_:Integer ) :TVALUE;
 begin
-     Result := _Values[ Y_, X_ ];
+     Result := _Values[ Y_ * _ColCount + X_ ];
 end;
 
 procedure TPropSDIF<TVALUE>.SetValues( const Y_,X_:Integer; const Value_:TVALUE );
 begin
-     _Values[ Y_, X_ ] := Value_;
+     _Values[ Y_ * _ColCount + X_ ] := Value_;
 end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-procedure TPropSDIF<TVALUE>.ReadValues( var F_:TStreamReader; const NY_,NX_:Integer );
+procedure TPropSDIF<TVALUE>.ReadValues( const F_:TFileStream );
+var
+   N, P :Integer;
+begin
+     N := _RowCount * _ColCount * SizeOf( TVALUE );
+
+     F_.Read( _Values[ 0 ], N );
+
+     P := 8 * Ceil( N / 8 ) - N;
+
+     F_.Seek( P, soFromCurrent );  // 8 Bytes のアライメント
+end;
+
+procedure TPropSDIF<TVALUE>.ReadValues( const F_:TStreamReader );
 var
    Y, X :Integer;
    Ms :TMatchCollection;
 begin
-     SetLength( _Values, NY_, NX_ );
-
-     for Y := 0 to NY_-1 do
+     for Y := 0 to _RowCount-1 do
      begin
           Ms := _Reg.Matches( F_.ReadLine );
 
-          for X := 0 to NX_-1 do Texts[ Y, X ] := Ms[ X ].Groups[ 1 ].Value;
+          for X := 0 to _ColCount-1 do Texts[ Y, X ] := Ms[ X ].Groups[ 1 ].Value;
      end;
 end;
 
@@ -247,16 +289,16 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-/////////////////////////////////////////////////////////////////////// メソッド
+/////////////////////////////////////////////////////////////////////// アクセス
 
 function TPropChar.GetTexts( const Y_,X_:Integer ) :String;
 begin
-     Result := '''' + _Values[ Y_, X_ ] + '''';
+     Result := '''' + Values[ Y_, X_ ] + '''';
 end;
 
 procedure TPropChar.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
-     _Values[ Y_, X_ ] := AnsiChar( Text_[ 2 ] );
+     Values[ Y_, X_ ] := AnsiChar( Text_[ 2 ] );
 end;
 
 function TPropChar.GetLines( const Y_:Integer ) :String;
@@ -265,7 +307,7 @@ var
 begin
      Result := '';
 
-     for X := 0 to CountX-1 do Result := Result + String( _Values[ Y_, X ] );
+     for X := 0 to CountX-1 do Result := Result + Char( Values[ Y_, X ] );
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
@@ -276,17 +318,27 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-/////////////////////////////////////////////////////////////////////// メソッド
+/////////////////////////////////////////////////////////////////////// アクセス
+
+function TPropFlo4.GetValues( const Y_,X_:Integer ) :Single;
+begin
+     Result := RevBytes( inherited GetValues( Y_, X_ ) );
+end;
+
+procedure TPropFlo4.SetValues( const Y_,X_:Integer; const Value_:Single );
+begin
+     inherited SetValues( Y_, X_, RevBytes( Value_ ) );
+end;
 
 function TPropFlo4.GetTexts( const Y_,X_:Integer ) :String;
 begin
-     Result := _Values[ Y_, X_ ].ToString;
+     Result := Values[ Y_, X_ ].ToString;
 end;
 
 procedure TPropFlo4.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
-     if Text_ = 'nan' then _Values[ Y_, X_ ] := Single.NaN
-                      else _Values[ Y_, X_ ] := Text_.ToSingle;
+     if Text_ = 'nan' then Values[ Y_, X_ ] := Single.NaN
+                      else Values[ Y_, X_ ] := Text_.ToSingle;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
@@ -297,17 +349,27 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-/////////////////////////////////////////////////////////////////////// メソッド
+/////////////////////////////////////////////////////////////////////// アクセス
+
+function TPropFlo8.GetValues( const Y_,X_:Integer ) :Double;
+begin
+     Result := RevBytes( inherited GetValues( Y_, X_ ) );
+end;
+
+procedure TPropFlo8.SetValues( const Y_,X_:Integer; const Value_:Double );
+begin
+     inherited SetValues( Y_, X_, RevBytes( Value_ ) );
+end;
 
 function TPropFlo8.GetTexts( const Y_,X_:Integer ) :String;
 begin
-     Result := _Values[ Y_, X_ ].ToString;
+     Result := Values[ Y_, X_ ].ToString;
 end;
 
 procedure TPropFlo8.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
-     if Text_ = 'nan' then _Values[ Y_, X_ ] := Double.NaN
-                      else _Values[ Y_, X_ ] := Text_.ToDouble;
+     if Text_ = 'nan' then Values[ Y_, X_ ] := Double.NaN
+                      else Values[ Y_, X_ ] := Text_.ToDouble;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
@@ -318,16 +380,16 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-/////////////////////////////////////////////////////////////////////// メソッド
+/////////////////////////////////////////////////////////////////////// アクセス
 
 function TPropInt1.GetTexts( const Y_,X_:Integer ) :String;
 begin
-     Result := _Values[ Y_, X_ ].ToString;
+     Result := Values[ Y_, X_ ].ToString;
 end;
 
 procedure TPropInt1.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
-     _Values[ Y_, X_ ] := Text_.ToInteger;
+     Values[ Y_, X_ ] := Text_.ToInteger;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
@@ -338,16 +400,26 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-/////////////////////////////////////////////////////////////////////// メソッド
+/////////////////////////////////////////////////////////////////////// アクセス
+
+function TPropInt2.GetValues( const Y_,X_:Integer ) :Int16;
+begin
+     Result := RevBytes( inherited GetValues( Y_, X_ ) );
+end;
+
+procedure TPropInt2.SetValues( const Y_,X_:Integer; const Value_:Int16 );
+begin
+     inherited SetValues( Y_, X_, RevBytes( Value_ ) );
+end;
 
 function TPropInt2.GetTexts( const Y_,X_:Integer ) :String;
 begin
-     Result := _Values[ Y_, X_ ].ToString;
+     Result := Values[ Y_, X_ ].ToString;
 end;
 
 procedure TPropInt2.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
-     _Values[ Y_, X_ ] := Text_.ToInteger;
+     Values[ Y_, X_ ] := Text_.ToInteger;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
@@ -358,16 +430,26 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-/////////////////////////////////////////////////////////////////////// メソッド
+/////////////////////////////////////////////////////////////////////// アクセス
+
+function TPropInt4.GetValues( const Y_,X_:Integer ) :Int32;
+begin
+     Result := RevBytes( inherited GetValues( Y_, X_ ) );
+end;
+
+procedure TPropInt4.SetValues( const Y_,X_:Integer; const Value_:Int32 );
+begin
+     inherited SetValues( Y_, X_, RevBytes( Value_ ) );
+end;
 
 function TPropInt4.GetTexts( const Y_,X_:Integer ) :String;
 begin
-     Result := _Values[ Y_, X_ ].ToString;
+     Result := Values[ Y_, X_ ].ToString;
 end;
 
 procedure TPropInt4.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
-     _Values[ Y_, X_ ] := Text_.ToInteger;
+     Values[ Y_, X_ ] := Text_.ToInteger;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
@@ -378,16 +460,26 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-/////////////////////////////////////////////////////////////////////// メソッド
+/////////////////////////////////////////////////////////////////////// アクセス
+
+function TPropInt8.GetValues( const Y_,X_:Integer ) :Int64;
+begin
+     Result := RevBytes( inherited GetValues( Y_, X_ ) );
+end;
+
+procedure TPropInt8.SetValues( const Y_,X_:Integer; const Value_:Int64 );
+begin
+     inherited SetValues( Y_, X_, RevBytes( Value_ ) );
+end;
 
 function TPropInt8.GetTexts( const Y_,X_:Integer ) :String;
 begin
-     Result := _Values[ Y_, X_ ].ToString;
+     Result := Values[ Y_, X_ ].ToString;
 end;
 
 procedure TPropInt8.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
-     _Values[ Y_, X_ ] := Text_.ToInt64;
+     Values[ Y_, X_ ] := Text_.ToInt64;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
@@ -398,16 +490,16 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-/////////////////////////////////////////////////////////////////////// メソッド
+/////////////////////////////////////////////////////////////////////// アクセス
 
 function TPropUIn1.GetTexts( const Y_,X_:Integer ) :String;
 begin
-     Result := _Values[ Y_, X_ ].ToString;
+     Result := Values[ Y_, X_ ].ToString;
 end;
 
 procedure TPropUIn1.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
-     _Values[ Y_, X_ ] := Text_.ToInteger;
+     Values[ Y_, X_ ] := Text_.ToInteger;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
@@ -418,16 +510,26 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-/////////////////////////////////////////////////////////////////////// メソッド
+/////////////////////////////////////////////////////////////////////// アクセス
+
+function TPropUIn2.GetValues( const Y_,X_:Integer ) :UInt16;
+begin
+     Result := RevBytes( inherited GetValues( Y_, X_ ) );
+end;
+
+procedure TPropUIn2.SetValues( const Y_,X_:Integer; const Value_:UInt16 );
+begin
+     inherited SetValues( Y_, X_, RevBytes( Value_ ) );
+end;
 
 function TPropUIn2.GetTexts( const Y_,X_:Integer ) :String;
 begin
-     Result := _Values[ Y_, X_ ].ToString;
+     Result := Values[ Y_, X_ ].ToString;
 end;
 
 procedure TPropUIn2.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
-     _Values[ Y_, X_ ] := Text_.ToInteger;
+     Values[ Y_, X_ ] := Text_.ToInteger;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
@@ -438,16 +540,26 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-/////////////////////////////////////////////////////////////////////// メソッド
+/////////////////////////////////////////////////////////////////////// アクセス
+
+function TPropUIn4.GetValues( const Y_,X_:Integer ) :UInt32;
+begin
+     Result := RevBytes( inherited GetValues( Y_, X_ ) );
+end;
+
+procedure TPropUIn4.SetValues( const Y_,X_:Integer; const Value_:UInt32 );
+begin
+     inherited SetValues( Y_, X_, RevBytes( Value_ ) );
+end;
 
 function TPropUIn4.GetTexts( const Y_,X_:Integer ) :String;
 begin
-     Result := _Values[ Y_, X_ ].ToString;
+     Result := Values[ Y_, X_ ].ToString;
 end;
 
 procedure TPropUIn4.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
-     _Values[ Y_, X_ ] := Text_.ToInteger;
+     Values[ Y_, X_ ] := Text_.ToInteger;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
@@ -458,16 +570,26 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-/////////////////////////////////////////////////////////////////////// メソッド
+/////////////////////////////////////////////////////////////////////// アクセス
+
+function TPropUIn8.GetValues( const Y_,X_:Integer ) :UInt64;
+begin
+     Result := RevBytes( inherited GetValues( Y_, X_ ) );
+end;
+
+procedure TPropUIn8.SetValues( const Y_,X_:Integer; const Value_:UInt64 );
+begin
+     inherited SetValues( Y_, X_, RevBytes( Value_ ) );
+end;
 
 function TPropUIn8.GetTexts( const Y_,X_:Integer ) :String;
 begin
-     Result := _Values[ Y_, X_ ].ToString;
+     Result := Values[ Y_, X_ ].ToString;
 end;
 
 procedure TPropUIn8.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
-     _Values[ Y_, X_ ] := Text_.ToInt64;
+     Values[ Y_, X_ ] := Text_.ToInt64;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
