@@ -128,8 +128,8 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class function ReadCreate( const F_:TStreamReader ) :TPropSDIF; overload;
        destructor Destroy; override;
        ///// プロパティ
-       property Kind                         :Integer read   _Kind                  ;
-       property Name                         :String  read   _Name                  ;
+       property Kind                         :Integer read   _Kind   write _Kind    ;
+       property Name                         :String  read   _Name   write _Name    ;
        property CountX                       :Integer read GetCountX write SetCountX;
        property CountY                       :Integer read GetCountY write SetCountY;
        property Texts[ const Y_,X_:Integer ] :String  read GetTexts  write SetTexts ;
@@ -151,12 +151,11 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TNodeSDIF; overload; virtual; abstract;
        destructor Destroy; override;
        ///// プロパティ
-       property Name  :String      read _Name ;
-       property LayI  :Integer     read _LayI ;
-       property Time  :Single      read _Time ;
-       property Color :TAlphaColor read _Color;
+       property Name  :String      read _Name  write _Name ;
+       property LayI  :Integer     read _LayI  write _LayI ;
+       property Time  :Single      read _Time  write _Time ;
+       property Color :TAlphaColor read _Color write _Color;
        ///// メソッド
-
        function FindProp( const Name_:String ) :TPropSDIF;
      end;
 
