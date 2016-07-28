@@ -53,9 +53,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        _Name  :String;
        _LayI  :Integer;
        _Time  :Single;
-       //_Color :TAlphaColor;
+       _Color, SetColor :TAlphaColor;
      public
-     _Color :TAlphaColor;
+     //_Color :TAlphaColor;
        constructor Create; overload; override;
        class function Create( const Clss_:String ) :TNodeSDIF; overload;
        destructor Destroy; override;
@@ -63,7 +63,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        property Name  :String      read _Name ;
        property LayI  :Integer     read _LayI ;
        property Time  :Single      read _Time ;
-       property Color :TAlphaColor read _Color;
+       property Color :TAlphaColor read _Color write SetColor;
        ///// メソッド
        function FindProp( const Name_:String ) :TPropSDIF;
      end;
