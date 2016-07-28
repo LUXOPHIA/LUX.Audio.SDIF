@@ -10,7 +10,7 @@ uses
   FMX.TabControl, FMX.Viewport3D, FMX.Layers3D, FMX.Layouts, FMX.TreeView,
   FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo,
   LUX, LUX.D1, LUX.D2, LUX.D3,
-  TUX.Asset.SDIF, TUX.Asset.SDIF.Nodes, TUX.Asset.SDIF.Props;
+  TUX.Asset.SDIF, TUX.Asset.SDIF.Nodes, TUX.Asset.SDIF.Props, FMX.StdCtrls;
 
 type
   TForm1 = class(TForm)
@@ -34,6 +34,7 @@ type
         Memo1: TMemo;
     TabControl2: TTabControl;
       TabItem3: TTabItem;
+    Button1: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
@@ -41,6 +42,7 @@ type
     procedure Viewport3D1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
     procedure Viewport3D1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure Viewport3D1MouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; var Handled: Boolean);
+    procedure Button1Click(Sender: TObject);
   private
     { private 宣言 }
     _MouseS :TShiftState;
@@ -50,6 +52,7 @@ type
     _FileSDIF :TFileSDIF;
     ///// メソッド
     procedure ShowNodes;
+    procedure MakeGrid;
     procedure MakeBlock( const MinX_,MinY_,MaxX_,MaxY_:Single; const Text_:String; const Color_:TAlphaColor );
     procedure ClearBlocks;
     procedure ShowBlocks;
@@ -59,6 +62,8 @@ var
   Form1: TForm1;
 
 implementation //############################################################### ■
+
+uses System.Math;
 
 {$R *.fmx}
 
@@ -130,6 +135,66 @@ end;
 
 //------------------------------------------------------------------------------
 
+procedure TForm1.MakeGrid;
+var
+   I, Y, MaxY :Integer;
+   Node :TNodeSDIF;
+   Dura :TPropFlo4;
+   X, MaxX :Single;
+begin
+     MaxX := 0;
+     MaxY := 0;
+
+     for I := 0 to _FileSDIF.ChildsN-1 do
+     begin
+          Node := _FileSDIF.Childs[ I ];  // I 番目のノードクラスを取得
+
+          if Node is TNode1ASO then
+          begin
+               Dura := TPropFlo4( Node.FindProp( 'dura' ) );
+
+               X := Node.Time + Dura.Values[ 0, 0 ] * 10;
+               Y := Node.LayI + 1;
+
+               if X > MaxX then MaxX := X;
+               if Y > MaxY then MaxY := Y;
+          end;
+     end;
+
+     MaxX := 2 * Ceil( MaxX / 2 );
+
+     with Grid3D1 do
+     begin
+          Width      :=  MaxX;
+          Height     :=  MaxY;
+          Position.X := +MaxX / 2;
+          Position.Y := -MaxY / 2;
+     end;
+
+     with Camera1 do
+     begin
+          Position.X  :=  0;
+          Position.Y  := -MaxY / 2;
+          AngleOfView :=  RadToDeg( 2 * ArcTan( MaxY / 2 / 100 ) );
+     end;
+
+     with Cylinder1 do
+     begin
+          Height     :=  MaxX;
+          Position.X := +MaxX / 2;
+          Position.Y :=  0;
+     end;
+
+     with Cylinder2 do
+     begin
+          Height     :=  MaxY;
+          Position.X :=  0;
+          Position.Y := -MaxY / 2;
+     end;
+end;
+
+//------------------------------------------------------------------------------
+
 procedure TForm1.MakeBlock( const MinX_,MinY_,MaxX_,MaxY_:Single; const Text_:String; const Color_:TAlphaColor );
 var
    PB :TPlane;
@@ -167,7 +232,7 @@ begin
           Height      := 1;
           Position.Z  := -0.02;
           Text        := Text_;
-          Font.Family := 'Lucida Console';
+          Font.Family := 'MS Gothic';
           Font.Size   := 30;
           ZWrite      := False;
      end;
@@ -192,7 +257,7 @@ begin
      begin
           Node := _FileSDIF.Childs[ I ];  // I 番目のノードクラスを取得
 
-          if Node.Name = '1ASO' then
+          if Node is TNode1ASO then
           begin
                Clss := TPropChar( Node.FindProp( 'clss' ) );
                Dura := TPropFlo4( Node.FindProp( 'dura' ) );
@@ -223,6 +288,7 @@ begin
      _FileSDIF.SaveToFileBin( 'Complex.trt' ); //バイナリファイルをセーブ
 
      ShowNodes;
+     MakeGrid;
      ShowBlocks;
 end;
 
@@ -278,6 +344,15 @@ end;
 procedure TForm1.Viewport3D1MouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; var Handled: Boolean);
 begin
      with Camera1.Position do X := X - WheelDelta / 120;
+end;
+
+//------------------------------------------------------------------------------
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+     _FileSDIF.Childs[ 3 ].Color := TAlphaColors.Yellow;
+
+     ShowBlocks;
 end;
 
 end. //######################################################################### ■
