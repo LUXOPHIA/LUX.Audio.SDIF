@@ -437,7 +437,7 @@ begin
         $0202: Result := TMatrixUIn2;
         $0204: Result := TMatrixUIn4;
         $0208: Result := TMatrixUIn8;
-     else      Result := nil      ;
+     else      Result := nil        ;
      end;
 
      Assert( Assigned( Result ), '$' + DataType_.ToHexString + '：未対応のデータ型です。' );
