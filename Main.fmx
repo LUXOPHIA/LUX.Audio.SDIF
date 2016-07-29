@@ -127,12 +127,12 @@ object Form1: TForm1
         item
         end>
       IsSelected = False
-      Size.Width = 50.000000000000000000
+      Size.Width = 44.000000000000000000
       Size.Height = 26.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = ''
       TabOrder = 0
-      Text = 'Node'
+      Text = 'SDIF'
       ExplicitSize.cx = 69.000000000000000000
       ExplicitSize.cy = 26.000000000000000000
       object TreeView1: TTreeView
@@ -150,12 +150,12 @@ object Form1: TForm1
         item
         end>
       IsSelected = False
-      Size.Width = 47.000000000000000000
+      Size.Width = 46.000000000000000000
       Size.Height = 26.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = ''
       TabOrder = 0
-      Text = #12486#12473#12488
+      Text = 'TEST'
       ExplicitSize.cx = 47.000000000000000000
       ExplicitSize.cy = 26.000000000000000000
       object Memo1: TMemo
