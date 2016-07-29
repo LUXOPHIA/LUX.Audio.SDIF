@@ -1,6 +1,6 @@
-unit Main;
+ï»¿unit Main;
 
-interface //#################################################################### ¡
+interface //#################################################################### â– 
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
@@ -8,8 +8,9 @@ uses
   System.Math.Vectors,
   FMX.Menus, FMX.Types3D, FMX.Controls3D, FMX.MaterialSources, FMX.Objects3D,
   FMX.TabControl, FMX.Viewport3D, FMX.Layers3D, FMX.Layouts, FMX.TreeView,
+  FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo,
   LUX, LUX.D1, LUX.D2, LUX.D3,
-  TUX.Asset.SDIF, TUX.Asset.SDIF.Nodes, TUX.Asset.SDIF.Props;
+  TUX.Asset.SDIF, TUX.Asset.SDIF.Nodes, TUX.Asset.SDIF.Props, FMX.StdCtrls;
 
 type
   TForm1 = class(TForm)
@@ -29,8 +30,11 @@ type
           Dummy1: TDummy;
       TabItem2: TTabItem;
         TreeView1: TTreeView;
+      TabItem4: TTabItem;
+        Memo1: TMemo;
     TabControl2: TTabControl;
       TabItem3: TTabItem;
+    Button1: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
@@ -38,15 +42,17 @@ type
     procedure Viewport3D1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
     procedure Viewport3D1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure Viewport3D1MouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; var Handled: Boolean);
+    procedure Button1Click(Sender: TObject);
   private
-    { private éŒ¾ }
+    { private å®£è¨€ }
     _MouseS :TShiftState;
     _MouseP :TPointF;
   public
-    { public éŒ¾ }
+    { public å®£è¨€ }
     _FileSDIF :TFileSDIF;
-    ///// ƒƒ\ƒbƒh
+    ///// ãƒ¡ã‚½ãƒƒãƒ‰
     procedure ShowNodes;
+    procedure MakeGrid;
     procedure MakeBlock( const MinX_,MinY_,MaxX_,MaxY_:Single; const Text_:String; const Color_:TAlphaColor );
     procedure ClearBlocks;
     procedure ShowBlocks;
@@ -55,7 +61,9 @@ type
 var
   Form1: TForm1;
 
-implementation //############################################################### ¡
+implementation //############################################################### â– 
+
+uses System.Math;
 
 {$R *.fmx}
 
@@ -63,65 +71,125 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-procedure TForm1.ShowNodes;  //ƒm[ƒh\‘¢‚ğ•\¦‚·‚éƒƒ\ƒbƒh
+procedure TForm1.ShowNodes;  //ãƒãƒ¼ãƒ‰æ§‹é€ ã‚’è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
 var
    I, J, Y, X :Integer;
    TN, TP, TV :TTreeViewItem;
    Node :TNodeSDIF;
    Prop :TPropSDIF;
 begin
-     TreeView1.Clear;  // TreeView1 ‚Ì•\¦‚ğƒNƒŠƒA
+     TreeView1.Clear;  // TreeView1 ã®è¡¨ç¤ºã‚’ã‚¯ãƒªã‚¢
 
      for I := 0 to _FileSDIF.ChildsN-1 do
      begin
-          Node := _FileSDIF.Childs[ I ];  // I ”Ô–Ú‚Ìƒm[ƒhƒNƒ‰ƒX‚ğæ“¾
+          Node := _FileSDIF.Childs[ I ];  // I ç•ªç›®ã®ãƒãƒ¼ãƒ‰ã‚¯ãƒ©ã‚¹ã‚’å–å¾—
 
 
-          TN := TTreeViewItem.Create( TreeView1 );  //ƒm[ƒhƒNƒ‰ƒX—p‚Ì€–ÚƒNƒ‰ƒX‚ğ¶¬
+          TN := TTreeViewItem.Create( TreeView1 );  //ãƒãƒ¼ãƒ‰ã‚¯ãƒ©ã‚¹ç”¨ã®é …ç›®ã‚¯ãƒ©ã‚¹ã‚’ç”Ÿæˆ
           with TN do
           begin
-               Parent         := TreeView1;  //e‚ğİ’è
-               StyledSettings := [];  //ƒXƒ^ƒCƒ‹‚ğ‰Šú‰»
-               Font.Family    := 'Lucida Console';  //ƒtƒHƒ“ƒg–¼‚ğİ’è
+               Parent         := TreeView1;  //è¦ªã‚’è¨­å®š
+               StyledSettings := [];  //ã‚¹ã‚¿ã‚¤ãƒ«ã‚’åˆæœŸåŒ–
+               Font.Family    := 'Lucida Console';  //ãƒ•ã‚©ãƒ³ãƒˆåã‚’è¨­å®š
                Text           :=             Node.Name
-                               + '@ProN:' + Node.ChildsN.ToString
-                               + '@LayI:' + Node.LayI   .ToString
-                               + '@Time:' + Node.Time   .ToString;  //•\¦“à—e‚ğİ’è
-               Expand;  //q€–Ú‚ğ“WŠJ
+                               + 'ã€€ProN:' + Node.ChildsN.ToString
+                               + 'ã€€LayI:' + Node.LayI   .ToString
+                               + 'ã€€Time:' + Node.Time   .ToString;  //è¡¨ç¤ºå†…å®¹ã‚’è¨­å®š
+               Expand;  //å­é …ç›®ã‚’å±•é–‹
           end;
 
           for J := 0 to Node.ChildsN-1 do
           begin
-               Prop := Node.Childs[ J ];  // J ”Ô–Ú‚ÌƒvƒƒpƒeƒBƒNƒ‰ƒX‚ğæ“¾
+               Prop := Node.Childs[ J ];  // J ç•ªç›®ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚¯ãƒ©ã‚¹ã‚’å–å¾—
 
-               TP := TTreeViewItem.Create( TN );  //ƒvƒƒpƒeƒBƒNƒ‰ƒX—p‚Ì€–ÚƒNƒ‰ƒX‚ğ¶¬
+               TP := TTreeViewItem.Create( TN );  //ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚¯ãƒ©ã‚¹ç”¨ã®é …ç›®ã‚¯ãƒ©ã‚¹ã‚’ç”Ÿæˆ
                with TP do
                begin
-                    Parent         := TN;  //e‚ğİ’è
-                    StyledSettings := [];  //ƒXƒ^ƒCƒ‹‚ğ‰Šú‰»
-                    Font.Family    := 'Lucida Console';  //ƒtƒHƒ“ƒg–¼‚ğİ’è
+                    Parent         := TN;  //è¦ªã‚’è¨­å®š
+                    StyledSettings := [];  //ã‚¹ã‚¿ã‚¤ãƒ«ã‚’åˆæœŸåŒ–
+                    Font.Family    := 'Lucida Console';  //ãƒ•ã‚©ãƒ³ãƒˆåã‚’è¨­å®š
                     Text           :=                         Prop.Name
-                                    + '@Kind:0x' + IntToHex( Prop.Kind, 4 )
-                                    + '@VerN:'   +           Prop.CountY.ToString + 'x'
-                                                  +           Prop.CountX.ToString;  //•\¦“à—e‚ğİ’è
-                    //Expand;  //q€–Ú‚ğ“WŠJ
+                                    + 'ã€€Kind:$' + IntToHex( Prop.Kind, 4 )
+                                    + 'ã€€VerN:'  +           Prop.CountY.ToString + 'x'
+                                                 +           Prop.CountX.ToString;  //è¡¨ç¤ºå†…å®¹ã‚’è¨­å®š
+                    Expand;  //å­é …ç›®ã‚’å±•é–‹
                end;
 
                for Y := 0 to Prop.CountY-1 do
                begin
-                    TV := TTreeViewItem.Create( TP );  //ƒoƒŠƒ…[ƒNƒ‰ƒX—p‚Ì€–ÚƒNƒ‰ƒX‚ğ¶¬
+                    TV := TTreeViewItem.Create( TP );  //ãƒãƒªãƒ¥ãƒ¼ã‚¯ãƒ©ã‚¹ç”¨ã®é …ç›®ã‚¯ãƒ©ã‚¹ã‚’ç”Ÿæˆ
                     with TV do
                     begin
-                         Parent         := TP;  //e‚ğİ’è
-                         StyledSettings := [];  //ƒXƒ^ƒCƒ‹‚ğ‰Šú‰»
-                         Font.Family    := 'Lucida Console';  //ƒtƒHƒ“ƒg–¼‚ğİ’è
-                         Text           := Prop.Texts[ Y, 0 ];  //•\¦“à—e‚ğİ’è
+                         Parent         := TP;  //è¦ªã‚’è¨­å®š
+                         StyledSettings := [];  //ã‚¹ã‚¿ã‚¤ãƒ«ã‚’åˆæœŸåŒ–
+                         Font.Family    := 'Lucida Console';  //ãƒ•ã‚©ãƒ³ãƒˆåã‚’è¨­å®š
+                         Text           := Prop.Texts[ Y, 0 ];  //è¡¨ç¤ºå†…å®¹ã‚’è¨­å®š
                     end;
 
                     for X := 1 to Prop.CountX-1
-                    do TV.Text := TV.Text + ', ' + Prop.Texts[ Y, X ];  //•\¦“à—e‚ğ’Ç‰Á
+                    do TV.Text := TV.Text + ', ' + Prop.Texts[ Y, X ];  //è¡¨ç¤ºå†…å®¹ã‚’è¿½åŠ 
                end;
           end;
+     end;
+end;
+
+//------------------------------------------------------------------------------
+
+procedure TForm1.MakeGrid;
+var
+   I, Y, MaxY :Integer;
+   Node :TNodeSDIF;
+   Dura :TPropFlo4;
+   X, MaxX :Single;
+begin
+     MaxX := 0;
+     MaxY := 0;
+
+     for I := 0 to _FileSDIF.ChildsN-1 do
+     begin
+          Node := _FileSDIF.Childs[ I ];  // I ç•ªç›®ã®ãƒãƒ¼ãƒ‰ã‚¯ãƒ©ã‚¹ã‚’å–å¾—
+
+          if Node is TNode1ASO then
+          begin
+               Dura := TPropFlo4( Node.FindProp( 'dura' ) );
+
+               X := Node.Time + Dura.Values[ 0, 0 ] * 10;
+               Y := Node.LayI + 1;
+
+               if X > MaxX then MaxX := X;
+               if Y > MaxY then MaxY := Y;
+          end;
+     end;
+
+     MaxX := 2 * Ceil( MaxX / 2 );
+
+     with Grid3D1 do
+     begin
+          Width      :=  MaxX;
+          Height     :=  MaxY;
+          Position.X := +MaxX / 2;
+          Position.Y := -MaxY / 2;
+     end;
+
+     with Camera1 do
+     begin
+          Position.X  :=  0;
+          Position.Y  := -MaxY / 2;
+          AngleOfView :=  RadToDeg( 2 * ArcTan( MaxY / 2 / 100 ) );
+     end;
+
+     with Cylinder1 do
+     begin
+          Height     :=  MaxX;
+          Position.X := +MaxX / 2;
+          Position.Y :=  0;
+     end;
+
+     with Cylinder2 do
+     begin
+          Height     :=  MaxY;
+          Position.X :=  0;
+          Position.Y := -MaxY / 2;
      end;
 end;
 
@@ -164,7 +232,7 @@ begin
           Height      := 1;
           Position.Z  := -0.02;
           Text        := Text_;
-          Font.Family := 'Lucida Console';
+          Font.Family := 'MS Gothic';
           Font.Size   := 30;
           ZWrite      := False;
      end;
@@ -183,13 +251,13 @@ var
    Dura :TPropFlo4;
    MinX, MaxX, MinY, MaxY :Single;
 begin
-     ClearBlocks;  // ‚·‚×‚Ä‚ÌƒuƒƒbƒN‚ğíœ
+     ClearBlocks;  // ã™ã¹ã¦ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’å‰Šé™¤
 
      for I := 0 to _FileSDIF.ChildsN-1 do
      begin
-          Node := _FileSDIF.Childs[ I ];  // I ”Ô–Ú‚Ìƒm[ƒhƒNƒ‰ƒX‚ğæ“¾
+          Node := _FileSDIF.Childs[ I ];  // I ç•ªç›®ã®ãƒãƒ¼ãƒ‰ã‚¯ãƒ©ã‚¹ã‚’å–å¾—
 
-          if Node.Name = '1ASO' then
+          if Node is TNode1ASO then
           begin
                Clss := TPropChar( Node.FindProp( 'clss' ) );
                Dura := TPropFlo4( Node.FindProp( 'dura' ) );
@@ -206,31 +274,37 @@ begin
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
- procedure TForm1.FormCreate(Sender: TObject);  //ƒAƒvƒŠ‚ªŠJn‚·‚é
+
+procedure TForm1.FormCreate(Sender: TObject);  //ã‚¢ãƒ—ãƒªãŒé–‹å§‹ã™ã‚‹æ™‚
 begin
      _MouseS := [];
 
-     _FileSDIF := TFileSDIF.Create;  // TFileSDIF ƒNƒ‰ƒX‚ğ¶¬‚µAƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾B
+     _FileSDIF := TFileSDIF.Create;  // TFileSDIF ã‚¯ãƒ©ã‚¹ã‚’ç”Ÿæˆã—ã€ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã€‚
 
-     _FileSDIF.LoadFronFileTex( '..\..\_DATA\ManyTreatments6.trt.txt' ); //ƒtƒ@ƒCƒ‹‚ğƒ[ƒh
+     //_FileSDIF.LoadFromFileTex( '..\..\_DATA\ManyTreatments6.trt.txt' ); //ãƒ†ã‚­ã‚¹ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ­ãƒ¼ãƒ‰
+
+     _FileSDIF.LoadFromFileBin( '..\..\_DATA\Complex.trt' ); //ãƒã‚¤ãƒŠãƒªãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ­ãƒ¼ãƒ‰
+
+     _FileSDIF.SaveToFileBin( 'Complex.trt' ); //ãƒã‚¤ãƒŠãƒªãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚»ãƒ¼ãƒ–
 
      ShowNodes;
+     MakeGrid;
      ShowBlocks;
 end;
 
-procedure TForm1.FormDestroy(Sender: TObject); //ƒAƒvƒŠ‚ªI—¹‚·‚é
+procedure TForm1.FormDestroy(Sender: TObject); //ã‚¢ãƒ—ãƒªãŒçµ‚äº†ã™ã‚‹æ™‚
 begin
-     _FileSDIF.Free;  // ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ”pŠüB
+     _FileSDIF.Free;  // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å»ƒæ£„ã€‚
 end;
 
 
 ////////////////////////////////////////////////////////////////////////////////
 
-procedure TForm1.MenuItem2Click(Sender: TObject);  //uŠJ‚­...vƒƒjƒ…[‚ª‘I‘ğ‚³‚ê‚½
+procedure TForm1.MenuItem2Click(Sender: TObject);  //ã€Œé–‹ã...ã€ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãŒé¸æŠã•ã‚ŒãŸæ™‚
 begin
-     if OpenDialog1.Execute then  //ƒtƒ@ƒCƒ‹‘I‘ğƒ_ƒCƒAƒƒO‚ğŠJ‚«AOK ‚ª‰Ÿ‚³‚ê‚½‚çB
+     if OpenDialog1.Execute then  //ãƒ•ã‚¡ã‚¤ãƒ«é¸æŠãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’é–‹ãã€OK ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã€‚
      begin
-          _FileSDIF.LoadFronFileTex( OpenDialog1.Filename );  //w’è‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğŠJ‚­B
+          _FileSDIF.LoadFromFileTex( OpenDialog1.Filename );  //æŒ‡å®šã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã€‚
 
           ShowNodes;
      end;
@@ -272,4 +346,13 @@ begin
      with Camera1.Position do X := X - WheelDelta / 120;
 end;
 
-end. //######################################################################### ¡
+//------------------------------------------------------------------------------
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+     _FileSDIF.Childs[ 2 ].Color := TAlphaColors.Yellow;
+
+     ShowBlocks;
+end;
+
+end. //######################################################################### â– 

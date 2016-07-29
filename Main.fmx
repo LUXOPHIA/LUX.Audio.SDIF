@@ -12,8 +12,8 @@ object Form1: TForm1
   OnDestroy = FormDestroy
   DesignerMasterStyle = 0
   object MainMenu1: TMainMenu
-    Left = 35
-    Top = 40
+    Left = 45
+    Top = 50
     object MenuItem1: TMenuItem
       Text = #12501#12449#12452#12523'(F)'
       object MenuItem2: TMenuItem
@@ -33,6 +33,8 @@ object Form1: TForm1
     TabOrder = 2
     TabPosition = PlatformDefault
     Sizes = (
+      640s
+      480s
       640s
       480s
       640s
@@ -75,7 +77,7 @@ object Form1: TForm1
         object Camera1: TCamera
           AngleOfView = 10.000000000000000000
           Position.Y = -10.000000000000000000
-          Position.Z = -114.300521850585900000
+          Position.Z = -100.000000000000000000
           Width = 1.000000000000000000
           Height = 1.000000000000000000
           Depth = 1.000000000000000000
@@ -116,8 +118,8 @@ object Form1: TForm1
         Emissive = claNull
         Specular = claNull
         Shininess = 30
-        Left = 555
-        Top = 41
+        Left = 545
+        Top = 51
       end
     end
     object TabItem2: TTabItem
@@ -141,6 +143,37 @@ object Form1: TForm1
         TabOrder = 0
         Viewport.Width = 636.000000000000000000
         Viewport.Height = 476.000000000000000000
+      end
+    end
+    object TabItem4: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 47.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = #12486#12473#12488
+      ExplicitSize.cx = 47.000000000000000000
+      ExplicitSize.cy = 26.000000000000000000
+      object Memo1: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        DataDetectorTypes = []
+        StyledSettings = [Size, FontColor]
+        TextSettings.Font.Family = 'MS Gothic'
+        Align = Client
+        Margins.Left = 10.000000000000000000
+        Margins.Top = 10.000000000000000000
+        Margins.Right = 10.000000000000000000
+        Margins.Bottom = 10.000000000000000000
+        Size.Width = 620.000000000000000000
+        Size.Height = 460.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Viewport.Width = 616.000000000000000000
+        Viewport.Height = 456.000000000000000000
       end
     end
   end
@@ -169,10 +202,20 @@ object Form1: TForm1
       Text = 'CLIP'
       ExplicitSize.cx = 43.000000000000000000
       ExplicitSize.cy = 26.000000000000000000
+      object Button1: TButton
+        Position.X = 10.000000000000000000
+        Position.Y = 14.000000000000000000
+        Size.Width = 100.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Text = #33394#22793#26356
+        OnClick = Button1Click
+      end
     end
   end
   object OpenDialog1: TOpenDialog
-    Left = 35
-    Top = 100
+    Left = 45
+    Top = 110
   end
 end

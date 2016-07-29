@@ -2,7 +2,7 @@
 
 interface //#################################################################### ■
 
-uses System.SysUtils, System.UITypes, System.Math.Vectors,
+uses System.Classes, System.SysUtils, System.UITypes, System.Math.Vectors,
      FMX.Graphics, FMX.Types3D, FMX.Controls3D, FMX.Objects3D;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
@@ -171,6 +171,23 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        property Value :TValue_ read GetValue write SetValue;
      end;
 
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileReader
+
+     TFileReader = class( TBinaryReader )
+     private
+     protected
+       _Encoding  :TEncoding;
+       _OffsetBOM :Integer;
+     public
+       constructor Create( Stream_:TStream; Encoding_:TEncoding = nil; OwnsStream_:Boolean = False ); overload;
+       constructor Create( const Filename_:String; Encoding_:TEncoding = nil ); overload;
+       ///// プロパティ
+       property OffsetBOM :Integer read _OffsetBOM;
+       ///// メソッド
+       function EndOfStream :Boolean;
+       function ReadLine :String;
+     end;
+
 const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
 
       Pi2 = 2 * Pi;
@@ -255,11 +272,24 @@ function MaxI( const Vs_:array of Double ) :Integer; overload;
 function RealMod( const X_,Range_:Integer ) :Integer; overload;
 function RealMod( const X_,Range_:Int64 ) :Int64; overload;
 
+function RevBytes( const Value_:Word ) :Word; overload;
+function RevBytes( const Value_:Smallint ) :Smallint; overload;
+
+function RevBytes( const Value_:Cardinal ) :Cardinal; overload;
+function RevBytes( const Value_:Integer ) :Integer; overload;
+function RevBytes( const Value_:Single ) :Single; overload;
+
+function RevBytes( const Value_:UInt64 ) :UInt64; overload;
+function RevBytes( const Value_:Int64 ) :Int64; overload;
+function RevBytes( const Value_:Double ) :Double; overload;
+
+function CharsToStr( const Cs_:TArray<AnsiChar> ) :AnsiString;
+
 function FileToBytes( const FileName_:string ) :TBytes;
 
 implementation //############################################################### ■
 
-uses System.Classes, System.Math,
+uses System.Math,
      FMX.Types;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
@@ -565,6 +595,68 @@ begin
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TIter< TValue_ >
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileReader
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
+
+constructor TFileReader.Create( Stream_:TStream; Encoding_:TEncoding = nil; OwnsStream_:Boolean = False );
+begin
+     inherited Create( Stream_, TEncoding.ANSI, OwnsStream_ );
+
+     _OffsetBOM := TEncoding.GetBufferEncoding( ReadBytes( 8 ), _Encoding, Encoding_ );
+
+     BaseStream.Position := _OffsetBOM;
+end;
+
+constructor TFileReader.Create( const Filename_:String; Encoding_:TEncoding = nil );
+begin
+     Create( TFileStream.Create( Filename_, fmOpenRead or fmShareDenyWrite ), Encoding_, True );
+end;
+
+/////////////////////////////////////////////////////////////////////// メソッド
+
+function TFileReader.EndOfStream :Boolean;
+begin
+     Result := ( PeekChar = -1 );
+end;
+
+function TFileReader.ReadLine :String;
+var
+   Bs :TBytes;
+   B :Byte;
+begin
+     Bs := [];
+
+     while not EndOfStream do
+     begin
+          B := ReadByte;
+
+          case B of
+           10: Break;
+           13: begin
+                    if PeekChar = 10 then ReadByte;
+
+                    Break;
+               end;
+          else Bs := Bs + [ B ];
+          end;
+     end;
+
+     Result := _Encoding.GetString( Bs );
+end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
 
@@ -1055,6 +1147,107 @@ end;
 function RealMod( const X_,Range_:Int64 ) :Int64;
 begin
      Result := X_ mod Range_;  if Result < 0 then Inc( Result, Range_ );
+end;
+
+//------------------------------------------------------------------------------
+
+function RevBytes( const Value_:Word ) :Word;
+asm
+{$IFDEF CPUX64 }
+   mov rax, rcx
+{$ENDIF}
+   xchg al, ah
+end;
+
+function RevBytes( const Value_:Smallint ) :Smallint;
+asm
+{$IFDEF CPUX64 }
+   mov rax, rcx
+{$ENDIF}
+   xchg al, ah
+end;
+
+//------------------------------------------------------------------------------
+
+function RevBytes( const Value_:Cardinal ) :Cardinal;
+asm
+{$IFDEF CPUX64 }
+   mov rax, rcx
+{$ENDIF}
+   bswap eax
+end;
+
+function RevBytes( const Value_:Integer ) :Integer;
+asm
+{$IFDEF CPUX64 }
+   mov rax, rcx
+{$ENDIF}
+   bswap eax
+end;
+
+function RevBytes( const Value_:Single ) :Single;
+var
+   V :Cardinal;
+begin
+     V := RevBytes( PCardinal( @Value_ )^ );
+
+     Result := PSingle( @V )^;
+end;
+
+//------------------------------------------------------------------------------
+
+function RevBytes( const Value_:UInt64 ) :UInt64;
+asm
+{$IF Defined( CPUX86 ) }
+   mov   edx, [ ebp + $08 ]
+   mov   eax, [ ebp + $0c ]
+   bswap edx
+   bswap eax
+{$ELSEIF Defined( CPUX64 ) }
+   mov   rax, rcx
+   bswap rax
+{$ELSE}
+   {$Message Fatal 'RevByte has not been implemented for this architecture.' }
+{$ENDIF}
+end;
+
+function RevBytes( const Value_:Int64 ) :Int64;
+asm
+{$IF Defined( CPUX86 ) }
+   mov   edx, [ ebp + $08 ]
+   mov   eax, [ ebp + $0c ]
+   bswap edx
+   bswap eax
+{$ELSEIF Defined( CPUX64 ) }
+   mov   rax, rcx
+   bswap rax
+{$ELSE}
+   {$Message Fatal 'RevByte has not been implemented for this architecture.' }
+{$ENDIF}
+end;
+
+function RevBytes( const Value_:Double ) :Double;
+var
+   V :UInt64;
+begin
+     V := RevBytes( PUInt64( @Value_ )^ );
+
+     Result := PDouble( @V )^;
+end;
+
+//------------------------------------------------------------------------------
+
+function CharsToStr( const Cs_:TArray<AnsiChar> ) :AnsiString;
+var
+   I :Integer;
+begin
+     Result := '';
+
+     for I := 0 to High( Cs_ ) do
+     begin
+          if Cs_[ I ] = Char(nil) then Result := Result + CRLF
+                                  else Result := Result + Cs_[ I ];
+     end;
 end;
 
 //------------------------------------------------------------------------------
