@@ -53,9 +53,8 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        _Name  :String;
        _LayI  :Integer;
        _Time  :Single;
-       //_Color :TAlphaColor;
+       _Color :TAlphaColor;
      public
-     _Color :TAlphaColor;
        constructor Create; overload; override;
        class function Create( const Clss_:String ) :TNodeSDIF; overload;
        destructor Destroy; override;
