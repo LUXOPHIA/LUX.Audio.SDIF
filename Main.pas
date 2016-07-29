@@ -8,9 +8,9 @@ uses
   System.Math.Vectors,
   FMX.Menus, FMX.Types3D, FMX.Controls3D, FMX.MaterialSources, FMX.Objects3D,
   FMX.TabControl, FMX.Viewport3D, FMX.Layers3D, FMX.Layouts, FMX.TreeView,
-  FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo,
+  FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo, FMX.StdCtrls,
   LUX, LUX.D1, LUX.D2, LUX.D3,
-  TUX.Asset.SDIF, TUX.Asset.SDIF.Nodes, TUX.Asset.SDIF.Props, FMX.StdCtrls;
+  TUX.Asset.SDIF, TUX.Asset.SDIF.Frames, TUX.Asset.SDIF.Matrixs;
 
 type
   TForm1 = class(TForm)
@@ -34,7 +34,7 @@ type
         Memo1: TMemo;
     TabControl2: TTabControl;
       TabItem3: TTabItem;
-    Button1: TButton;
+        Button1: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
@@ -51,7 +51,7 @@ type
     { public 宣言 }
     _FileSDIF :TFileSDIF;
     ///// メソッド
-    procedure ShowNodes;
+    procedure ShowFrames;
     procedure MakeGrid;
     procedure MakeBlock( const MinX_,MinY_,MaxX_,MaxY_:Single; const Text_:String; const Color_:TAlphaColor );
     procedure ClearBlocks;
@@ -71,63 +71,62 @@ uses System.Math;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-procedure TForm1.ShowNodes;  //ノード構造を表示するメソッド
+procedure TForm1.ShowFrames;  //ノード構造を表示するメソッド
 var
    I, J, Y, X :Integer;
-   TN, TP, TV :TTreeViewItem;
-   Node :TNodeSDIF;
-   Prop :TPropSDIF;
+   F :TFrameSDIF;
+   M :TMatrixSDIF;
+   TF, TM, TV :TTreeViewItem;
 begin
      TreeView1.Clear;  // TreeView1 の表示をクリア
 
      for I := 0 to _FileSDIF.ChildsN-1 do
      begin
-          Node := _FileSDIF.Childs[ I ];  // I 番目のノードクラスを取得
+          F := _FileSDIF.Childs[ I ];  // I 番目のノードクラスを取得
 
-
-          TN := TTreeViewItem.Create( TreeView1 );  //ノードクラス用の項目クラスを生成
-          with TN do
+          TF := TTreeViewItem.Create( TreeView1 );  //ノードクラス用の項目クラスを生成
+          with TF do
           begin
                Parent         := TreeView1;  //親を設定
                StyledSettings := [];  //スタイルを初期化
                Font.Family    := 'Lucida Console';  //フォント名を設定
-               Text           :=             Node.Name
-                               + '　ProN:' + Node.ChildsN.ToString
-                               + '　LayI:' + Node.LayI   .ToString
-                               + '　Time:' + Node.Time   .ToString;  //表示内容を設定
+               Text           :=             F.Signature
+                               + '　ProN:' + F.ChildsN  .ToString
+                               + '　LayI:' + F.StreamID .ToString
+                               + '　Time:' + F.Time     .ToString;  //表示内容を設定
                Expand;  //子項目を展開
           end;
 
-          for J := 0 to Node.ChildsN-1 do
+          for J := 0 to F.ChildsN-1 do
           begin
-               Prop := Node.Childs[ J ];  // J 番目のプロパティクラスを取得
+               M := F.Childs[ J ];  // J 番目のプロパティクラスを取得
 
-               TP := TTreeViewItem.Create( TN );  //プロパティクラス用の項目クラスを生成
-               with TP do
+               TM := TTreeViewItem.Create( TF );  //プロパティクラス用の項目クラスを生成
+               with TM do
                begin
-                    Parent         := TN;  //親を設定
+                    Parent         := TF;  //親を設定
                     StyledSettings := [];  //スタイルを初期化
                     Font.Family    := 'Lucida Console';  //フォント名を設定
-                    Text           :=                         Prop.Name
-                                    + '　Kind:$' + IntToHex( Prop.Kind, 4 )
-                                    + '　VerN:'  +           Prop.CountY.ToString + 'x'
-                                                 +           Prop.CountX.ToString;  //表示内容を設定
+                    Text           :=                        M.Signature
+                                    + '　Kind:$' + IntToHex( M.DataType , 4 )
+                                    + '　VerN:'  +           M.RowCount .ToString + 'x'
+                                                 +           M.ColCount .ToString;  //表示内容を設定
                     Expand;  //子項目を展開
                end;
 
-               for Y := 0 to Prop.CountY-1 do
+               for Y := 0 to M.RowCount-1 do
                begin
-                    TV := TTreeViewItem.Create( TP );  //バリュークラス用の項目クラスを生成
+                    TV := TTreeViewItem.Create( TM );  //バリュークラス用の項目クラスを生成
                     with TV do
                     begin
-                         Parent         := TP;  //親を設定
+                         Parent         := TM;  //親を設定
                          StyledSettings := [];  //スタイルを初期化
                          Font.Family    := 'Lucida Console';  //フォント名を設定
-                         Text           := Prop.Texts[ Y, 0 ];  //表示内容を設定
+                         Text           := M.Texts[ Y, 0 ];  //表示内容を設定
                     end;
 
-                    for X := 1 to Prop.CountX-1
-                    do TV.Text := TV.Text + ', ' + Prop.Texts[ Y, X ];  //表示内容を追加
+                    for X := 1 to M.ColCount-1
+                    do TV.Text := TV.Text + ', ' + M.Texts[ Y, X ];  //表示内容を追加
                end;
           end;
      end;
@@ -138,8 +137,8 @@ end;
 procedure TForm1.MakeGrid;
 var
    I, Y, MaxY :Integer;
-   Node :TNodeSDIF;
-   Dura :TPropFlo4;
+   F :TFrameSDIF;
+   Dura :TMatrixFlo4;
    X, MaxX :Single;
 begin
      MaxX := 0;
@@ -147,14 +146,14 @@ begin
 
      for I := 0 to _FileSDIF.ChildsN-1 do
      begin
-          Node := _FileSDIF.Childs[ I ];  // I 番目のノードクラスを取得
+          F := _FileSDIF.Childs[ I ];  // I 番目のノードクラスを取得
 
-          if Node is TNode1ASO then
+          if F is TFrame1ASO then
           begin
-               Dura := TPropFlo4( Node.FindProp( 'dura' ) );
+               Dura := TMatrixFlo4( F.FindMatrix( 'dura' ) );
 
-               X := Node.Time + Dura.Values[ 0, 0 ] * 10;
-               Y := Node.LayI + 1;
+               X := F.Time     + Dura.Values[ 0, 0 ] * 10;
+               Y := F.StreamID + 1;
 
                if X > MaxX then MaxX := X;
                if Y > MaxY then MaxY := Y;
@@ -246,29 +245,29 @@ end;
 procedure TForm1.ShowBlocks;
 var
    I :Integer;
-   Node :TNodeSDIF;
-   Clss :TPropChar;
-   Dura :TPropFlo4;
+   F :TFrameSDIF;
+   Clss :TMatrixChar;
+   Dura :TMatrixFlo4;
    MinX, MaxX, MinY, MaxY :Single;
 begin
      ClearBlocks;  // すべてのブロックを削除
 
      for I := 0 to _FileSDIF.ChildsN-1 do
      begin
-          Node := _FileSDIF.Childs[ I ];  // I 番目のノードクラスを取得
+          F := _FileSDIF.Childs[ I ];  // I 番目のノードクラスを取得
 
-          if Node is TNode1ASO then
+          if F is TFrame1ASO then
           begin
-               Clss := TPropChar( Node.FindProp( 'clss' ) );
-               Dura := TPropFlo4( Node.FindProp( 'dura' ) );
+               Clss := TMatrixChar( F.FindMatrix( 'clss' ) );
+               Dura := TMatrixFlo4( F.FindMatrix( 'dura' ) );
 
-               MinX :=   Node.Time                         * 10;
-               MaxX := ( Node.Time + Dura.Values[ 0, 0 ] ) * 10;
+               MinX :=   F.Time                         * 10;
+               MaxX := ( F.Time + Dura.Values[ 0, 0 ] ) * 10;
 
-               MinY := Node.LayI    ;
-               MaxY := Node.LayI + 1;
+               MinY := F.StreamID    ;
+               MaxY := F.StreamID + 1;
 
-               MakeBlock( MinX, MinY, MaxX, MaxY, Clss.Lines[ 0 ], Node.Color );
+               MakeBlock( MinX, MinY, MaxX, MaxY, Clss.Lines[ 0 ], F.Color );
           end;
      end;
 end;
@@ -285,9 +284,9 @@ begin
 
      _FileSDIF.LoadFromFileBin( '..\..\_DATA\Complex.trt' ); //バイナリファイルをロード
 
-     _FileSDIF.SaveToFileBin( 'Complex.trt' ); //バイナリファイルをセーブ
+     //_FileSDIF.SaveToFileBin( 'Complex.trt' ); //バイナリファイルをセーブ
 
-     ShowNodes;
+     ShowFrames;
      MakeGrid;
      ShowBlocks;
 end;
@@ -304,9 +303,11 @@ procedure TForm1.MenuItem2Click(Sender: TObject);  //「開く...」メニュー
 begin
      if OpenDialog1.Execute then  //ファイル選択ダイアログを開き、OK が押されたら。
      begin
-          _FileSDIF.LoadFromFileTex( OpenDialog1.Filename );  //指定されたファイルを開く。
+          _FileSDIF.LoadFromFileBin( OpenDialog1.Filename );  //指定されたファイルを開く。
 
-          ShowNodes;
+          ShowFrames;
+          MakeGrid;
+          ShowBlocks;
      end;
 end;
 

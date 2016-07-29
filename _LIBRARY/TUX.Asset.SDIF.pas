@@ -8,15 +8,15 @@ uses System.Classes, System.RegularExpressions,
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
-     TPropSDIF   = class;
-     TNodeSDIF   = class;
-       TNode1TYP = class;
-       TNodeASTI = class;
-       TNode1ASO = class;
-     TFileSDIF   = class;
+     TMatrixSDIF  = class;
+     TFrameSDIF   = class;
+       TFrame1TYP = class;
+       TFrameASTI = class;
+       TFrame1ASO = class;
+     TFileSDIF    = class;
 
-     CPropSDIF = class of TPropSDIF;
-     CNodeSDIF = class of TNodeSDIF;
+     CMatrixSDIF = class of TMatrixSDIF;
+     CFrameSDIF  = class of TFrameSDIF;
 
      TAnsiChar4 = array [ 0..3 ] of AnsiChar;
 
@@ -100,21 +100,21 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropSDIF
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixSDIF
 
-     TPropSDIF = class( TTreeNode<TPropSDIF> )
+     TMatrixSDIF = class( TTreeNode<TMatrixSDIF> )
      private
        class var _Reg :TRegEx;
      protected
-       _Kind     :Integer;
-       _Name     :String;
-       _RowCount :Integer;
-       _ColCount :Integer;
+       _Signature :String;
+       _DataType  :Integer;
+       _RowCount  :Integer;
+       _ColCount  :Integer;
        ///// アクセス
-       function GetCountY :Integer; virtual;
-       procedure SetCountY( const CountY_:Integer ); virtual;
-       function GetCountX :Integer; virtual;
-       procedure SetCountX( const CountX_:Integer ); virtual;
+       function GetRowCount :Integer; virtual;
+       procedure SetRowCount( const RowCount_:Integer ); virtual;
+       function GetColCount :Integer; virtual;
+       procedure SetColCount( const ColCount_:Integer ); virtual;
        function GetTexts( const Y_,X_:Integer ) :String; virtual; abstract;
        procedure SetTexts( const Y_,X_:Integer; const Text_:String ); virtual; abstract;
        ///// メソッド
@@ -123,77 +123,77 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
        class constructor Create;
        constructor Create; overload; override;
-       class function Select( const Kind_:Integer ) :CPropSDIF; overload;
-       class function ReadCreate( const F_:TFileStream; const P_:TNodeSDIF ) :TPropSDIF; overload;
-       class function ReadCreate( const F_:TStreamReader ) :TPropSDIF; overload;
+       class function Select( const DataType_:Integer ) :CMatrixSDIF; overload;
+       class function ReadCreate( const F_:TFileStream; const P_:TFrameSDIF ) :TMatrixSDIF; overload;
+       class function ReadCreate( const F_:TStreamReader ) :TMatrixSDIF; overload;
        destructor Destroy; override;
        ///// プロパティ
-       property Kind                         :Integer read   _Kind   write _Kind    ;
-       property Name                         :String  read   _Name   write _Name    ;
-       property CountX                       :Integer read GetCountX write SetCountX;
-       property CountY                       :Integer read GetCountY write SetCountY;
-       property Texts[ const Y_,X_:Integer ] :String  read GetTexts  write SetTexts ;
+       property Signature                    :String  read   _Signature write   _Signature;
+       property DataType                     :Integer read   _DataType  write   _DataType ;
+       property ColCount                     :Integer read GetColCount  write SetColCount ;
+       property RowCount                     :Integer read GetRowCount  write SetRowCount ;
+       property Texts[ const Y_,X_:Integer ] :String  read GetTexts     write SetTexts    ;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TNodeSDIF
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameSDIF
 
-     TNodeSDIF = class( TTreeNode<TPropSDIF> )
+     TFrameSDIF = class( TTreeNode<TMatrixSDIF> )
      private
      protected
-       _Name  :String;
-       _LayI  :Integer;
-       _Time  :Single;
-       _Color :TAlphaColor;
+       _Signature :String;
+       _StreamID  :Integer;
+       _Time      :Single;
+       _Color     :TAlphaColor;
      public
        constructor Create; override;
-       class function Select( const Signature_:TAnsiChar4 ) :CNodeSDIF;
-       class function ReadCreate( const F_:TFileStream; const P_:TFileSDIF ) :TNodeSDIF; overload;
-       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TNodeSDIF; overload; virtual; abstract;
+       class function Select( const Signature_:TAnsiChar4 ) :CFrameSDIF;
+       class function ReadCreate( const F_:TFileStream; const P_:TFileSDIF ) :TFrameSDIF; overload;
+       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF; overload; virtual; abstract;
        destructor Destroy; override;
        ///// プロパティ
-       property Name  :String      read _Name  write _Name ;
-       property LayI  :Integer     read _LayI  write _LayI ;
-       property Time  :Single      read _Time  write _Time ;
-       property Color :TAlphaColor read _Color write _Color;
+       property Signature  :String      read _Signature write _Signature;
+       property StreamID   :Integer     read _StreamID  write _StreamID ;
+       property Time       :Single      read _Time      write _Time     ;
+       property Color      :TAlphaColor read _Color     write _Color    ;
        ///// メソッド
-       function FindProp( const Name_:String ) :TPropSDIF;
+       function FindMatrix( const Signature_:String ) :TMatrixSDIF;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TNode1TYP
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrame1TYP
 
-     TNode1TYP = class( TNodeSDIF )
+     TFrame1TYP = class( TFrameSDIF )
      private
      protected
        _Text :TArray<AnsiChar>;
      public
        ///// メソッド
-       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TNodeSDIF; override;
+       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF; override;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TNodeASTI
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameASTI
 
-     TNodeASTI = class( TNodeSDIF )
+     TFrameASTI = class( TFrameSDIF )
      private
      protected
      public
        ///// メソッド
-       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TNodeSDIF; override;
+       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF; override;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TNode1ASO
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrame1ASO
 
-     TNode1ASO = class( TNodeSDIF )
+     TFrame1ASO = class( TFrameSDIF )
      private
      protected
      public
        ///// メソッド
-       class function Select( const Clss_:String ) :CNodeSDIF;
-       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TNodeSDIF; override;
+       class function Select( const Clss_:String ) :CFrameSDIF;
+       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF; override;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF
 
-     TFileSDIF = class( TTreeNode<TNodeSDIF> )
+     TFileSDIF = class( TTreeNode<TFrameSDIF> )
      private
        class var _Reg :TRegEx;
      protected
@@ -217,7 +217,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 implementation //############################################################### ■
 
 uses System.SysUtils,
-     TUX.Asset.SDIF.Nodes, TUX.Asset.SDIF.Props,
+     TUX.Asset.SDIF.Frames, TUX.Asset.SDIF.Matrixs,
      Main;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
@@ -378,72 +378,72 @@ end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropSDIF
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixSDIF
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-function TPropSDIF.GetCountY :Integer;
+function TMatrixSDIF.GetRowCount :Integer;
 begin
      Result := _RowCount;
 end;
 
-procedure TPropSDIF.SetCountY( const CountY_:Integer );
+procedure TMatrixSDIF.SetRowCount( const RowCount_:Integer );
 begin
-     _RowCount := CountY_;
+     _RowCount := RowCount_;
 end;
 
-function TPropSDIF.GetCountX :Integer;
+function TMatrixSDIF.GetColCount :Integer;
 begin
      Result := _ColCount;
 end;
 
-procedure TPropSDIF.SetCountX( const CountX_:Integer );
+procedure TMatrixSDIF.SetColCount( const ColCount_:Integer );
 begin
-     _ColCount := CountX_;
+     _ColCount := ColCount_;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-class constructor TPropSDIF.Create;
+class constructor TMatrixSDIF.Create;
 begin
      inherited;
 
      _Reg := TRegEx.Create( '^\s+(\w{4})\s+(0x\d+)\s+(\d+)\s+(\d+)$' );
 end;
 
-constructor TPropSDIF.Create;
+constructor TMatrixSDIF.Create;
 begin
      inherited;
 
-     _Kind     := 0;
-     _Name     := '';
-     _RowCount := 0;
-     _ColCount := 0;
+     _Signature := '';
+     _DataType  := 0;
+     _RowCount  := 0;
+     _ColCount  := 0;
 end;
 
-class function TPropSDIF.Select( const Kind_:Integer ) :CPropSDIF;
+class function TMatrixSDIF.Select( const DataType_:Integer ) :CMatrixSDIF;
 begin
-     case Kind_ of
-        $0301: Result := TPropChar;
-        $0004: Result := TPropFlo4;
-        $0008: Result := TPropFlo8;
-        $0101: Result := TPropInt1;
-        $0102: Result := TPropInt2;
-        $0104: Result := TPropInt4;
-        $0108: Result := TPropInt8;
-        $0201: Result := TPropUIn1;
-        $0202: Result := TPropUIn2;
-        $0204: Result := TPropUIn4;
-        $0208: Result := TPropUIn8;
-     else      Result := nil      ;
+     case DataType_ of
+        $0301: Result := TMatrixChar;
+        $0004: Result := TMatrixFlo4;
+        $0008: Result := TMatrixFlo8;
+        $0101: Result := TMatrixInt1;
+        $0102: Result := TMatrixInt2;
+        $0104: Result := TMatrixInt4;
+        $0108: Result := TMatrixInt8;
+        $0201: Result := TMatrixUIn1;
+        $0202: Result := TMatrixUIn2;
+        $0204: Result := TMatrixUIn4;
+        $0208: Result := TMatrixUIn8;
+     else      Result := nil        ;
      end;
 
-     Assert( Assigned( Result ), '$' + Kind_.ToHexString + '：未対応のデータ型です。' );
+     Assert( Assigned( Result ), '$' + DataType_.ToHexString + '：未対応のデータ型です。' );
 end;
 
-class function TPropSDIF.ReadCreate( const F_:TFileStream; const P_:TNodeSDIF ) :TPropSDIF;
+class function TMatrixSDIF.ReadCreate( const F_:TFileStream; const P_:TFrameSDIF ) :TMatrixSDIF;
 var
    H :TMatrixHeaderSDIF;
 begin
@@ -458,55 +458,55 @@ begin
           Add( '│・ColCount  = '  + H.ColCount .ToString    );
      end;
 
-     Result := TPropSDIF.Select( H.DataType ).Create( P_ );
+     Result := TMatrixSDIF.Select( H.DataType ).Create( P_ );
 
      with Result do
      begin
-          _Kind :=         H.DataType   ;
-          _Name := String( H.Signature );
+          _Signature := String( H.Signature );
+          _DataType  :=         H.DataType   ;
 
-          CountY := H.RowCount;
-          CountX := H.ColCount;
+          RowCount   := H.RowCount;
+          ColCount   := H.ColCount;
 
           ReadValues( F_ );
      end;
 end;
 
-class function TPropSDIF.ReadCreate( const F_:TStreamReader ) :TPropSDIF;
+class function TMatrixSDIF.ReadCreate( const F_:TStreamReader ) :TMatrixSDIF;
 var
-   K :Integer;
+   T :Integer;
    M :TMatch;
 begin
      M := _Reg.Match( F_.ReadLine );
 
      Assert( M.Success );
 
-     K := M.Groups[ 2 ].Value.ToInteger;
+     T := M.Groups[ 2 ].Value.ToInteger;
 
-     Result := TPropSDIF.Select( K ).Create;
+     Result := TMatrixSDIF.Select( T ).Create;
 
      with Result do
      begin
-          _Name := M.Groups[ 1 ].Value;
-          _Kind := K;
+          _Signature := M.Groups[ 1 ].Value;
+          _DataType  := T;
      end;
 
      with Result do
      begin
-          CountY := M.Groups[ 3 ].Value.ToInteger;
-          CountX := M.Groups[ 4 ].Value.ToInteger;
+          RowCount := M.Groups[ 3 ].Value.ToInteger;
+          ColCount := M.Groups[ 4 ].Value.ToInteger;
 
           ReadValues( F_ );
      end;
 end;
 
-destructor TPropSDIF.Destroy;
+destructor TMatrixSDIF.Destroy;
 begin
 
      inherited;
 end;
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TNodeSDIF
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameSDIF
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -514,28 +514,28 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TNodeSDIF.Create;
+constructor TFrameSDIF.Create;
 begin
      inherited;
 
-     _Name := '';
-     _LayI := 0;
-     _Time := 0;
+     _Signature := '';
+     _StreamID  := 0;
+     _Time      := 0;
 end;
 
-class function TNodeSDIF.Select( const Signature_:TAnsiChar4 ) :CNodeSDIF;
+class function TFrameSDIF.Select( const Signature_:TAnsiChar4 ) :CFrameSDIF;
 begin
-     if Signature_ = '1TYP' then Result := TNode1TYP
+     if Signature_ = '1TYP' then Result := TFrame1TYP
                             else
-     if Signature_ = 'ASTI' then Result := TNodeASTI
+     if Signature_ = 'ASTI' then Result := TFrameASTI
                             else
-     if Signature_ = '1ASO' then Result := TNode1ASO
+     if Signature_ = '1ASO' then Result := TFrame1ASO
                             else Result := nil;
 
      Assert( Assigned( Result ), Signature_ + '：未対応のフレーム型です。' );
 end;
 
-class function TNodeSDIF.ReadCreate( const F_:TFileStream; const P_:TFileSDIF ) :TNodeSDIF;
+class function TFrameSDIF.ReadCreate( const F_:TFileStream; const P_:TFileSDIF ) :TFrameSDIF;
 var
    H :TFrameHeaderSDIF;
 begin
@@ -555,13 +555,13 @@ begin
 
      with Result do
      begin
-          _Name := String( H.Signature );
-          _LayI :=         H.StreamID   ;
-          _Time :=         H.Time       ;
+          _Signature := String( H.Signature );
+          _StreamID  :=         H.StreamID   ;
+          _Time      :=         H.Time       ;
      end;
 end;
 
-destructor TNodeSDIF.Destroy;
+destructor TFrameSDIF.Destroy;
 begin
 
      inherited;
@@ -569,7 +569,7 @@ end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-function TNodeSDIF.FindProp( const Name_:String ) :TPropSDIF;
+function TFrameSDIF.FindMatrix( const Signature_:String ) :TMatrixSDIF;
 var
    I :Integer;
 begin
@@ -577,13 +577,13 @@ begin
      begin
           Result := Childs[ I ];
 
-          if Result.Name = Name_ then Exit;
+          if Result.Signature = Signature_ then Exit;
      end;
 
      Result := nil;
 end;
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TNode1TYP
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrame1TYP
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -593,11 +593,11 @@ end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-class function TNode1TYP.ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TNodeSDIF;
+class function TFrame1TYP.ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF;
 begin
      Result := Create( P_ );
 
-     with TNode1TYP( Result ) do
+     with TFrame1TYP( Result ) do
      begin
           SetLength( _Text, H_.Size - 16 );
 
@@ -613,7 +613,7 @@ begin
      end;
 end;
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TNodeASTI
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameASTI
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -623,25 +623,25 @@ end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-class function TNodeASTI.ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TNodeSDIF;
+class function TFrameASTI.ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF;
 var
-   P :TNodeSDIF;
+   P :TFrameSDIF;
    N :Integer;
 begin
-     P := TNodeSDIF.Create;
+     P := TFrameSDIF.Create;
 
-     for N := 1 to H_.MatrixCount do TPropSDIF.ReadCreate( F_, P );
+     for N := 1 to H_.MatrixCount do TMatrixSDIF.ReadCreate( F_, P );
 
      Form1.Memo1.Lines.Add( '' );
 
      Result := Create( P_ );
 
-     for N := 1 to P.ChildsN do P.Head.Paren := TPropSDIF( Result );
+     for N := 1 to P.ChildsN do P.Head.Paren := TMatrixSDIF( Result );
 
      P.Free;
 end;
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TNode1ASO
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrame1ASO
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -651,7 +651,7 @@ end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-class function TNode1ASO.Select( const Clss_:String ) :CNodeSDIF;
+class function TFrame1ASO.Select( const Clss_:String ) :CFrameSDIF;
 //･･････････････････････････････････････････････････････････････
      function Compare( const Signature_:String ) :Boolean;
      begin
@@ -659,52 +659,52 @@ class function TNode1ASO.Select( const Clss_:String ) :CNodeSDIF;
      end;
 //･･････････････････････････････････････････････････････････････
 begin
-     if Compare( 'Tran' ) then Result := TNodeTran
+     if Compare( 'Tran' ) then Result := TFrameTran
                           else
-     if Compare( 'TmSt' ) then Result := TNodeTmSt
+     if Compare( 'TmSt' ) then Result := TFrameTmSt
                           else
-     if Compare( 'Frmt' ) then Result := TNodeFrmt
+     if Compare( 'Frmt' ) then Result := TFrameFrmt
                           else
-     if Compare( 'BpGa' ) then Result := TNodeBpGa
+     if Compare( 'BpGa' ) then Result := TFrameBpGa
                           else
-     if Compare( 'Rflt' ) then Result := TNodeRflt
+     if Compare( 'Rflt' ) then Result := TFrameRflt
                           else
-     if Compare( 'Clip' ) then Result := TNodeClip
+     if Compare( 'Clip' ) then Result := TFrameClip
                           else
-     if Compare( 'Gsim' ) then Result := TNodeGsim
+     if Compare( 'Gsim' ) then Result := TFrameGsim
                           else
-     if Compare( 'Frze' ) then Result := TNodeFrze
+     if Compare( 'Frze' ) then Result := TFrameFrze
                           else
-     if Compare( 'Revs' ) then Result := TNodeRevs
+     if Compare( 'Revs' ) then Result := TFrameRevs
                           else
-     if Compare( 'Imag' ) then Result := TNodeImag
+     if Compare( 'Imag' ) then Result := TFrameImag
                           else
-     if Compare( 'Brkp' ) then Result := TNodeBrkp
+     if Compare( 'Brkp' ) then Result := TFrameBrkp
                           else
-     if Compare( 'Surf' ) then Result := TNodeSurf
+     if Compare( 'Surf' ) then Result := TFrameSurf
                           else
-     if Compare( 'Band' ) then Result := TNodeBand
+     if Compare( 'Band' ) then Result := TFrameBand
                           else
-     if Compare( 'Noiz' ) then Result := TNodeNoiz
+     if Compare( 'Noiz' ) then Result := TFrameNoiz
                           else Result := nil;
 
      Assert( Assigned( Result ), Clss_ + '：未対応のクラス型です。' );
 end;
 
-class function TNode1ASO.ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TNodeSDIF;
+class function TFrame1ASO.ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF;
 var
-   P :TNodeSDIF;
+   P :TFrameSDIF;
    N :Integer;
 begin
-     P := TNodeSDIF.Create;
+     P := TFrameSDIF.Create;
 
-     for N := 1 to H_.MatrixCount do TPropSDIF.ReadCreate( F_, P );
+     for N := 1 to H_.MatrixCount do TMatrixSDIF.ReadCreate( F_, P );
 
      Form1.Memo1.Lines.Add( '' );
 
-     Result := TNode1ASO.Select( TPropChar( P.FindProp( 'clss' ) ).Lines[ 0 ] ).Create( P_ );
+     Result := TFrame1ASO.Select( TMatrixChar( P.FindMatrix( 'clss' ) ).Lines[ 0 ] ).Create( P_ );
 
-     for N := 1 to P.ChildsN do P.Head.Paren := TPropSDIF( Result );
+     for N := 1 to P.ChildsN do P.Head.Paren := TMatrixSDIF( Result );
 
      P.Free;
 end;
@@ -765,7 +765,7 @@ begin
           Add( ''                                            );
      end;
 
-     while F.Position < F.Size do TNodeSDIF.ReadCreate( F, Self );
+     while F.Position < F.Size do TFrameSDIF.ReadCreate( F, Self );
 
      F.Free;
 end;
@@ -786,13 +786,13 @@ var
    F :TStreamReader;
    M :TMatch;
    N :record
-        Name :String;
-        ProN :Integer;
-        LayI :Integer;
-        Time :Single;
+        Signature :String;
+        MatrixsN  :Integer;
+        StreamID  :Integer;
+        Time      :Single;
       end;
-   PN :TNodeSDIF;
-   PP :TPropSDIF;
+   PF :TFrameSDIF;
+   PM :TMatrixSDIF;
    S :String;
    I :Integer;
 begin
@@ -806,41 +806,41 @@ begin
 
           if M.Success then
           begin
-               N.Name := M.Groups[ 1 ].Value          ;
-               N.ProN := M.Groups[ 2 ].Value.ToInteger;
-               N.LayI := M.Groups[ 3 ].Value.ToInteger;
-               N.Time := M.Groups[ 4 ].Value.ToSingle ;
+               N.Signature := M.Groups[ 1 ].Value          ;
+               N.MatrixsN  := M.Groups[ 2 ].Value.ToInteger;
+               N.StreamID  := M.Groups[ 3 ].Value.ToInteger;
+               N.Time      := M.Groups[ 4 ].Value.ToSingle ;
 
-               if N.Name = 'ASTI' then
+               if N.Signature = 'ASTI' then
                begin
-                    PN := TNodeASTI.Create( Self );
+                    PF := TFrameASTI.Create( Self );
 
-                    for I := 1 to N.ProN
-                    do TPropSDIF.ReadCreate( F ).Paren := TPropSDIF( PN );
+                    for I := 1 to N.MatrixsN
+                    do TMatrixSDIF.ReadCreate( F ).Paren := TMatrixSDIF( PF );
                end
                else
-               if N.Name = '1ASO' then
+               if N.Signature = '1ASO' then
                begin
-                    PP := TPropSDIF.ReadCreate( F );
+                    PM := TMatrixSDIF.ReadCreate( F );
 
-                    Assert( PP is TPropChar, PP.ClassName );
+                    Assert( PM is TMatrixChar, PM.ClassName );
 
-                    S := TPropChar( PP ).Lines[ 0 ];
+                    S := TMatrixChar( PM ).Lines[ 0 ];
 
-                    PN := TNode1ASO.Select( S ).Create( Self );
+                    PF := TFrame1ASO.Select( S ).Create( Self );
 
-                    PP.Paren := TPropSDIF( PN );
+                    PM.Paren := TMatrixSDIF( PF );
 
-                    for I := 2 to N.ProN
-                    do TPropSDIF.ReadCreate( F ).Paren := TPropSDIF( PN );
+                    for I := 2 to N.MatrixsN
+                    do TMatrixSDIF.ReadCreate( F ).Paren := TMatrixSDIF( PF );
                end
-               else PN := nil;
+               else PF := nil;
 
-               with PN do
+               with PF do
                begin
-                    _Name := N.Name;
-                    _LayI := N.LayI;
-                    _Time := N.Time;
+                    _Signature := N.Signature;
+                    _StreamID  := N.StreamID;
+                    _Time      := N.Time;
                end;
           end;
      end;

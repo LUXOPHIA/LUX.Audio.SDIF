@@ -1,4 +1,4 @@
-﻿unit TUX.Asset.SDIF.Props;
+﻿unit TUX.Asset.SDIF.Matrixs;
 
 interface //#################################################################### ■
 
@@ -8,33 +8,33 @@ uses System.Classes, System.RegularExpressions,
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
-     TPropSDIF<TVALUE:record> = class;
-       TPropChar              = class;
-       TPropFlo4              = class;
-       TPropFlo8              = class;
-       TPropInt1              = class;
-       TPropInt2              = class;
-       TPropInt4              = class;
-       TPropInt8              = class;
-       TPropUIn1              = class;
-       TPropUIn2              = class;
-       TPropUIn4              = class;
-       TPropUIn8              = class;
+     TMatrixSDIF<TVALUE:record> = class;
+       TMatrixChar              = class;
+       TMatrixFlo4              = class;
+       TMatrixFlo8              = class;
+       TMatrixInt1              = class;
+       TMatrixInt2              = class;
+       TMatrixInt4              = class;
+       TMatrixInt8              = class;
+       TMatrixUIn1              = class;
+       TMatrixUIn2              = class;
+       TMatrixUIn4              = class;
+       TMatrixUIn8              = class;
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropSDIF<TVALUE>
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixSDIF<TVALUE>
 
-     TPropSDIF<TVALUE:record> = class( TPropSDIF )
+     TMatrixSDIF<TVALUE:record> = class( TMatrixSDIF )
      private
        class var _Reg :TRegEx;
      protected
        _Values :TArray<TVALUE>;
        ///// アクセス
-       procedure SetCountX( const CountX_:Integer ); override;
-       procedure SetCountY( const CountY_:Integer ); override;
+       procedure SetColCount( const ColCount_:Integer ); override;
+       procedure SetRowCount( const RowCount_:Integer ); override;
        function GetValues( const Y_,X_:Integer ) :TVALUE; virtual;
        procedure SetValues( const Y_,X_:Integer; const Value_:TVALUE ); virtual;
        ///// メソッド
@@ -48,9 +48,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        property Values[ const Y_,X_:Integer ] :TVALUE read GetValues write SetValues;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropChar
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixChar
 
-     TPropChar = class( TPropSDIF<AnsiChar> )
+     TMatrixChar = class( TMatrixSDIF<AnsiChar> )
      private
      protected
        ///// アクセス
@@ -62,9 +62,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        property Lines[ const Y_:Integer ] :String read GetLines;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropFlo4
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixFlo4
 
-     TPropFlo4 = class( TPropSDIF<Single> )
+     TMatrixFlo4 = class( TMatrixSDIF<Single> )
      private
      protected
        ///// アクセス
@@ -75,9 +75,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropFlo8
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixFlo8
 
-     TPropFlo8 = class( TPropSDIF<Double> )
+     TMatrixFlo8 = class( TMatrixSDIF<Double> )
      private
      protected
        ///// アクセス
@@ -88,9 +88,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropInt1
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixInt1
 
-     TPropInt1 = class( TPropSDIF<Int8> )
+     TMatrixInt1 = class( TMatrixSDIF<Int8> )
      private
      protected
        ///// アクセス
@@ -99,9 +99,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropInt2
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixInt2
 
-     TPropInt2 = class( TPropSDIF<Int16> )
+     TMatrixInt2 = class( TMatrixSDIF<Int16> )
      private
      protected
        ///// アクセス
@@ -112,9 +112,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropInt4
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixInt4
 
-     TPropInt4 = class( TPropSDIF<Int32> )
+     TMatrixInt4 = class( TMatrixSDIF<Int32> )
      private
      protected
        ///// アクセス
@@ -125,9 +125,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropInt8
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixInt8
 
-     TPropInt8 = class( TPropSDIF<Int64> )
+     TMatrixInt8 = class( TMatrixSDIF<Int64> )
      private
      protected
        ///// アクセス
@@ -138,9 +138,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropUIn1
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixUIn1
 
-     TPropUIn1 = class( TPropSDIF<UInt8> )
+     TMatrixUIn1 = class( TMatrixSDIF<UInt8> )
      private
      protected
        ///// アクセス
@@ -149,9 +149,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropUIn2
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixUIn2
 
-     TPropUIn2 = class( TPropSDIF<UInt16> )
+     TMatrixUIn2 = class( TMatrixSDIF<UInt16> )
      private
      protected
        ///// アクセス
@@ -162,9 +162,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropUIn4
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixUIn4
 
-     TPropUIn4 = class( TPropSDIF<UInt32> )
+     TMatrixUIn4 = class( TMatrixSDIF<UInt32> )
      private
      protected
        ///// アクセス
@@ -175,9 +175,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropUIn8
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixUIn8
 
-     TPropUIn8 = class( TPropSDIF<UInt64> )
+     TMatrixUIn8 = class( TMatrixSDIF<UInt64> )
      private
      protected
        ///// アクセス
@@ -202,7 +202,7 @@ uses System.SysUtils, System.Math;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropSDIF<TVALUE>
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixSDIF<TVALUE>
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -210,33 +210,33 @@ uses System.SysUtils, System.Math;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-procedure TPropSDIF<TVALUE>.SetCountY( const CountY_:Integer );
+procedure TMatrixSDIF<TVALUE>.SetRowCount( const RowCount_:Integer );
 begin
      inherited;
 
      SetLength( _Values, _RowCount * _ColCount );
 end;
 
-procedure TPropSDIF<TVALUE>.SetCountX( const CountX_:Integer );
+procedure TMatrixSDIF<TVALUE>.SetColCount( const ColCount_:Integer );
 begin
      inherited;
 
      SetLength( _Values, _RowCount * _ColCount );
 end;
 
-function TPropSDIF<TVALUE>.GetValues( const Y_,X_:Integer ) :TVALUE;
+function TMatrixSDIF<TVALUE>.GetValues( const Y_,X_:Integer ) :TVALUE;
 begin
      Result := _Values[ Y_ * _ColCount + X_ ];
 end;
 
-procedure TPropSDIF<TVALUE>.SetValues( const Y_,X_:Integer; const Value_:TVALUE );
+procedure TMatrixSDIF<TVALUE>.SetValues( const Y_,X_:Integer; const Value_:TVALUE );
 begin
      _Values[ Y_ * _ColCount + X_ ] := Value_;
 end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-procedure TPropSDIF<TVALUE>.ReadValues( const F_:TFileStream );
+procedure TMatrixSDIF<TVALUE>.ReadValues( const F_:TFileStream );
 var
    N, P :Integer;
 begin
@@ -249,7 +249,7 @@ begin
      F_.Seek( P, soFromCurrent );  // 8 Bytes のアライメント
 end;
 
-procedure TPropSDIF<TVALUE>.ReadValues( const F_:TStreamReader );
+procedure TMatrixSDIF<TVALUE>.ReadValues( const F_:TStreamReader );
 var
    Y, X :Integer;
    Ms :TMatchCollection;
@@ -264,26 +264,26 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-class constructor TPropSDIF<TVALUE>.Create;
+class constructor TMatrixSDIF<TVALUE>.Create;
 begin
      inherited;
 
      _Reg := TRegEx.Create( '\s+(\S+)' );
 end;
 
-constructor TPropSDIF<TVALUE>.Create;
+constructor TMatrixSDIF<TVALUE>.Create;
 begin
      inherited;
 
 end;
 
-destructor TPropSDIF<TVALUE>.Destroy;
+destructor TMatrixSDIF<TVALUE>.Destroy;
 begin
 
      inherited;
 end;
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropChar
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixChar
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -291,28 +291,28 @@ end;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TPropChar.GetTexts( const Y_,X_:Integer ) :String;
+function TMatrixChar.GetTexts( const Y_,X_:Integer ) :String;
 begin
-     Result := Values[ Y_, X_ ];
+     Result := Char( Values[ Y_, X_ ] );
 end;
 
-procedure TPropChar.SetTexts( const Y_,X_:Integer; const Text_:String );
+procedure TMatrixChar.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
      Values[ Y_, X_ ] := AnsiChar( Text_[ 2 ] );
 end;
 
-function TPropChar.GetLines( const Y_:Integer ) :String;
+function TMatrixChar.GetLines( const Y_:Integer ) :String;
 var
    X :Integer;
 begin
      Result := '';
 
-     for X := 0 to CountX-1 do Result := Result + Char( Values[ Y_, X ] );
+     for X := 0 to ColCount-1 do Result := Result + Char( Values[ Y_, X ] );
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropFlo4
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixFlo4
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -320,22 +320,22 @@ end;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TPropFlo4.GetValues( const Y_,X_:Integer ) :Single;
+function TMatrixFlo4.GetValues( const Y_,X_:Integer ) :Single;
 begin
      Result := RevBytes( inherited GetValues( Y_, X_ ) );
 end;
 
-procedure TPropFlo4.SetValues( const Y_,X_:Integer; const Value_:Single );
+procedure TMatrixFlo4.SetValues( const Y_,X_:Integer; const Value_:Single );
 begin
      inherited SetValues( Y_, X_, RevBytes( Value_ ) );
 end;
 
-function TPropFlo4.GetTexts( const Y_,X_:Integer ) :String;
+function TMatrixFlo4.GetTexts( const Y_,X_:Integer ) :String;
 begin
      Result := Values[ Y_, X_ ].ToString;
 end;
 
-procedure TPropFlo4.SetTexts( const Y_,X_:Integer; const Text_:String );
+procedure TMatrixFlo4.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
      if Text_ = 'nan' then Values[ Y_, X_ ] := Single.NaN
                       else Values[ Y_, X_ ] := Text_.ToSingle;
@@ -343,7 +343,7 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropFlo8
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixFlo8
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -351,22 +351,22 @@ end;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TPropFlo8.GetValues( const Y_,X_:Integer ) :Double;
+function TMatrixFlo8.GetValues( const Y_,X_:Integer ) :Double;
 begin
      Result := RevBytes( inherited GetValues( Y_, X_ ) );
 end;
 
-procedure TPropFlo8.SetValues( const Y_,X_:Integer; const Value_:Double );
+procedure TMatrixFlo8.SetValues( const Y_,X_:Integer; const Value_:Double );
 begin
      inherited SetValues( Y_, X_, RevBytes( Value_ ) );
 end;
 
-function TPropFlo8.GetTexts( const Y_,X_:Integer ) :String;
+function TMatrixFlo8.GetTexts( const Y_,X_:Integer ) :String;
 begin
      Result := Values[ Y_, X_ ].ToString;
 end;
 
-procedure TPropFlo8.SetTexts( const Y_,X_:Integer; const Text_:String );
+procedure TMatrixFlo8.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
      if Text_ = 'nan' then Values[ Y_, X_ ] := Double.NaN
                       else Values[ Y_, X_ ] := Text_.ToDouble;
@@ -374,7 +374,7 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropInt1
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixInt1
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -382,19 +382,19 @@ end;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TPropInt1.GetTexts( const Y_,X_:Integer ) :String;
+function TMatrixInt1.GetTexts( const Y_,X_:Integer ) :String;
 begin
      Result := Values[ Y_, X_ ].ToString;
 end;
 
-procedure TPropInt1.SetTexts( const Y_,X_:Integer; const Text_:String );
+procedure TMatrixInt1.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
      Values[ Y_, X_ ] := Text_.ToInteger;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropInt2
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixInt2
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -402,29 +402,29 @@ end;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TPropInt2.GetValues( const Y_,X_:Integer ) :Int16;
+function TMatrixInt2.GetValues( const Y_,X_:Integer ) :Int16;
 begin
      Result := RevBytes( inherited GetValues( Y_, X_ ) );
 end;
 
-procedure TPropInt2.SetValues( const Y_,X_:Integer; const Value_:Int16 );
+procedure TMatrixInt2.SetValues( const Y_,X_:Integer; const Value_:Int16 );
 begin
      inherited SetValues( Y_, X_, RevBytes( Value_ ) );
 end;
 
-function TPropInt2.GetTexts( const Y_,X_:Integer ) :String;
+function TMatrixInt2.GetTexts( const Y_,X_:Integer ) :String;
 begin
      Result := Values[ Y_, X_ ].ToString;
 end;
 
-procedure TPropInt2.SetTexts( const Y_,X_:Integer; const Text_:String );
+procedure TMatrixInt2.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
      Values[ Y_, X_ ] := Text_.ToInteger;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropInt4
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixInt4
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -432,29 +432,29 @@ end;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TPropInt4.GetValues( const Y_,X_:Integer ) :Int32;
+function TMatrixInt4.GetValues( const Y_,X_:Integer ) :Int32;
 begin
      Result := RevBytes( inherited GetValues( Y_, X_ ) );
 end;
 
-procedure TPropInt4.SetValues( const Y_,X_:Integer; const Value_:Int32 );
+procedure TMatrixInt4.SetValues( const Y_,X_:Integer; const Value_:Int32 );
 begin
      inherited SetValues( Y_, X_, RevBytes( Value_ ) );
 end;
 
-function TPropInt4.GetTexts( const Y_,X_:Integer ) :String;
+function TMatrixInt4.GetTexts( const Y_,X_:Integer ) :String;
 begin
      Result := Values[ Y_, X_ ].ToString;
 end;
 
-procedure TPropInt4.SetTexts( const Y_,X_:Integer; const Text_:String );
+procedure TMatrixInt4.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
      Values[ Y_, X_ ] := Text_.ToInteger;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropInt8
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixInt8
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -462,29 +462,29 @@ end;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TPropInt8.GetValues( const Y_,X_:Integer ) :Int64;
+function TMatrixInt8.GetValues( const Y_,X_:Integer ) :Int64;
 begin
      Result := RevBytes( inherited GetValues( Y_, X_ ) );
 end;
 
-procedure TPropInt8.SetValues( const Y_,X_:Integer; const Value_:Int64 );
+procedure TMatrixInt8.SetValues( const Y_,X_:Integer; const Value_:Int64 );
 begin
      inherited SetValues( Y_, X_, RevBytes( Value_ ) );
 end;
 
-function TPropInt8.GetTexts( const Y_,X_:Integer ) :String;
+function TMatrixInt8.GetTexts( const Y_,X_:Integer ) :String;
 begin
      Result := Values[ Y_, X_ ].ToString;
 end;
 
-procedure TPropInt8.SetTexts( const Y_,X_:Integer; const Text_:String );
+procedure TMatrixInt8.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
      Values[ Y_, X_ ] := Text_.ToInt64;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropUIn1
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixUIn1
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -492,19 +492,19 @@ end;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TPropUIn1.GetTexts( const Y_,X_:Integer ) :String;
+function TMatrixUIn1.GetTexts( const Y_,X_:Integer ) :String;
 begin
      Result := Values[ Y_, X_ ].ToString;
 end;
 
-procedure TPropUIn1.SetTexts( const Y_,X_:Integer; const Text_:String );
+procedure TMatrixUIn1.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
      Values[ Y_, X_ ] := Text_.ToInteger;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropUIn2
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixUIn2
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -512,29 +512,29 @@ end;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TPropUIn2.GetValues( const Y_,X_:Integer ) :UInt16;
+function TMatrixUIn2.GetValues( const Y_,X_:Integer ) :UInt16;
 begin
      Result := RevBytes( inherited GetValues( Y_, X_ ) );
 end;
 
-procedure TPropUIn2.SetValues( const Y_,X_:Integer; const Value_:UInt16 );
+procedure TMatrixUIn2.SetValues( const Y_,X_:Integer; const Value_:UInt16 );
 begin
      inherited SetValues( Y_, X_, RevBytes( Value_ ) );
 end;
 
-function TPropUIn2.GetTexts( const Y_,X_:Integer ) :String;
+function TMatrixUIn2.GetTexts( const Y_,X_:Integer ) :String;
 begin
      Result := Values[ Y_, X_ ].ToString;
 end;
 
-procedure TPropUIn2.SetTexts( const Y_,X_:Integer; const Text_:String );
+procedure TMatrixUIn2.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
      Values[ Y_, X_ ] := Text_.ToInteger;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropUIn4
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixUIn4
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -542,29 +542,29 @@ end;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TPropUIn4.GetValues( const Y_,X_:Integer ) :UInt32;
+function TMatrixUIn4.GetValues( const Y_,X_:Integer ) :UInt32;
 begin
      Result := RevBytes( inherited GetValues( Y_, X_ ) );
 end;
 
-procedure TPropUIn4.SetValues( const Y_,X_:Integer; const Value_:UInt32 );
+procedure TMatrixUIn4.SetValues( const Y_,X_:Integer; const Value_:UInt32 );
 begin
      inherited SetValues( Y_, X_, RevBytes( Value_ ) );
 end;
 
-function TPropUIn4.GetTexts( const Y_,X_:Integer ) :String;
+function TMatrixUIn4.GetTexts( const Y_,X_:Integer ) :String;
 begin
      Result := Values[ Y_, X_ ].ToString;
 end;
 
-procedure TPropUIn4.SetTexts( const Y_,X_:Integer; const Text_:String );
+procedure TMatrixUIn4.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
      Values[ Y_, X_ ] := Text_.ToInteger;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TPropUIn8
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixUIn8
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -572,22 +572,22 @@ end;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TPropUIn8.GetValues( const Y_,X_:Integer ) :UInt64;
+function TMatrixUIn8.GetValues( const Y_,X_:Integer ) :UInt64;
 begin
      Result := RevBytes( inherited GetValues( Y_, X_ ) );
 end;
 
-procedure TPropUIn8.SetValues( const Y_,X_:Integer; const Value_:UInt64 );
+procedure TMatrixUIn8.SetValues( const Y_,X_:Integer; const Value_:UInt64 );
 begin
      inherited SetValues( Y_, X_, RevBytes( Value_ ) );
 end;
 
-function TPropUIn8.GetTexts( const Y_,X_:Integer ) :String;
+function TMatrixUIn8.GetTexts( const Y_,X_:Integer ) :String;
 begin
      Result := Values[ Y_, X_ ].ToString;
 end;
 
-procedure TPropUIn8.SetTexts( const Y_,X_:Integer; const Text_:String );
+procedure TMatrixUIn8.SetTexts( const Y_,X_:Integer; const Text_:String );
 begin
      Values[ Y_, X_ ] := Text_.ToInt64;
 end;
