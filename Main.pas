@@ -60,7 +60,6 @@ type
     procedure MakeBlock( const MinX_,MinY_,MaxX_,MaxY_:Single; const Text_:String; const Color_:TAlphaColor );
     procedure ClearBlocks;
     procedure ShowBlocks;
-    procedure SetColor;
     //procedure ClickButton_Filter; overload;
   end;
 
@@ -221,31 +220,24 @@ begin
      end;
 end;
 
+procedure TForm1.Button_Filter1Click(Sender:TObject);
+ var
+ Node :TNodeSDIF;
+ _Color:TAlphaColor;
 
 
-procedure TForm1.Button_Filter1Click(Sender:TObject);  //特定のフィルタのみを抽出するための操作
 
 
  begin
-   SetColor;
- end;
 
-procedure TForm1.SetColor; //特定のフィルタのみ色を変えて表示
-var
-Node:TNodeSDIF;
+      TNodeRflt.create;
 
- begin
+      _Color:=0;
+      Node._Color:=TAlphaColors.Burlywood;
 
-  Node:= nil; //initialize
 
-  if Node.ClassName='Rflt' then
-
-     Node.Color:=TAlphaColors.Red
-
-  else Node.Color:=TAlphaColors.Black;
 
  end;
-
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
  procedure TForm1.FormCreate(Sender: TObject);  //アプリが開始する時
