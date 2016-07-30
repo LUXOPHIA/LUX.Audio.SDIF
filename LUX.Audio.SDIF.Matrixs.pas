@@ -1,10 +1,9 @@
-﻿unit TUX.Asset.SDIF.Matrixs;
+﻿unit LUX.Audio.SDIF.Matrixs;
 
 interface //#################################################################### ■
 
 uses System.Classes, System.RegularExpressions,
-     LUX,
-     TUX.Asset.SDIF;
+     LUX, LUX.Audio.SDIF;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 

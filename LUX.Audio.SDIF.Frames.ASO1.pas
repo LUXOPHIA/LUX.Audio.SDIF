@@ -1,9 +1,8 @@
-﻿unit TUX.Asset.SDIF.Frames;
+﻿unit LUX.Audio.SDIF.Frames.ASO1;
 
 interface //#################################################################### ■
 
-uses System.UITypes,
-     TUX.Asset.SDIF;
+uses LUX.Audio.SDIF.Frames;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
@@ -191,7 +190,6 @@ constructor TFrameTran.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.Red;
 end;
 
 destructor TFrameTran.Destroy;
@@ -212,7 +210,6 @@ constructor TFrameTmSt.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.Blue;
 end;
 
 destructor TFrameTmSt.Destroy;
@@ -233,7 +230,6 @@ constructor TFrameFrmt.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.Lime;
 end;
 
 destructor TFrameFrmt.Destroy;
@@ -254,7 +250,6 @@ constructor TFrameBpGa.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.Aliceblue;
 end;
 
 destructor TFrameBpGa.Destroy;
@@ -275,7 +270,6 @@ constructor TFrameRflt.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.green;
 end;
 
 destructor TFrameRflt.Destroy;
@@ -296,7 +290,6 @@ constructor TFrameClip.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.Cadetblue;
 end;
 
 destructor TFrameClip.Destroy;
@@ -317,7 +310,6 @@ constructor TFrameGsim.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.Sandybrown;
 end;
 
 destructor TFrameGsim.Destroy;
@@ -338,7 +330,6 @@ constructor TFrameFrze.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.Red;
 end;
 
 destructor TFrameFrze.Destroy;
@@ -359,7 +350,6 @@ constructor TFrameRevs.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.Darkgoldenrod;
 end;
 
 destructor TFrameRevs.Destroy;
@@ -380,7 +370,6 @@ constructor TFrameImag.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.Ghostwhite;
 end;
 
 destructor TFrameImag.Destroy;
@@ -401,7 +390,6 @@ constructor TFrameBrkp.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.Cyan;
 end;
 
 destructor TFrameBrkp.Destroy;
@@ -422,7 +410,6 @@ constructor TFrameSurf.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.Coral;
 end;
 
 destructor TFrameSurf.Destroy;
@@ -443,7 +430,6 @@ constructor TFrameBand.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.Sandybrown;
 end;
 
 destructor TFrameBand.Destroy;
@@ -464,7 +450,6 @@ constructor TFrameNoiz.Create;
 begin
      inherited;
 
-     _Color := TAlphaColors.Silver;
 end;
 
 destructor TFrameNoiz.Destroy;
