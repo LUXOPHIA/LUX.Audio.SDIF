@@ -33,8 +33,9 @@ type
       TabItem4: TTabItem;
         Memo1: TMemo;
     TabControl2: TTabControl;
-      TabItem3: TTabItem;
-        Button1: TButton;
+    TabItem3: TTabItem;
+    Button1: TButton;
+    Button2: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
@@ -43,6 +44,9 @@ type
     procedure Viewport3D1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure Viewport3D1MouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; var Handled: Boolean);
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+
+
   private
     { private 宣言 }
     _MouseS :TShiftState;
@@ -351,9 +355,31 @@ end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-     _FileSDIF.Childs[ 2 ].Color := TAlphaColors.Yellow;
+     _FileSDIF.Childs[ 3].Color := TAlphaColors.Yellow;
 
      ShowBlocks;
 end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+
+  var
+  I:Integer;
+
+   begin
+
+    for I := 0 to _FileSDIF.ChildsN-1 do
+    begin
+    if _FileSDIF.Childs[ I ] is TFrameRflt then
+    _FileSDIF.Childs[ I ].Color:=TAlphaColors.Red
+    else _FileSDIF.Childs[ I ].Color:=TAlphaColors.Black;
+
+
+    ShowBlocks;
+    end;
+
+    end;
+
+
+
 
 end. //######################################################################### ■

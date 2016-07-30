@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'SoundTree'
-  ClientHeight = 506
-  ClientWidth = 840
+  ClientHeight = 509
+  ClientWidth = 805
   Position = ScreenCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -26,19 +26,19 @@ object Form1: TForm1
   end
   object TabControl1: TTabControl
     Align = Client
-    Size.Width = 640.000000000000000000
-    Size.Height = 506.000000000000000000
+    Size.Width = 605.000000000000000000
+    Size.Height = 509.000000000000000000
     Size.PlatformDefault = False
     TabIndex = 0
     TabOrder = 2
     TabPosition = PlatformDefault
     Sizes = (
-      640s
-      480s
-      640s
-      480s
-      640s
-      480s)
+      605s
+      483s
+      605s
+      483s
+      605s
+      483s)
     object TabItem1: TTabItem
       CustomIcon = <
         item
@@ -55,8 +55,8 @@ object Form1: TForm1
       object Viewport3D1: TViewport3D
         Align = Client
         Camera = Camera1
-        Size.Width = 640.000000000000000000
-        Size.Height = 480.000000000000000000
+        Size.Width = 605.000000000000000000
+        Size.Height = 483.000000000000000000
         Size.PlatformDefault = False
         UsingDesignCamera = False
         OnMouseDown = Viewport3D1MouseDown
@@ -137,12 +137,12 @@ object Form1: TForm1
       ExplicitSize.cy = 26.000000000000000000
       object TreeView1: TTreeView
         Align = Client
-        Size.Width = 640.000000000000000000
-        Size.Height = 480.000000000000000000
+        Size.Width = 605.000000000000000000
+        Size.Height = 483.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
-        Viewport.Width = 636.000000000000000000
-        Viewport.Height = 476.000000000000000000
+        Viewport.Width = 601.000000000000000000
+        Viewport.Height = 479.000000000000000000
       end
     end
     object TabItem4: TTabItem
@@ -168,27 +168,31 @@ object Form1: TForm1
         Margins.Top = 10.000000000000000000
         Margins.Right = 10.000000000000000000
         Margins.Bottom = 10.000000000000000000
-        Size.Width = 620.000000000000000000
-        Size.Height = 460.000000000000000000
+        Size.Width = 585.000000000000000000
+        Size.Height = 463.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
-        Viewport.Width = 616.000000000000000000
-        Viewport.Height = 456.000000000000000000
+        Viewport.Width = 581.000000000000000000
+        Viewport.Height = 459.000000000000000000
       end
     end
   end
+  object OpenDialog1: TOpenDialog
+    Left = 45
+    Top = 110
+  end
   object TabControl2: TTabControl
     Align = Right
-    Position.X = 640.000000000000000000
+    Position.X = 605.000000000000000000
     Size.Width = 200.000000000000000000
-    Size.Height = 506.000000000000000000
+    Size.Height = 509.000000000000000000
     Size.PlatformDefault = False
     TabIndex = 0
     TabOrder = 5
     TabPosition = PlatformDefault
     Sizes = (
       200s
-      480s)
+      483s)
     object TabItem3: TTabItem
       CustomIcon = <
         item
@@ -212,10 +216,16 @@ object Form1: TForm1
         Text = #33394#22793#26356
         OnClick = Button1Click
       end
+      object Button2: TButton
+        Position.X = 10.000000000000000000
+        Position.Y = 99.000000000000000000
+        Size.Width = 101.000000000000000000
+        Size.Height = 37.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        Text = 'Rflt'
+        OnClick = Button2Click
+      end
     end
-  end
-  object OpenDialog1: TOpenDialog
-    Left = 45
-    Top = 110
   end
 end
