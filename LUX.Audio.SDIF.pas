@@ -3,17 +3,13 @@
 interface //#################################################################### ■
 
 uses System.Classes, System.RegularExpressions,
-     System.UITypes,
      LUX, LUX.Graph.Tree;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
-     TMatrixSDIF  = class;
-     TFrameSDIF   = class;
-       TFrame1TYP = class;
-       TFrameASTI = class;
-       TFrame1ASO = class;
-     TFileSDIF    = class;
+     TMatrixSDIF = class;
+     TFrameSDIF  = class;
+     TFileSDIF   = class;
 
      CMatrixSDIF = class of TMatrixSDIF;
      CFrameSDIF  = class of TFrameSDIF;
@@ -123,7 +119,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
        class constructor Create;
        constructor Create; overload; override;
-       class function Select( const DataType_:Integer ) :CMatrixSDIF; overload;
+       class function Select( const DataType_:Integer ) :CMatrixSDIF; overload; virtual;
        class function ReadCreate( const F_:TFileStream; const P_:TFrameSDIF ) :TMatrixSDIF; overload;
        class function ReadCreate( const F_:TStreamReader ) :TMatrixSDIF; overload;
        destructor Destroy; override;
@@ -143,10 +139,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        _Signature :String;
        _StreamID  :Integer;
        _Time      :Single;
-       _Color     :TAlphaColor;
      public
        constructor Create; override;
-       class function Select( const Signature_:TAnsiChar4 ) :CFrameSDIF;
+       class function Select( const Signature_:TAnsiChar4 ) :CFrameSDIF; virtual;
        class function ReadCreate( const F_:TFileStream; const P_:TFileSDIF ) :TFrameSDIF; overload;
        class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF; overload; virtual; abstract;
        destructor Destroy; override;
@@ -154,44 +149,13 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        property Signature  :String      read _Signature write _Signature;
        property StreamID   :Integer     read _StreamID  write _StreamID ;
        property Time       :Single      read _Time      write _Time     ;
-       property Color      :TAlphaColor read _Color     write _Color    ;
        ///// メソッド
        function FindMatrix( const Signature_:String ) :TMatrixSDIF;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrame1TYP
-
-     TFrame1TYP = class( TFrameSDIF )
-     private
-     protected
-       _Text :TArray<AnsiChar>;
-     public
-       ///// メソッド
-       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF; override;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameASTI
-
-     TFrameASTI = class( TFrameSDIF )
-     private
-     protected
-     public
-       ///// メソッド
-       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF; override;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrame1ASO
-
-     TFrame1ASO = class( TFrameSDIF )
-     private
-     protected
-     public
-       ///// メソッド
-       class function Select( const Clss_:String ) :CFrameSDIF;
-       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF; override;
-     end;
-
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF
+
+     TFileSDIF<_TFrame_:TFrameSDIF> = class;
 
      TFileSDIF = class( TTreeNode<TFrameSDIF> )
      private
@@ -203,9 +167,21 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        constructor Create; override;
        destructor Destroy; override;
        ///// メソッド
-       procedure LoadFromFileBin( const FileName_:String );
-       procedure SaveToFileBin( const FileName_:String );
-       procedure LoadFromFileTex( const FileName_:String );
+       procedure LoadFromFileBin( const FileName_:String ); virtual; abstract;
+       procedure SaveToFileBin( const FileName_:String ); virtual; abstract;
+       procedure LoadFromFileTex( const FileName_:String ); virtual; abstract;
+     end;
+
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF<_TFrame_>
+
+     TFileSDIF<_TFrame_:TFrameSDIF> = class( TFileSDIF )
+     private
+     protected
+     public
+       ///// メソッド
+       procedure LoadFromFileBin( const FileName_:String ); override;
+       procedure SaveToFileBin( const FileName_:String ); override;
+       procedure LoadFromFileTex( const FileName_:String ); override;
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -217,8 +193,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 implementation //############################################################### ■
 
 uses System.SysUtils,
-     LUX.Audio.SDIF.Frames, LUX.Audio.SDIF.Matrixs,
-     Main;
+     LUX.Audio.SDIF.Frames, LUX.Audio.SDIF.Matrixs;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
 
@@ -564,120 +539,6 @@ begin
      Result := nil;
 end;
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrame1TYP
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-/////////////////////////////////////////////////////////////////////// メソッド
-
-class function TFrame1TYP.ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF;
-begin
-     Result := Create( P_ );
-
-     with TFrame1TYP( Result ) do
-     begin
-          SetLength( _Text, H_.Size - 16 );
-
-          F_.Read( _Text[0], H_.Size - 16 );
-     end;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameASTI
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-/////////////////////////////////////////////////////////////////////// メソッド
-
-class function TFrameASTI.ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF;
-var
-   P :TFrameSDIF;
-   N :Integer;
-begin
-     P := TFrameSDIF.Create;
-
-     for N := 1 to H_.MatrixCount do TMatrixSDIF.ReadCreate( F_, P );
-
-     Result := Create( P_ );
-
-     for N := 1 to P.ChildsN do P.Head.Paren := TMatrixSDIF( Result );
-
-     P.Free;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrame1ASO
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-/////////////////////////////////////////////////////////////////////// メソッド
-
-class function TFrame1ASO.Select( const Clss_:String ) :CFrameSDIF;
-//･･････････････････････････････････････････････････････････････
-     function Compare( const Signature_:String ) :Boolean;
-     begin
-          Result := ( AnsiCompareText( Clss_, Signature_ ) = 0 );
-     end;
-//･･････････････････････････････････････････････････････････････
-begin
-     if Compare( 'Tran' ) then Result := TFrameTran
-                          else
-     if Compare( 'TmSt' ) then Result := TFrameTmSt
-                          else
-     if Compare( 'Frmt' ) then Result := TFrameFrmt
-                          else
-     if Compare( 'BpGa' ) then Result := TFrameBpGa
-                          else
-     if Compare( 'Rflt' ) then Result := TFrameRflt
-                          else
-     if Compare( 'Clip' ) then Result := TFrameClip
-                          else
-     if Compare( 'Gsim' ) then Result := TFrameGsim
-                          else
-     if Compare( 'Frze' ) then Result := TFrameFrze
-                          else
-     if Compare( 'Revs' ) then Result := TFrameRevs
-                          else
-     if Compare( 'Imag' ) then Result := TFrameImag
-                          else
-     if Compare( 'Brkp' ) then Result := TFrameBrkp
-                          else
-     if Compare( 'Surf' ) then Result := TFrameSurf
-                          else
-     if Compare( 'Band' ) then Result := TFrameBand
-                          else
-     if Compare( 'Noiz' ) then Result := TFrameNoiz
-                          else Result := nil;
-
-     Assert( Assigned( Result ), Clss_ + '：未対応のクラス型です。' );
-end;
-
-class function TFrame1ASO.ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF;
-var
-   P :TFrameSDIF;
-   N :Integer;
-begin
-     P := TFrameSDIF.Create;
-
-     for N := 1 to H_.MatrixCount do TMatrixSDIF.ReadCreate( F_, P );
-
-     Result := TFrame1ASO.Select( TMatrixChar( P.FindMatrix( 'clss' ) ).Lines[ 0 ] ).Create( P_ );
-
-     for N := 1 to P.ChildsN do P.Head.Paren := TMatrixSDIF( Result );
-
-     P.Free;
-end;
-
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
@@ -712,9 +573,17 @@ begin
      inherited;
 end;
 
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF<_TFrame_>
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
+
 /////////////////////////////////////////////////////////////////////// メソッド
 
-procedure TFileSDIF.LoadFromFileBin( const FileName_:String );
+procedure TFileSDIF<_TFrame_>.LoadFromFileBin( const FileName_:String );
 var
    F :TFileStream;
 begin
@@ -724,12 +593,12 @@ begin
 
      F.Read( _Header, SizeOf( _Header ) );
 
-     while F.Position < F.Size do TFrameSDIF.ReadCreate( F, Self );
+     while F.Position < F.Size do _TFrame_.ReadCreate( F, Self );
 
      F.Free;
 end;
 
-procedure TFileSDIF.SaveToFileBin( const FileName_:String );
+procedure TFileSDIF<_TFrame_>.SaveToFileBin( const FileName_:String );
 var
    F :TFileStream;
 begin
@@ -740,7 +609,7 @@ begin
      F.Free;
 end;
 
-procedure TFileSDIF.LoadFromFileTex( const FileName_:String );
+procedure TFileSDIF<_TFrame_>.LoadFromFileTex( const FileName_:String );
 var
    F :TStreamReader;
    M :TMatch;

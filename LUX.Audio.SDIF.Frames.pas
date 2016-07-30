@@ -2,169 +2,49 @@
 
 interface //#################################################################### ■
 
-uses System.UITypes,
+uses System.Classes,
      LUX.Audio.SDIF;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
-     TFrameTran = class;  //Transposition
-     TFrameTmSt = class;  //Time Stretch
-     TFrameFrmt = class;  //Formant Filter
-     TFrameBpGa = class;  //Gain Envelope
-     TFrameRflt = class;  //Rectangular Surface Filter
-     TFrameClip = class;  //Spectral Clipping Filter
-     TFrameGsim = class;  //Harmonic Filter
-     TFrameFrze = class;  //Freeze
-     TFrameRevs = class;  //Reverse / Repeat
-     TFrameImag = class;  //Image Filter
-     TFrameBrkp = class;  //Spectral Break Point Filter
-     TFrameSurf = class;  //Filter form Analysis(Surface Filter)
-     TFrameBand = class;  //Multi Band Filter
-                          //Melodic Transposition
-     TFrameNoiz = class;  //Create Noize Zone form Selection
+     TFrame1TYP = class;
+     TFrameASTI = class;
+     TFrame1ASO = class;
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameTran
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrame1TYP
 
-     TFrameTran = class( TFrame1ASO )
+     TFrame1TYP = class( TFrameSDIF )
      private
      protected
+       _Text :TArray<AnsiChar>;
      public
-       constructor Create; override;
-       destructor Destroy; override;
+       ///// メソッド
+       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF; override;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameTmSt
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameASTI
 
-     TFrameTmSt = class( TFrame1ASO )
+     TFrameASTI = class( TFrameSDIF )
      private
      protected
      public
-       constructor Create; override;
-       destructor Destroy; override;
+       ///// メソッド
+       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF; override;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameFrmt
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrame1ASO
 
-     TFrameFrmt = class( TFrame1ASO )
+     TFrame1ASO = class( TFrameSDIF )
      private
      protected
      public
-       constructor Create; override;
-       destructor Destroy; override;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameBpGa
-
-     TFrameBpGa = class( TFrame1ASO )
-     private
-     protected
-     public
-       constructor Create; override;
-       destructor Destroy; override;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameRflt
-
-     TFrameRflt = class( TFrame1ASO )
-     private
-     protected
-     public
-       constructor Create; override;
-       destructor Destroy; override;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameClip
-
-     TFrameClip = class( TFrame1ASO )
-     private
-     protected
-     public
-       constructor Create; override;
-       destructor Destroy; override;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameGsim
-
-     TFrameGsim = class( TFrame1ASO )
-     private
-     protected
-     public
-       constructor Create; override;
-       destructor Destroy; override;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameFrze
-
-     TFrameFrze = class( TFrame1ASO )
-     private
-     protected
-     public
-       constructor Create; override;
-       destructor Destroy; override;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameRevs
-
-     TFrameRevs = class( TFrame1ASO )
-     private
-     protected
-     public
-       constructor Create; override;
-       destructor Destroy; override;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameImag
-
-     TFrameImag = class( TFrame1ASO )
-     private
-     protected
-     public
-       constructor Create; override;
-       destructor Destroy; override;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameBrkp
-
-     TFrameBrkp = class( TFrame1ASO )
-     private
-     protected
-     public
-       constructor Create; override;
-       destructor Destroy; override;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameSurf
-
-     TFrameSurf = class( TFrame1ASO )
-     private
-     protected
-     public
-       constructor Create; override;
-       destructor Destroy; override;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameBand
-
-     TFrameBand = class( TFrame1ASO )
-     private
-     protected
-     public
-       constructor Create; override;
-       destructor Destroy; override;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameNoiz
-
-     TFrameNoiz = class( TFrame1ASO )
-     private
-     protected
-     public
-       constructor Create; override;
-       destructor Destroy; override;
+       ///// メソッド
+       class function Select( const Clss_:String ) :CFrameSDIF; reintroduce; virtual;
+       class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF; override;
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -175,11 +55,14 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 implementation //############################################################### ■
 
+uses System.SysUtils,
+     LUX.Audio.SDIF.Matrixs, LUX.Audio.SDIF.Frames.ASO1;
+
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameTran
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrame1TYP
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -187,20 +70,21 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TFrameTran.Create;
-begin
-     inherited;
+/////////////////////////////////////////////////////////////////////// メソッド
 
-     _Color := TAlphaColors.Red;
+class function TFrame1TYP.ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF;
+begin
+     Result := Create( P_ );
+
+     with TFrame1TYP( Result ) do
+     begin
+          SetLength( _Text, H_.Size - 16 );
+
+          F_.Read( _Text[0], H_.Size - 16 );
+     end;
 end;
 
-destructor TFrameTran.Destroy;
-begin
-
-     inherited;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameTmSt
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameASTI
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -208,20 +92,25 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TFrameTmSt.Create;
-begin
-     inherited;
+/////////////////////////////////////////////////////////////////////// メソッド
 
-     _Color := TAlphaColors.Blue;
+class function TFrameASTI.ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF;
+var
+   P :TFrameSDIF;
+   N :Integer;
+begin
+     P := TFrameSDIF.Create;
+
+     for N := 1 to H_.MatrixCount do TMatrixSDIF.ReadCreate( F_, P );
+
+     Result := Create( P_ );
+
+     for N := 1 to P.ChildsN do P.Head.Paren := TMatrixSDIF( Result );
+
+     P.Free;
 end;
 
-destructor TFrameTmSt.Destroy;
-begin
-
-     inherited;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameFrmt
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrame1ASO
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -229,248 +118,56 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TFrameFrmt.Create;
-begin
-     inherited;
+/////////////////////////////////////////////////////////////////////// メソッド
 
-     _Color := TAlphaColors.Lime;
+class function TFrame1ASO.Select( const Clss_:String ) :CFrameSDIF;
+begin
+     if SameText( Clss_, 'Tran' ) then Result := TFrameTran
+                                  else
+     if SameText( Clss_, 'TmSt' ) then Result := TFrameTmSt
+                                  else
+     if SameText( Clss_, 'Frmt' ) then Result := TFrameFrmt
+                                  else
+     if SameText( Clss_, 'BpGa' ) then Result := TFrameBpGa
+                                  else
+     if SameText( Clss_, 'Rflt' ) then Result := TFrameRflt
+                                  else
+     if SameText( Clss_, 'Clip' ) then Result := TFrameClip
+                                  else
+     if SameText( Clss_, 'Gsim' ) then Result := TFrameGsim
+                                  else
+     if SameText( Clss_, 'Frze' ) then Result := TFrameFrze
+                                  else
+     if SameText( Clss_, 'Revs' ) then Result := TFrameRevs
+                                  else
+     if SameText( Clss_, 'Imag' ) then Result := TFrameImag
+                                  else
+     if SameText( Clss_, 'Brkp' ) then Result := TFrameBrkp
+                                  else
+     if SameText( Clss_, 'Surf' ) then Result := TFrameSurf
+                                  else
+     if SameText( Clss_, 'Band' ) then Result := TFrameBand
+                                  else
+     if SameText( Clss_, 'Noiz' ) then Result := TFrameNoiz
+                                  else Result := nil;
+
+     Assert( Assigned( Result ), Clss_ + '：未対応のクラス型です。' );
 end;
 
-destructor TFrameFrmt.Destroy;
+class function TFrame1ASO.ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF;
+var
+   P :TFrameSDIF;
+   N :Integer;
 begin
+     P := TFrameSDIF.Create;
 
-     inherited;
-end;
+     for N := 1 to H_.MatrixCount do TMatrixSDIF.ReadCreate( F_, P );
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameBpGa
+     Result := Select( TMatrixChar( P.FindMatrix( 'clss' ) ).Lines[ 0 ] ).Create( P_ );
 
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
+     for N := 1 to P.ChildsN do P.Head.Paren := TMatrixSDIF( Result );
 
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TFrameBpGa.Create;
-begin
-     inherited;
-
-     _Color := TAlphaColors.Aliceblue;
-end;
-
-destructor TFrameBpGa.Destroy;
-begin
-
-     inherited;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameRflt
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TFrameRflt.Create;
-begin
-     inherited;
-
-     _Color := TAlphaColors.green;
-end;
-
-destructor TFrameRflt.Destroy;
-begin
-
-     inherited;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameClip
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TFrameClip.Create;
-begin
-     inherited;
-
-     _Color := TAlphaColors.Cadetblue;
-end;
-
-destructor TFrameClip.Destroy;
-begin
-
-     inherited;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameGsim
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TFrameGsim.Create;
-begin
-     inherited;
-
-     _Color := TAlphaColors.Sandybrown;
-end;
-
-destructor TFrameGsim.Destroy;
-begin
-
-     inherited;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameFrze
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TFrameFrze.Create;
-begin
-     inherited;
-
-     _Color := TAlphaColors.Red;
-end;
-
-destructor TFrameFrze.Destroy;
-begin
-
-     inherited;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameRevs
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TFrameRevs.Create;
-begin
-     inherited;
-
-     _Color := TAlphaColors.Darkgoldenrod;
-end;
-
-destructor TFrameRevs.Destroy;
-begin
-
-     inherited;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameImag
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TFrameImag.Create;
-begin
-     inherited;
-
-     _Color := TAlphaColors.Ghostwhite;
-end;
-
-destructor TFrameImag.Destroy;
-begin
-
-     inherited;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameBrkp
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TFrameBrkp.Create;
-begin
-     inherited;
-
-     _Color := TAlphaColors.Cyan;
-end;
-
-destructor TFrameBrkp.Destroy;
-begin
-
-     inherited;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameSurf
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TFrameSurf.Create;
-begin
-     inherited;
-
-     _Color := TAlphaColors.Coral;
-end;
-
-destructor TFrameSurf.Destroy;
-begin
-
-     inherited;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameBand
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TFrameBand.Create;
-begin
-     inherited;
-
-     _Color := TAlphaColors.Sandybrown;
-end;
-
-destructor TFrameBand.Destroy;
-begin
-
-     inherited;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameNoiz
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TFrameNoiz.Create;
-begin
-     inherited;
-
-     _Color := TAlphaColors.Silver;
-end;
-
-destructor TFrameNoiz.Destroy;
-begin
-
-     inherited;
+     P.Free;
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】

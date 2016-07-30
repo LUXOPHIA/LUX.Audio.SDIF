@@ -3,8 +3,7 @@
 interface //#################################################################### ■
 
 uses System.Classes, System.RegularExpressions,
-     LUX,
-     LUX.Audio.SDIF;
+     LUX, LUX.Audio.SDIF;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
