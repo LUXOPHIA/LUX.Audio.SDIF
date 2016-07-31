@@ -155,7 +155,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF<_TFrame_>
 
-     TFileSDIF<_TFrame_:TFrameSDIF> = class( TTreeNode<TFrameSDIF> )
+     TFileSDIF<_TFrame_:TFrameSDIF> = class( TTreeNode<_TFrame_> )
      private
        class var _Reg :TRegEx;
      protected
