@@ -153,11 +153,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        function FindMatrix( const Signature_:String ) :TMatrixSDIF;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF<_TFrame_>
 
-     TFileSDIF<_TFrame_:TFrameSDIF> = class;
-
-     TFileSDIF = class( TTreeNode<TFrameSDIF> )
+     TFileSDIF<_TFrame_:TFrameSDIF> = class( TTreeNode<TFrameSDIF> )
      private
        class var _Reg :TRegEx;
      protected
@@ -167,22 +165,14 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        constructor Create; override;
        destructor Destroy; override;
        ///// メソッド
-       procedure LoadFromFileBin( const FileName_:String ); virtual; abstract;
-       procedure SaveToFileBin( const FileName_:String ); virtual; abstract;
-       procedure LoadFromFileTex( const FileName_:String ); virtual; abstract;
+       procedure LoadFromFileBin( const FileName_:String );
+       procedure SaveToFileBin( const FileName_:String );
+       procedure LoadFromFileTex( const FileName_:String );
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF<_TFrame_>
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF
 
-     TFileSDIF<_TFrame_:TFrameSDIF> = class( TFileSDIF )
-     private
-     protected
-     public
-       ///// メソッド
-       procedure LoadFromFileBin( const FileName_:String ); override;
-       procedure SaveToFileBin( const FileName_:String ); override;
-       procedure LoadFromFileTex( const FileName_:String ); override;
-     end;
+     TFileSDIF = class( TFileSDIF<TFrameSDIF> ) end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
 
@@ -539,7 +529,7 @@ begin
      Result := nil;
 end;
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF<_TFrame_>
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -547,14 +537,14 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-class constructor TFileSDIF.Create;
+class constructor TFileSDIF<_TFrame_>.Create;
 begin
      inherited;
 
      _Reg := TRegEx.Create( '^(\w{4})\s+(\d+)\s+(\d+)\s+(\d+(\.\d+)?)$' );
 end;
 
-constructor TFileSDIF.Create;
+constructor TFileSDIF<_TFrame_>.Create;
 begin
      inherited;
 
@@ -567,19 +557,11 @@ begin
      end;
 end;
 
-destructor TFileSDIF.Destroy;
+destructor TFileSDIF<_TFrame_>.Destroy;
 begin
 
      inherited;
 end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF<_TFrame_>
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
@@ -593,7 +575,7 @@ begin
 
      F.Read( _Header, SizeOf( _Header ) );
 
-     while F.Position < F.Size do _TFrame_.ReadCreate( F, Self );
+     while F.Position < F.Size do _TFrame_.ReadCreate( F, TFileSDIF( Self ) );
 
      F.Free;
 end;
@@ -675,6 +657,14 @@ begin
 
      F.Free;
 end;
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
 
