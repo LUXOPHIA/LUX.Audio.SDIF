@@ -181,14 +181,14 @@ end;
 
 class function TFrame1ASO.ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF;
 var
-   P :TFrameSDIF;
+   P :TFrame1ASO;
    N :Integer;
 begin
-     P := TFrameSDIF.Create;
+     P := TFrame1ASO.Create;
 
      for N := 1 to H_.MatrixCount do TMatrixSDIF.ReadCreate( F_, P );
 
-     Result := Select( TMatrixChar( P.FindMatrix( 'clss' ) ).Lines[ 0 ] ).Create( P_ );
+     Result := Select( P.Clss ).Create( P_ );
 
      for N := 1 to P.ChildsN do P.Head.Paren := TMatrixSDIF( Result );
 
