@@ -146,9 +146,10 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class function ReadCreate( const F_:TFileStream; const H_:TFrameHeaderSDIF; const P_:TFileSDIF ) :TFrameSDIF; overload; virtual; abstract;
        destructor Destroy; override;
        ///// プロパティ
-       property Signature  :String      read _Signature write _Signature;
-       property StreamID   :Integer     read _StreamID  write _StreamID ;
-       property Time       :Single      read _Time      write _Time     ;
+       property Signature :String  read _Signature write _Signature;
+       property StreamID  :Integer read _StreamID  write _StreamID ;
+       property Time      :Single  read _Time      write _Time     ;
+       property TimeMin   :Single  read _Time      write _Time     ;
        ///// メソッド
        function FindMatrix( const Signature_:String ) :TMatrixSDIF;
      end;
