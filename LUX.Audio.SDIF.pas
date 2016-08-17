@@ -568,17 +568,53 @@ end;
 
 procedure TFileSDIF<_TFrame_>.LoadFromFileBin( const FileName_:String );
 var
+   P :TFileSDIF;
    F :TFileStream;
+   MinI, MaxI, I :Integer;
+   C :TFrameSDIF;
+   Cs :TRangeArray<TFrameSDIF>;
 begin
-     DeleteChilds;
+     P := TFileSDIF.Create;
 
      F := TFileStream.Create( FileName_, fmOpenRead );
 
      F.Read( _Header, SizeOf( _Header ) );
 
-     while F.Position < F.Size do _TFrame_.ReadCreate( F, TFileSDIF( Self ) );
+     MinI := 0;
+     MaxI := 0;
+
+     while F.Position < F.Size do
+     begin
+          with _TFrame_.ReadCreate( F, P ) do
+          begin
+               if StreamID < MinI then MinI := StreamID
+                                  else
+               if MaxI < StreamID then MaxI := StreamID;
+          end;
+     end;
 
      F.Free;
+
+     Cs.MinI := MinI;
+     Cs.MaxI := MaxI;
+
+     for I := 0 to P.ChildsN-1 do
+     begin
+          C := P.Childs[ I ];
+
+          Cs[ C.StreamID ] := C;
+     end;
+
+     DeleteChilds;
+
+     for I := MinI to MaxI do
+     begin
+          C := Cs[ I ];
+
+          if Assigned( C ) then C.Paren := TMatrixSDIF( Self );
+     end;
+
+     P.Free;     
 end;
 
 procedure TFileSDIF<_TFrame_>.SaveToFileBin( const FileName_:String );
