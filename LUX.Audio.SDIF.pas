@@ -98,7 +98,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixSDIF
 
-     TMatrixSDIF = class( TTreeNode<TMatrixSDIF> )
+     TMatrixSDIF = class( TTreeLeaf<TMatrixSDIF> )
      private
        class var _Reg :TRegEx;
      protected
@@ -133,7 +133,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameSDIF
 
-     TFrameSDIF = class( TTreeNode<TMatrixSDIF> )
+     TFrameSDIF = class( TTreeNode<TFileSDIF,TMatrixSDIF> )
      private
      protected
        _Signature :String;
@@ -156,7 +156,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFileSDIF<_TFrame_>
 
-     TFileSDIF<_TFrame_:TFrameSDIF> = class( TTreeNode<_TFrame_> )
+     TFileSDIF<_TFrame_:TFrameSDIF> = class( TTreeRoot<_TFrame_> )
      private
        class var _Reg :TRegEx;
      protected
@@ -611,7 +611,7 @@ begin
      begin
           C := Cs[ I ];
 
-          if Assigned( C ) then C.Paren := TMatrixSDIF( Self );
+          if Assigned( C ) then C.Paren := TFileSDIF( Self );
      end;
 
      P.Free;     
