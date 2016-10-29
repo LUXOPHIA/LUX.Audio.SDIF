@@ -98,7 +98,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMatrixSDIF
 
-     TMatrixSDIF = class( TTreeLeaf<TMatrixSDIF> )
+     TMatrixSDIF = class( TTreeLeaf<TTreeNode> )
      private
        class var _Reg :TRegEx;
      protected
@@ -133,7 +133,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFrameSDIF
 
-     TFrameSDIF = class( TTreeNode<TFileSDIF,TMatrixSDIF> )
+     TFrameSDIF = class( TTreeNode<TTreeNode,TMatrixSDIF> )
      private
      protected
        _Signature :String;
