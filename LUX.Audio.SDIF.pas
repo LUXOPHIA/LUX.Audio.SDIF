@@ -3,7 +3,7 @@
 interface //#################################################################### ■
 
 uses System.Classes, System.RegularExpressions,
-     LUX, LUX.Graph.Tree;
+     LUX, LUX.Tree;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
